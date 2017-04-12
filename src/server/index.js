@@ -12,13 +12,18 @@ import { SLUG } from '../constants/app.js';
 
 import '../styles/main.scss';
 import App from '../components/App.jsx';
-import Home from '../containers/Home.jsx';
+import Comparator from '../containers/Comparator.jsx';
 
-const finalStore = compose(
-  applyMiddleware(thunk, api),
-)(createStore);
+// const finalStore = compose(
+//   applyMiddleware(thunk, api),
+// )(createStore);
 
-const store = finalStore(reducers);
+// const store = finalStore(reducers);
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, /* preloadedState, */ composeEnhancers(
+  applyMiddleware(thunk, api)
+));
 
 ReactDOM.render(
   <Provider store={store || {}}>
@@ -26,7 +31,7 @@ ReactDOM.render(
       <Route component={ App }>
         <Route
           path="/"
-          component={ Home }
+          component={ Comparator }
         />
       </Route>
     </Router>

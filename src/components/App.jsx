@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 
-import Home from '../containers/Home.jsx';
+const App = (props) => (
+  <div>
+    <header className="Header"></header>
+    <aside className="Sidebar"></aside>
+    { props.children }
+    <footer className="Footer"></footer>
+  </div>
+);
 
-export default class App extends Component {
-  static displayName = 'App';
+App.displayName = 'App';
 
-  render() {
-    return (
-      <div className="height">
-        { this.props.children }
-      </div>
-    );
-  }
-}
+export default App;

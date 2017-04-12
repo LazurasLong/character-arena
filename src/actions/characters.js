@@ -7,12 +7,40 @@ import {
   FETCH_RIVAL_ERROR,
 } from '../constants/actionTypes.js';
 
+import {
+  CHARACTER,
+} from '../constants/apiRoutes.js';
+
 import { CALL_API } from '../middlewares/api';
 
-const fetchCharacter = () => {
+const defaultRealm = 'quel\'thalas';
+const defaultCharacterName = 'Tamarán';
+const defaultFields = ['appearance', 'stats', 'talents'];
+
+const composeUrl = ({
+  url,
+  character,
+  fields,
+}) => {
+  const parsedUrl = url
+    .replace(':realm', character.realm)
+    .replace(':characterName', character.characterName);
+
+  return `${parsedUrl}?fields=${fields.map(f => `${f}`)}`
+};
+
+const fetchCharacter = ({
+  realm = defaultRealm,
+  characterName = defaultCharacterName,
+  fields = defaultFields,
+}) => {
   return {
     [CALL_API]: {
-      endpoint: `http://localhost:4000/members`,
+      endpoint: composeUrl({
+        url: CHARACTER, 
+        character: { realm, characterName },
+        fields,
+      }),
       types: [
         FETCH_CHARACTER_REQUEST,
         FETCH_CHARACTER_SUCCESS,
@@ -22,10 +50,18 @@ const fetchCharacter = () => {
   };
 };
 
-const fetchRival = params => {
+const fetchRival = ({
+  realm = defaultRealm,
+  characterName = defaultCharacterName,
+  fields = defaultFields,
+}) => {
   return {
     [CALL_API]: {
-      endpoint: `http://localhost:4000/members`,
+      endpoint: composeUrl({
+        url: CHARACTER, 
+        character: { realm, characterName },
+        fields,
+      }),
       types: [
         FETCH_MEMBER_REQUEST,
         FETCH_MEMBER_SUCCESS,
@@ -36,6 +72,6 @@ const fetchRival = params => {
 };
 
 export {
-  fetchMembers,
-  sortMembers,
+  fetchCharacter,
+  fetchRival,
 };

@@ -27,8 +27,8 @@ export default store => next => action => {
   };
 
   // Send fetched data into payload key
-  const successAction = ({ data, links, meta }) => {
-    let payload = { data, ...extra, links, meta };
+  const successAction = (response) => {
+    let payload = { data: response, ...extra };
 
     return { type: successType, payload };
   };

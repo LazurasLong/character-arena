@@ -1,27 +1,30 @@
 import axios from 'axios';
 import qs from 'qs';
 
+import { API_KEY } from '../../.env.js';
+import { BASE_URL } from '../constants/apiRoutes.js';
+
 class Client {
-  constructor(token) {
+  constructor() {
     this.client = axios.create({
-      withCredentials: true,
-      headers: {
-        common: {
-          Authorization: `Bearer ${token.accessToken}`,
-        },
-      },
-      baseURL: config('api.url'),
+      baseURL: BASE_URL,
     });
 
     // Response interceptors
-    const handleResponseSuccess = ({ data }) => deserialize(data);
+    const handleResponseSuccess = ({ data }) => data;
     const handleResponseError = (error) => Promise.reject(error.response || error);
 
     // Request interceptors
-    const handleRequest = (requestConfig) => requestConfig;
+    const handleRequest = (requestConfig) => {
+      return {
+        ...requestConfig,
+        url: `${requestConfig.url}&apiKey=${API_KEY}`,
+      };
+    };
 
     this.client.interceptors.response.use(handleResponseSuccess, handleResponseError);
     this.client.interceptors.request.use(handleRequest);
+
   }
 
   get(url, parameters) {
@@ -46,5 +49,5 @@ class Client {
 }
 
 export default (token) => {
-  return new Client(token);
+  return new Client();
 }
