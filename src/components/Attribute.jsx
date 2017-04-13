@@ -17,7 +17,7 @@ const Attribute = ({
 
     {/* Show values */}
       <span className="Attributes-value">
-        {isPercentage ? `${parseInt(value, 10)}%` : value}
+        {`${parseInt(value, 10)}${isPercentage ? '%' : ''}`}
         {typeof percentageValue !== 'undefined' &&
           <span>
             <br />
@@ -27,7 +27,7 @@ const Attribute = ({
       </span>
 
     {/* Show difference */}
-    {difference &&
+    {typeof difference !== 'undefined' &&
       <span className={`Attributes-value Comparator-difference ${(difference > 0) ? 'Comparator--greater' : 'Comparator--lower'}`}>
         { (difference > 0) ? `+${difference}` : difference}{isPercentage ? '%' : ''}
         {typeof percentageDifference !== 'undefined' &&
@@ -45,9 +45,9 @@ const Attribute = ({
 Attribute.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
-  difference: PropTypes.string,
+  difference: PropTypes.number,
   percentageValue: PropTypes.number,
-  percentageDifference: PropTypes.string,
+  percentageDifference: PropTypes.number,
   hideLabels: PropTypes.bool,
   isPercentage: PropTypes.bool,
 };

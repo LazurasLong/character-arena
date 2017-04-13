@@ -8,12 +8,16 @@ import {
   FETCH_REALMS_REQUEST,
   FETCH_REALMS_SUCCESS,
   FETCH_REALMS_ERROR,
+  FETCH_TALENTS_REQUEST,
+  FETCH_TALENTS_SUCCESS,
+  FETCH_TALENTS_ERROR,
 } from '../constants/actionTypes.js';
 
 const initialState = {
   races: {},
   classes: {},
   realms: {},
+  talents: {},
 };
 
 export default (state = initialState, action) => {
@@ -95,6 +99,33 @@ export default (state = initialState, action) => {
       return {
         ...state,
         realms: {
+          error: action.payload.error,
+        },
+      };
+
+    case FETCH_TALENTS_REQUEST:
+      return {
+        ...state,
+        talents: {
+          ...state.talents,
+          isFetching: true,
+        },
+      };
+
+    case FETCH_TALENTS_SUCCESS:
+      return {
+        ...state,
+        talents: {
+          ...state.talents,
+          collection: action.payload.data,
+          isFetching: false,
+        },
+      };
+    
+    case FETCH_TALENTS_ERROR:
+      return {
+        ...state,
+        talents: {
           error: action.payload.error,
         },
       };

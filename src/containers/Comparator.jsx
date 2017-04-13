@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchCharacter, fetchRival } from '../actions/characters.js';
-import { fetchRaces, fetchClasses, fetchRealms } from '../actions/resources.js';
+import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
 import CharacterFrame from '../components/CharacterFrame.jsx';
 
@@ -49,10 +49,11 @@ class Comparator extends Component {
       dispatch(fetchRaces()),
       dispatch(fetchClasses()),
       dispatch(fetchRealms()),
+      dispatch(fetchTalents()),
     ];
 
     Promise.all(dataToFetch)
-      .then(() => dispatch(fetchCharacter({})));
+      // .then(() => dispatch(fetchCharacter({})));
   }
 
   handleFetchCharacter({ realm, characterName }) {
@@ -77,21 +78,27 @@ class Comparator extends Component {
         classes,
         races,
         realms,
+        talents,
       },
     } = this.props;
 
     return (
       <div className="Comparator">
+
+        {/* First character */}
         <div className="Character">
-          <h1 className="Character-title">Your character</h1>
+          <h1 className="Character-title">You</h1>
           <CharacterFrame
             classes={classes.collection}
             races={races.collection}
+            talents={talents.collection}
             availableRealms={realms.collection}
             handleFetchCharacter={this.handleFetchCharacter}
             character={character}
           />
         </div>
+
+        {/* Second character */}
         {(
           (character && character.name && !character.isFetching)
           || (rival && rival.name && !rival.isFetching)
@@ -101,6 +108,7 @@ class Comparator extends Component {
             <CharacterFrame
               classes={classes.collection}
               races={races.collection}
+              talents={talents.collection}
               availableRealms={realms.collection}
               handleFetchCharacter={this.handleFetchRival}
               character={rival}

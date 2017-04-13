@@ -1,20 +1,26 @@
 import React, { PropTypes, Component } from 'react';
+import { getClassSlug } from '../utils/calcs.js';
 
 import Select from '../components/inputs/Select.jsx';
 import Input from '../components/inputs/Input.jsx';
 import Loading from '../components/Loading.jsx';
 import Error from '../components/inputs/Error.jsx';
 import Spacer from '../components/Spacer.jsx';
+
 import Avatar from '../components/Avatar.jsx';
 import Class from '../components/Class.jsx';
+import Specialization from '../components/Specialization.jsx';
 import ItemLevel from '../components/ItemLevel.jsx';
 import MainAttributes from '../components/MainAttributes.jsx';
 import SecondaryAttributes from '../components/SecondaryAttributes.jsx';
+import DeffenseAttributes from '../components/DeffenseAttributes.jsx';
+import Talents from '../components/Talents.jsx';
 
 export default class CharacterFrame extends Component {
   static propTypes = {
     classes: PropTypes.array,
     races: PropTypes.array,
+    talents: PropTypes.object,
     availableRealms: PropTypes.array,
     handleFetchCharacter: PropTypes.func.isRequired,
     character: PropTypes.shape({
@@ -39,6 +45,7 @@ export default class CharacterFrame extends Component {
   static defaultProps = {
     classes: [],
     races: [],
+    talents: {},
     availableRealms: [],
     isRival: false,
   };
@@ -49,6 +56,7 @@ export default class CharacterFrame extends Component {
     const {
       classes,
       races,
+      talents,
       availableRealms,
       handleFetchCharacter,
       character,
@@ -56,7 +64,22 @@ export default class CharacterFrame extends Component {
       isRival,
     } = this.props;
 
+    // Get character class
     const characterClass = classes.find(r => r.id === character.class);
+    if (characterClass) {
+      characterClass.slug = getClassSlug(characterClass.name);
+    }
+  
+    // Get talents for this class
+    let availableTalents;
+    if (characterClass) {
+      for (let x in talents) {
+        if (characterClass.slug === talents[x].class) {
+          availableTalents = talents[x];
+          break;
+        }
+      }
+    }
 
     return (
       <div>
@@ -106,8 +129,13 @@ export default class CharacterFrame extends Component {
               picture={character.thumbnail}
               faction={races.find(r => r.id === character.race).side}
             />
-            <p className="Character-name">{character.name}</p>
+            <p className="Character-name">{character.level} {character.name}</p>
             <Class className="Character-class" characterClass={characterClass} />
+            <Specialization
+              className="Character-spec"
+              spec={character.talents[0] && character.talents[0].spec}
+              comparedTo={comparedTo && comparedTo.talents[0] && comparedTo.talents[0].spec}
+            />
             <Spacer />
 
             <h2 className="Character-section">Item level</h2>
@@ -129,6 +157,21 @@ export default class CharacterFrame extends Component {
               stats={character.stats}
               comparedTo={comparedTo && comparedTo.stats}
               hideLabels={isRival}
+            />
+
+            <h2 className="Character-section">Deffense</h2>
+            <DeffenseAttributes
+              stats={character.stats}
+              comparedTo={comparedTo && comparedTo.stats}
+              hideLabels={isRival}
+            />
+
+            <h2 className="Character-section">Talents</h2>
+            <Talents
+              spec={character.talents[0] && character.talents[0].spec}
+              availableTalents={availableTalents}
+              usedTalents={character.talents[0]}
+              comparedTo={comparedTo && comparedTo.talents[0]}
             />
           </div>
         }
