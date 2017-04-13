@@ -1,0 +1,69 @@
+/** @define Button */
+
+.Button {
+  min-width: 20px;
+  min-height: 20px;
+  padding: 12px 30px;
+
+  color: $btn-color;
+
+  background: $btn-background;
+  border: 1px solid $base-border;
+
+  transition: background $animation-duration;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: $btn-background-hover;
+  }
+
+  &:disabled {
+    color: $btn-color-disabled;
+    background: $btn-background-disabled;
+
+    cursor: not-allowed;
+  }
+
+  &--alt {
+    background: $btn-background-alt;
+    border-color: $btn-border-alt;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $btn-background-alt-hover;
+    }
+  }
+
+  &--invisible {
+    background: none !important;
+    border: none !important;
+  }
+
+  &--close {
+    padding: 12px;
+
+    &:before,
+    &:after {
+      position: relative;
+      display: block;
+      width: 27px;
+      height: 3px;
+      background: $btn-color;
+      content: "";
+    }
+
+    &:before {
+      top: 8px;
+      left: -3px;
+      transform: rotate(-45deg);
+    }
+
+    &:after {
+      top: 5px;
+      left: -3px;
+      transform: rotate(45deg);
+    }
+  }
+}

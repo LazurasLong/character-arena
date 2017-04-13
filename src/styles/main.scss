@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+@import
+  'abstracts/functions',
+  'abstracts/variables';
+
+@import
+  'base/helpers';
+
+@import
+  'containers/Comparator';
+
+@import
+  'components/inputs/Button',
+  'components/inputs/Input',
+  'components/inputs/Select',
+  'components/Avatar',
+  'components/Attributes',
+  'components/Character',
+  'components/Header',
+  'components/Spacer',
+  'components/Sidebar',
+  'components/Talents';
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+
+  color: $base-color;  
+  font-family: $text-font-stack;
+  font-size: 14px;
+
+  background-color: $base-background;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  list-style: none;
+
+  appearance: none;
+  background: transparent;
+}
+
+.height {
+  height: 100%;
+}
