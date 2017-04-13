@@ -10,6 +10,7 @@ const ROOT_PATH = path.resolve(__dirname, '..');
 
 const JS_REGEX = /\.jsx?$/;
 const CSS_REGEX = /\.s?css$/;
+const ASSETS_REGEX = /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)(\?v=[0-9].[0-9].[0-9])?$/;
 
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
@@ -18,6 +19,8 @@ const POSTCSS_PLUGINS = postcssConfig.plugins;
 
 // https://webpack.github.io/docs/configuration.html
 const webpackConfig = {
+  devtool: 'source-map',
+
   entry: [
     'webpack-dev-server/client?http://0.0.0.0:3001',
     'webpack/hot/only-dev-server',
@@ -25,8 +28,11 @@ const webpackConfig = {
   ],
 
   output: {
-    path: DIST_PATH,
+     path: DIST_PATH,
     filename: 'wowCharacterComparision.js',
+    // path: path.resolve(DIST_PATH, 'assets'),
+    // filename: '[name]-[hash].js',
+    // publicPath: '/assets/',
   },
 
   node: {
@@ -59,6 +65,21 @@ const webpackConfig = {
           'sass-loader',
         ],
         include: SRC_PATH,
+      },
+      {
+        test: ASSETS_REGEX,
+        include: SRC_PATH,
+        exclude: [/node_modules/],
+        loader: 'image-webpack-loader',
+        options: {
+          progressive: true,
+          gifsicle: {
+            interlaced: true,
+          },
+          svgo: {
+            cleanupIDs: false,
+          },
+        },
       },
     ],
   },

@@ -15,7 +15,7 @@ import { CALL_API } from '../middlewares/api';
 
 const defaultRealm = 'quel\'thalas';
 const defaultCharacterName = 'Tamarán';
-const defaultFields = ['appearance', 'stats', 'talents'];
+const defaultFields = ['appearance', 'items','stats', 'talents'];
 
 const composeUrl = ({
   url,
@@ -63,9 +63,9 @@ const fetchRival = ({
         fields,
       }),
       types: [
-        FETCH_MEMBER_REQUEST,
-        FETCH_MEMBER_SUCCESS,
-        FETCH_MEMBER_ERROR,
+        FETCH_RIVAL_REQUEST,
+        FETCH_RIVAL_SUCCESS,
+        FETCH_RIVAL_ERROR,
       ],
     },
   };

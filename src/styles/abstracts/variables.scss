@@ -1,0 +1,87 @@
+// Text
+$title-font-stack: "Semplicita Pro","Open Sans",Arial,Helvetica,sans-serif;
+$text-font-stack: "Open Sans", Arial, Helvetica, sans-serif;
+$list-font-stack: "Semplicita Pro","Open Sans",Arial,Helvetica,sans-serif;
+
+
+// Generics
+$white: rgba(255, 255, 255, 1);
+$black: rgba(0, 0, 0, 1);
+$red: red;
+$green: green;
+
+$color-alliance: rgba(0, 40, 84, 0.4);
+$color-horde: rgba(133, 0, 0, 0.2);
+
+$color-mage: #68ccef;
+$color-priest: #f0ebe0;
+$color-warlock: #9382c9;
+$color-dh: #a330c9;
+$color-druid: #ff7c0a;
+$color-monk: #00ffba;
+$color-rogue: #fff468;
+$color-hunter: #aad372;
+$color-shaman: #2359ff;
+$color-dk: #c41e3b;
+$color-paladin: #f48cba;
+$color-warrior: #c69b6d;
+
+$base-color: #f8b700;
+$base-background: #1C110D;
+$base-border: #c77e19;
+
+$animation-duration: .3s;
+
+// Button
+$btn-background: rgba(0, 0, 0, 0.4);
+$btn-background-hover: #b06601;
+$btn-background-alt: rgba(159,22,0,.6);
+$btn-background-alt-hover: #9f1600;
+$btn-background-disabled: linear-gradient(to bottom,#727272,#515151);
+
+$btn-border: $base-border;
+$btn-border-alt: #ea3012;
+
+$btn-color: $base-color;
+$btn-color-disabled: #a2a2a2;
+
+// Avatar
+$avatar-size: 100px;
+
+// Header
+$header-mobile-height: 44px;
+$header-background: $base-background;
+
+// Sidebar
+$sidebar-width: 200px;
+$sidebar-background: #211510;
+
+// Comparator
+
+// Footer
+
+$zIndexApp: (
+  // Notifications
+  'notification': 300,
+
+  // Modals
+  'modal': 200,
+
+  // Sidebars
+  'sidebar': 200,
+
+  // Header
+  'header': 100,
+
+  // Others
+  'content': 0,
+  'background': -1,
+);
+
+$breakpoints: (
+  'mobile': 480px,
+  'tablet': 768px,
+  'landscape-tablet': 1024px,
+  'desktop': 1280px,
+  'hd': 1920px,
+);

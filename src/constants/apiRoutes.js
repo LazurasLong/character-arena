@@ -21,6 +21,7 @@ export const ITEM_SET = '/wow/item/set/:setId';
 // export const SPELL = '/wow/spell/:spellId';
 
 // Data Resources
-export const DATA_RACES = '/wow/data/character/races';
-export const DATA_CLASSES = '/wow/data/character/classes';
-export const DATA_TALENTS = '/wow/data/talent';
+export const DATA_REALMS = '/wow/realm/status?';
+export const DATA_RACES = '/wow/data/character/races?';
+export const DATA_CLASSES = '/wow/data/character/classes?';
+// export const DATA_TALENTS = '/wow/data/talent?';

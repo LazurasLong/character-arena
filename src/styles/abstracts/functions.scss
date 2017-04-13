@@ -1,0 +1,26 @@
+/* stylelint-disable */
+/// Returns a number to use as z-index
+/// @param {String} $key - z-index to select
+/// @return {Number}
+@function order($key) {
+  $value: map-get($zIndexApp, $key);
+
+  @if type-of($value) != 'number' {
+    @error '`#{$key}` is not a valid key. Please make sure it is defined in $zIndex map.';
+  }
+
+  @return $value;
+}
+
+/// Returns a size to use in a breakpoint
+/// @param {String} $key - breakpoint to select
+/// @return {Number}
+@function breakpoint($key) {
+  $value: map-get($breakpoints, $key);
+
+  @if type-of($value) != 'number' {
+    @error '`#{$key}` is not a valid key. Please make sure it is defined in $zIndex map.';
+  }
+
+  @return $value;
+}

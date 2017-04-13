@@ -1,0 +1,48 @@
+/** @define Character */
+
+.Character {
+  position: relative;
+  float: left;
+
+  display: inline-block;
+  width: calc(50% - 20px);
+  max-width: 400px;
+  padding: 10px;
+  margin: 5px;
+
+  &-title {
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+  &-filters {
+    margin-top: 10px;
+
+    * {
+      margin: 10px 0;
+    }
+  }
+
+  &-character {
+    text-align: center;
+  }
+
+  &-name {
+    font-family: $title-font-stack;
+    font-weight: 700;
+  }
+
+  &-section {
+    color: $white;
+    font-size: 14px;
+    text-align: left;
+  }
+}
+
+@media screen and (min-width: breakpoint('tablet')) {
+  .Character {
+    width: calc(50% - 40px);
+    padding: 20px;
+    margin: 20px;
+  }
+}

@@ -18,7 +18,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         character: {
-          ...state.character,
           isFetching: true,
         },
       };
@@ -27,7 +26,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         character: {
-          ...state.character,
           ...action.payload.data,
           isFetching: false,
         },
@@ -40,11 +38,11 @@ export default (state = initialState, action) => {
           error: action.payload.error,
         },
       };
+
     case FETCH_RIVAL_REQUEST:
       return {
         ...state,
         rival: {
-          ...state.rival,
           isFetching: true,
         },
       };
@@ -53,7 +51,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         rival: {
-          ...state.rival,
           ...action.payload.data,
           isFetching: false,
         },

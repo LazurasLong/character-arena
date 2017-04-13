@@ -1,0 +1,72 @@
+/**  @define Header */
+
+.Header {
+  &,
+  &-bar {
+    top: 0;
+    left: 0;
+    z-index: order('header');
+
+    display: inline-block;
+    width: 100%;
+    height: $header-mobile-height;
+
+    font-size: 12px;
+    font-style: italic;
+
+    background-color: $header-background;
+  }
+
+  &-bar {
+    position: fixed;
+    padding: 5px;
+  }
+
+  &-logo,
+  &-menu,
+  &-label {
+    position: relative;
+    float: left;
+    height: #{$header-mobile-height - 10px};
+  }
+
+  &-logo,
+  &-menu {
+    display: none;
+    width: #{$header-mobile-height - 10px};
+    padding: 5px;
+  }
+
+  &-menu {
+    display: inline-block;
+  }
+
+  &-label {
+    display: inline-block;
+    padding-left: 20px;
+
+    line-height: #{$header-mobile-height - 10px};
+    vertical-align: middle;
+  }
+}
+
+@media screen and (min-width: breakpoint('landscape-tablet')) {
+  .Header {
+    &,
+    &-bar{
+      width: calc(100% - #{$sidebar-width});
+    }
+
+    &-bar {
+      left: $sidebar-width;
+    }
+
+    &-logo {
+      display: inline-block;
+    }
+
+    &-menu {
+      display: none;
+    }
+  }
+}
