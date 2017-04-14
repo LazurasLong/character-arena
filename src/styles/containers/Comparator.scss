@@ -2,13 +2,15 @@
 
 .Comparator {
   position: relative;
-  clear: both;
+  float: left;
   z-index: order('content');
+  clear: both;
 
   display: inline-block;
   width: 100%;
   padding: 5px;
 
+  background: rgba($base-background, .5);
   text-align: left;
 
   &--greater,

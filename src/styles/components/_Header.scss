@@ -5,6 +5,7 @@
   &-bar {
     top: 0;
     left: 0;
+    float: left;
     z-index: order('header');
 
     display: inline-block;

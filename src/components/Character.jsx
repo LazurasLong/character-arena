@@ -71,16 +71,18 @@ export default class CharacterFrame extends Component {
     // Get character class and talents
     const classIndex = classes.findIndex(c => c.id === character.class);
     let characterClass;
+    let characterRace;
     let availableTalents;
 
     if (classIndex >= 0) {
       characterClass = classes[classIndex];
+      characterRace = races.find(r => r.id === character.race);
       availableTalents = talents[classIndex + 1];
       characterClass.slug = getSlug(characterClass.name);
     }
 
     return (
-      <div className="Character">
+      <div className={`Character ${characterRace ? `is-${characterRace.side}` : ''}`}>
         
         {/* Filters */}
         <Collapsable
@@ -135,7 +137,7 @@ export default class CharacterFrame extends Component {
           <div className="Character-data">
             <CharacterHeader
               character={character}
-              characterRace={races.find(r => r.id === character.race)}
+              characterRace={characterRace}
               characterClass={characterClass}
               comparedTo={comparedTo}
             />

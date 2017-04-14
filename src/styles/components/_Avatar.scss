@@ -40,6 +40,7 @@
     bottom: $avatar-size * .1;
     left: 50%;
 
+    display: none;  // TODO: Remove this when SVGs are available
     width: $avatar-size * .3;
     height: $avatar-size * .3;
     margin-left: ($avatar-size / 2) * -0.9;
