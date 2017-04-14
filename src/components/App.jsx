@@ -48,9 +48,12 @@ class App extends Component {
       stats,
     } = this.state;
 
+    const options = { region: 'us', language: 'en' };
+
     return (
       <div>
         <Sidebar
+          options={options}
           isOpen={isSidebarOpen}
           stats={stats}
           handleToggleStat={this.handleToggleStat}
@@ -58,7 +61,7 @@ class App extends Component {
         />
         <Header handleToggleSidebar={this.handleToggleSidebar} />
         {this.props.children}
-        <Footer />
+        <Footer options={options}/>
       </div>
     );
   }
