@@ -112,7 +112,7 @@ class Comparator extends Component {
               availableRealms={realms.collection}
               handleFetchCharacter={this.handleFetchRival}
               character={rival}
-              comparedTo={character}
+              comparedTo={(character && character.name) ? character : undefined}
               isRival
             />
           </div>

@@ -134,7 +134,7 @@ export default class CharacterFrame extends Component {
             <Specialization
               className="Character-spec"
               spec={character.talents[0] && character.talents[0].spec}
-              comparedTo={comparedTo && comparedTo.talents[0] && comparedTo.talents[0].spec}
+              comparedTo={comparedTo && comparedTo.talents && comparedTo.talents[0] && comparedTo.talents[0].spec}
             />
             <Spacer />
 
@@ -154,8 +154,10 @@ export default class CharacterFrame extends Component {
 
             <h2 className="Character-section">Enhacements</h2>
             <SecondaryAttributes
+              spec={character.talents[0].spec}
               stats={character.stats}
               comparedTo={comparedTo && comparedTo.stats}
+              comparedToSpec={comparedTo && comparedTo.talents[0].spec}
               hideLabels={isRival}
             />
 
