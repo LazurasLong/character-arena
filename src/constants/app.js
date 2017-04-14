@@ -4,6 +4,44 @@ export const TITLE = 'WoW Character Comparision';
 export const SLUG = 'wow-character-comparision';
 export const EMAIL = 'rafael.perez@imperdiblesoft.com';
 export const URL = 'https://www.charactercomparision.com';
+export const REGIONS = [
+  {
+    slug: 'us',
+    name: 'America',
+    languages: [
+      { slug: 'en', name: 'English (US)' },
+      { slug: 'es', name: 'Español (AL)' },
+      { slug: 'pt', name: 'Português (AL)' },
+    ]
+  },
+  {
+    slug: 'eu',
+    name: 'Europe',
+    languages: [
+      { slug: 'de', name: 'Deutsch' },
+      { slug: 'en', name: 'English (EU)' },
+      { slug: 'es', name: 'Español (EU)' },
+      { slug: 'fr', name: 'Français' },
+      { slug: 'it', name: 'Italiano' },
+      { slug: 'pt', name: 'Português (EU)' },
+      { slug: 'ru', name: 'Русский' },
+    ]
+  },
+  {
+    slug: 'kr',
+    name: 'Korea',
+    languages: [
+      { slug: 'ko', name: '한국어' },
+    ]
+  },
+  {
+    slug: 'tw',
+    name: 'Taiwan',
+    languages: [
+      { slug: 'zh', name: '繁體中文' },
+    ]
+  },
+];
 
 // Icons
 export const BLIZZARD_ICONS = "assets/blizzard-icons.svg#";
