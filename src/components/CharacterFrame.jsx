@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { getClassSlug } from '../utils/calcs.js';
+import { getSlug } from '../utils/calcs.js';
+
+import { WOWPROGRESS_CHAR, WOWPROGRESS_ICON, WORLDOFWARCRAFT_ARMORY, WORLDOFWARCRAFT_ICON } from '../constants/app.js';
 
 import Select from '../components/inputs/Select.jsx';
 import Input from '../components/inputs/Input.jsx';
@@ -67,7 +69,7 @@ export default class CharacterFrame extends Component {
     // Get character class
     const characterClass = classes.find(r => r.id === character.class);
     if (characterClass) {
-      characterClass.slug = getClassSlug(characterClass.name);
+      characterClass.slug = getSlug(characterClass.name);
     }
   
     // Get talents for this class
@@ -120,6 +122,11 @@ export default class CharacterFrame extends Component {
           <Loading />
         }
 
+        {/* Handle error */}
+        {character && character.error &&
+          <Error error={character.error} />
+        }
+
         {/* Character info */}
         {character && character.name && !character.isFetching &&
           <div className="Character-character">
@@ -129,7 +136,30 @@ export default class CharacterFrame extends Component {
               picture={character.thumbnail}
               faction={races.find(r => r.id === character.race).side}
             />
-            <p className="Character-name">{character.level} {character.name}</p>
+            <p className="Character-name Character-spec">
+              <a
+                className="Character-specIcon"
+                title="View on World of Warcraft armory"
+                target="_blank"
+                ref="noopener noreferrer"
+                href={WORLDOFWARCRAFT_ARMORY
+                  .replace(':region', 'us')
+                  .replace(':language', 'en')
+                  .replace(':realm', character.realm)
+                  .replace(':characterName', character.name)
+              }><img src={WORLDOFWARCRAFT_ICON} /></a>
+              <a
+                className="Character-specIcon"
+                title="View on WowProgress"
+                target="_blank"
+                ref="noopener noreferrer"
+                href={WOWPROGRESS_CHAR
+                  .replace(':region', 'us')
+                  .replace(':realm', getSlug(character.realm))
+                  .replace(':characterName', character.name)
+              }><img src={WOWPROGRESS_ICON} /></a>
+              <span className="Character-specName">{character.level} {character.name}</span>
+            </p>
             <Class className="Character-class" characterClass={characterClass} />
             <Specialization
               className="Character-spec"
@@ -176,11 +206,6 @@ export default class CharacterFrame extends Component {
               comparedTo={comparedTo && comparedTo.talents[0]}
             />
           </div>
-        }
-
-        {/* Handle error */}
-        {character && character.error &&
-          <Error error={character.error} />
         }
       </div>
     )
