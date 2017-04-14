@@ -5,12 +5,15 @@ const Select = ({
   placeholder,
   reference,
   required,
+  handleChange,
+  value
 }) => (
   <select
     className="Select"
     required={required}
     ref={reference}
-    defaultValue=""
+    defaultValue={value}
+    onChange={handleChange}
   >
     {placeholder.length &&
       <option>{placeholder}</option>
@@ -21,7 +24,7 @@ const Select = ({
           value={opt.slug}
           key={opt.slug}
         >
-          {opt.name} ({opt.timezone})
+          {opt.name} {opt.timezone ? `(${opt.timezone})` : ''}
         </option>
       );
     })}
@@ -32,16 +35,18 @@ Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    timezone: PropTypes.string.isRequired,
+    timezone: PropTypes.string,
   })).isRequired,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   reference: PropTypes.func,
+  handleChange: PropTypes.func,
 };
 Select.defaultProps = {
   placeholder: '',
   required: false,
   reference: () => {},
+  handleChange: () => {},
 };
 Select.displayName = 'Select';
 

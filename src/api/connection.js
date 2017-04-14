@@ -6,9 +6,7 @@ import { BASE_URL } from '../constants/apiRoutes.js';
 
 class Client {
   constructor() {
-    this.client = axios.create({
-      baseURL: BASE_URL,
-    });
+    this.client = axios.create();
 
     // Response interceptors
     const handleResponseSuccess = ({ data }) => data;

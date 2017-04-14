@@ -13,23 +13,15 @@ import {
 
 import { CALL_API } from '../middlewares/api';
 
-const defaultRealm = 'quel\'thalas';
-const defaultCharacterName = 'Tamarán';
+import { composeUrl } from '../utils/calcs.js';
+
+const defaultRealm = '';
+const defaultCharacterName = '';
 const defaultFields = ['appearance', 'items','stats', 'talents'];
 
-const composeUrl = ({
-  url,
-  character,
-  fields,
-}) => {
-  const parsedUrl = url
-    .replace(':realm', character.realm)
-    .replace(':characterName', character.characterName);
-
-  return `${parsedUrl}?fields=${fields.map(f => `${f}`)}`
-};
-
 const fetchCharacter = ({
+  region,
+  language,
   realm = defaultRealm,
   characterName = defaultCharacterName,
   fields = defaultFields,
@@ -37,7 +29,9 @@ const fetchCharacter = ({
   return {
     [CALL_API]: {
       endpoint: composeUrl({
-        url: CHARACTER, 
+        url: CHARACTER,
+        region,
+        language,
         character: { realm, characterName },
         fields,
       }),
@@ -51,6 +45,8 @@ const fetchCharacter = ({
 };
 
 const fetchRival = ({
+  region,
+  language,
   realm = defaultRealm,
   characterName = defaultCharacterName,
   fields = defaultFields,
@@ -58,7 +54,9 @@ const fetchRival = ({
   return {
     [CALL_API]: {
       endpoint: composeUrl({
-        url: CHARACTER, 
+        url: CHARACTER,
+        region,
+        language,
         character: { realm, characterName },
         fields,
       }),

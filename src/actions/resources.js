@@ -22,10 +22,19 @@ import {
 
 import { CALL_API } from '../middlewares/api';
 
-const fetchRaces = () => {
+import { composeUrl } from '../utils/calcs.js';
+
+const fetchRaces = ({
+  region,
+  language,
+}) => {
   return {
     [CALL_API]: {
-      endpoint: DATA_RACES,
+      endpoint: composeUrl({
+        url: DATA_RACES,
+        region,
+        language,
+      }),
       types: [
         FETCH_RACES_REQUEST,
         FETCH_RACES_SUCCESS,
@@ -35,10 +44,17 @@ const fetchRaces = () => {
   };
 };
 
-const fetchClasses = () => {
+const fetchClasses = ({
+  region,
+  language,
+}) => {
   return {
     [CALL_API]: {
-      endpoint: DATA_CLASSES,
+      endpoint: composeUrl({
+        url: DATA_CLASSES,
+        region,
+        language,
+      }),
       types: [
         FETCH_CLASSES_REQUEST,
         FETCH_CLASSES_SUCCESS,
@@ -48,10 +64,17 @@ const fetchClasses = () => {
   };
 };
 
-const fetchRealms = () => {
+const fetchRealms = ({
+  region,
+  language,
+}) => {
   return {
     [CALL_API]: {
-      endpoint: DATA_REALMS,
+      endpoint: composeUrl({
+        url: DATA_REALMS,
+        region,
+        language,
+      }),
       types: [
         FETCH_REALMS_REQUEST,
         FETCH_REALMS_SUCCESS,
@@ -61,10 +84,17 @@ const fetchRealms = () => {
   };
 };
 
-const fetchTalents = () => {
+const fetchTalents = ({
+  region,
+  language,
+}) => {
   return {
     [CALL_API]: {
-      endpoint: DATA_TALENTS,
+      endpoint: composeUrl({
+        url: DATA_TALENTS,
+        region,
+        language,
+      }),
       types: [
         FETCH_TALENTS_REQUEST,
         FETCH_TALENTS_SUCCESS,

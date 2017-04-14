@@ -68,21 +68,15 @@ export default class CharacterFrame extends Component {
       availableRealms,
     } = this.props;
 
-    // Get character class
-    const characterClass = classes.find(r => r.id === character.class);
-    if (characterClass) {
-      characterClass.slug = getSlug(characterClass.name);
-    }
-  
-    // Get talents for this class
+    // Get character class and talents
+    const classIndex = classes.findIndex(c => c.id === character.class);
+    let characterClass;
     let availableTalents;
-    if (characterClass) {
-      for (let x in talents) {
-        if (characterClass.slug === talents[x].class) {
-          availableTalents = talents[x];
-          break;
-        }
-      }
+
+    if (classIndex >= 0) {
+      characterClass = classes[classIndex];
+      availableTalents = talents[classIndex + 1];
+      characterClass.slug = getSlug(characterClass.name);
     }
 
     return (
