@@ -10,6 +10,8 @@
   font-size: 11px;
   text-align: center;
 
+  background: $base-background;
+
   &-left,
   &-right {
     width: 100%;
@@ -25,8 +27,10 @@
   }
 }
 
-@media screen and (min-width: breakpoint('tablet')) {
+@media screen and (min-width: breakpoint('landscape-tablet')) {
   .Footer{
+    left: $sidebar-width;
+    width: calc(100% - #{$sidebar-width});
     font-size: 13px;
 
     &-left,

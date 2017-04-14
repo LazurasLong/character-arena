@@ -1,12 +1,12 @@
 import React from 'react';
 import { TALENT_ICON } from '../constants/app.js';
 
-const TalentIcon = ({ icon, description }) => icon ? (
+const CharacterTalentsIcon = ({ icon, description }) => icon ? (
   <img
     className="Talents-talentIcon"
     src={TALENT_ICON.replace(':iconName', icon)}
     title={description}
   />) : <div />;
-TalentIcon.displayName = 'TalentIcon';
+CharacterTalentsIcon.displayName = 'CharacterTalentsIcon';
 
-export default TalentIcon;
+export default CharacterTalentsIcon;

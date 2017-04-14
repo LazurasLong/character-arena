@@ -17,6 +17,7 @@
   'components/Avatar',
   'components/Attributes',
   'components/Character',
+  'components/Collapsable',
   'components/Footer',
   'components/Header',
   'components/Link',
@@ -35,8 +36,14 @@ body {
   color: $base-color;  
   font-family: $text-font-stack;
   font-size: 14px;
+}
 
+body {
+  background-attachment: fixed;
   background-color: $base-background;
+  background-image: url('https://bnetcmsus-a.akamaihd.net/cms/template_resource/73/73HV5HRS7D7C1468353649488.jpg');
+  background-position: top center;
+  background-repeat: no-repeat;
 }
 
 * {
@@ -53,4 +60,10 @@ body {
 
 .height {
   height: 100%;
+}
+
+@media screen and (min-width: breakpoint('hd')) {
+  body {
+    background-size: cover;
+  }
 }

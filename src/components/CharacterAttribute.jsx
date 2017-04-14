@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const Attribute = ({
+const CharacterAttribute = ({
   label,
   value,
   difference,
@@ -15,17 +15,6 @@ const Attribute = ({
       <span className="Attributes-label">{label}</span>
     }
 
-    {/* Show values */}
-      <span className="Attributes-value">
-        {`${parseInt(value, 10)}${isPercentage ? '%' : ''}`}
-        {typeof percentageValue !== 'undefined' &&
-          <span>
-            <br />
-            {parseInt(percentageValue, 10)}%
-          </span>
-        }
-      </span>
-
     {/* Show difference */}
     {typeof difference !== 'undefined' &&
       <span className={`Attributes-value Comparator-difference ${(difference > 0) ? 'Comparator--greater' : 'Comparator--lower'}`}>
@@ -38,11 +27,21 @@ const Attribute = ({
         }
       </span>
     }
-    <br />
+
+    {/* Show values */}
+    <span className="Attributes-value">
+      {`${parseInt(value, 10)}${isPercentage ? '%' : ''}`}
+      {typeof percentageValue !== 'undefined' &&
+        <span>
+          <br />
+          {parseInt(percentageValue, 10)}%
+        </span>
+      }
+    </span>
   </div>
 );
 
-Attribute.propTypes = {
+CharacterAttribute.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   difference: PropTypes.number,
@@ -51,10 +50,10 @@ Attribute.propTypes = {
   hideLabels: PropTypes.bool,
   isPercentage: PropTypes.bool,
 };
-Attribute.defaultProps = {
+CharacterAttribute.defaultProps = {
   hideLabels: false,
   isPercentage: false,
 };
-Attribute.displayName = 'Attribute';
+CharacterAttribute.displayName = 'CharacterAttribute';
 
-export default Attribute;
+export default CharacterAttribute;

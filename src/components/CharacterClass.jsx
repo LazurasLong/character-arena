@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const Class = ({
+const CharacterClass = ({
   characterClass,
   className,
 }) => (
@@ -9,15 +9,15 @@ const Class = ({
   </span>
 );
 
-Class.propTypes = {
+CharacterClass.propTypes = {
   characterClass: PropTypes.shape({
     name: PropTypes.string.isRequired
   }).isRequired,
   className: PropTypes.string,
 };
-Class.defaultProps = {
+CharacterClass.defaultProps = {
   className: '',
 };
-Class.displayName = 'Class';
+CharacterClass.displayName = 'CharacterClass';
 
-export default Class;
+export default CharacterClass;

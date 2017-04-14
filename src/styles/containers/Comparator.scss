@@ -27,6 +27,7 @@
 
 @media screen and (min-width: breakpoint('landscape-tablet')) {
   .Comparator {
+    left: $sidebar-width;
     width: calc(100% - #{$sidebar-width});
     padding: 20px;
   }

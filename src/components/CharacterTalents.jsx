@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
-import TalentIcon from '../components/TalentIcon.jsx';
+import CharacterTalentsIcon from '../components/CharacterTalentsIcon.jsx';
 
-const Talents = ({
+const CharacterTalents = ({
   spec,
   availableTalents,
   usedTalents,
@@ -69,7 +69,7 @@ const Talents = ({
               }`}
               key={`tier-${index}-${index2}`}
             >
-              <TalentIcon icon={talent.spell.icon} description={`"${talent.spell.name}": ${talent.spell.description}`} />
+              <CharacterTalentsIcon icon={talent.spell.icon} description={`"${talent.spell.name}": ${talent.spell.description}`} />
             </div>
           ))}
         </div>
@@ -78,11 +78,11 @@ const Talents = ({
   );
 };
 
-Talents.propTypes = {
+CharacterTalents.propTypes = {
   availableTalents: PropTypes.object.isRequired,
   usedTalents: PropTypes.object.isRequired,
   comparedTo: PropTypes.object,
 };
-Talents.displayName = 'Talents';
+CharacterTalents.displayName = 'CharacterTalents';
 
-export default Talents;
+export default CharacterTalents;

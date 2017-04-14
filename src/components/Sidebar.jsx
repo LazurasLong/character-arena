@@ -1,50 +1,104 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-import CustomCheckbox from '../components/inputs/CustomCheckbox.jsx';
+import Collapsable from '../components/Collapsable.jsx';
 
-const Sidebar = ({
-  isOpen,
-  stats,
-  handleToggleStat,
-  handleToggleSidebar,
-}) => (
-  <aside className={`Sidebar ${isOpen && 'is-open'}`}>
-    <div className="Sidebar-head">
-      <div
-        className="Button Button--invisible Button--close Sidebar-close"
-        onClick={handleToggleSidebar}
-      />
-      <img className="Sidebar-logo" />
-      <span className="Sidebar-label">Stats to show</span>
-    </div>
-    <span className="Spacer" />
-    <div className="Sidebar-content">
-      <ul>
-        { stats && stats.map((stat, index) => {
-          return (
-            <li className="Sidebar-element" key={index}>
-              <CustomCheckbox
-                label={stat.label}
-                selected={stat.selected}
-                handleClick={() => { handleToggleStat(stat); }}
-              />
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  </aside>
-);
+
+class Sidebar extends Component {
+  render() {
+    const {
+      isOpen,
+      sections,
+      handleToggleCollapsable,
+      handleToggleSidebar,
+    } = this.props;
+
+    return (
+      <aside className={`Sidebar ${isOpen && 'is-open'}`}>
+        
+        {/* Sidebar head */}
+        <div className="Sidebar-head">
+          
+          {/* Close button */}
+          <span
+            className="Button Button--invisible Button--close Sidebar-close"
+            onClick={handleToggleSidebar}
+          />
+
+          {/* Sidebar title */}
+          <span className="Sidebar-label">Options</span>
+          <br style={{ clear: 'both' }} />
+        </div>
+        
+        {/* Sidebar content */}
+        <div className="Sidebar-body">
+
+          {/* Character selector */}
+          <Collapsable
+            title="Character selector"
+            slug="filters"
+            data={sections.filters}
+            ref={(ref) => { this.filters = ref; }}
+            handleToggleCollapsable={handleToggleCollapsable}
+          />
+
+          {/* Item level */}
+          <Collapsable
+            title="Item level"
+            slug="itemLevel"
+            data={sections.itemLevel}
+            ref={(ref) => { this.itemLevel = ref; }}
+            handleToggleCollapsable={handleToggleCollapsable}
+          />
+
+          {/* Main attributes */}
+          <Collapsable
+            title="Attributes"
+            slug="attributes"
+            data={sections.attributes}
+            ref={(ref) => { this.attributes = ref; }}
+            handleToggleCollapsable={handleToggleCollapsable}
+          />
+
+          {/* Secondary attributes */}
+          <Collapsable
+            title="Enhacements"
+            slug="enhacements"
+            data={sections.enhacements}
+            ref={(ref) => { this.enhacements = ref; }}
+            handleToggleCollapsable={handleToggleCollapsable}
+          />
+
+          {/* Deffense */}
+          <Collapsable
+            title="Deffense"
+            slug="deffense"
+            data={sections.deffense}
+            ref={(ref) => { this.deffense = ref; }}
+            handleToggleCollapsable={handleToggleCollapsable}
+          />
+
+          {/* Talents */}
+          <Collapsable
+            title="Talents"
+            slug="talents"
+            data={sections.talents}
+            ref={(ref) => { this.talents = ref; }}
+            handleToggleCollapsable={handleToggleCollapsable}
+          />
+        </div>
+      </aside>
+    );
+  };
+}
 
 Sidebar.propTypes = {
   isOpen: PropTypes.bool,
-  stats: PropTypes.array,
-  handleToggleStat: PropTypes.func.isRequired,
+  sections: PropTypes.object.isRequired,
   handleToggleSidebar: PropTypes.func.isRequired,
+  handleToggleCollapsable: PropTypes.func.isRequired,
 };
 Sidebar.defaultProps = {
   isOpen: false,
-  stats: [],
 };
 Sidebar.displayName = 'Sidebar';
 

@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import { AVATAR_URL } from '../constants/apiRoutes.js';
 import { BLIZZARD_ICONS } from '../constants/app.js';
 
-const Avatar = ({
+const CharacterAvatar = ({
   picture,
   faction,
 }) => (
@@ -27,13 +27,13 @@ const Avatar = ({
   </div>
 );
 
-Avatar.propTypes = {
+CharacterAvatar.propTypes = {
   picture: PropTypes.string.isRequired,
   faction: PropTypes.string,
 };
-Avatar.defaultProps = {
+CharacterAvatar.defaultProps = {
   faction: '',
 };
-Avatar.displayName = 'Avatar';
+CharacterAvatar.displayName = 'CharacterAvatar';
 
-export default Avatar;
+export default CharacterAvatar;

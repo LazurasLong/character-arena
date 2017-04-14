@@ -1,0 +1,86 @@
+/** @define Collapsable */
+
+.Collapsable {
+  background: $base-background;
+  border: 1px dotted rgba($base-border, .4);
+  border-bottom: none;
+
+  &:nth-last-of-type(1) {
+    border-bottom: 1px dotted rgba($base-border, .4);
+  }
+
+  &-head {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px;
+
+    color: $white;
+    font-size: 14px;
+    text-align: left;
+
+    background-color: $btn-background;
+    cursor: pointer;
+  }
+
+  &-title {
+    color: inherit;
+    font-size: inherit;
+    text-align: inherit;
+  }
+
+  &-body {
+    overflow: hidden;
+    max-height: 0;
+
+    transition: max-height $animation-duration;
+  }
+
+  &-icon {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+
+    display: block;
+    width: 16px;
+    height: 16px;
+    opacity: .5;
+    transition: transform $animation-duration;
+
+    &:before,
+    &:after {
+      position: relative;
+      display: block;
+      width: 15px;
+      height: 3px;
+
+      background: $white;
+      content: "";
+      transition: width $animation-duration;
+    }
+
+    &:before {
+      top: 7px;
+    }
+
+    &:after {
+      top: 4px;
+      transform: rotate(90deg);
+    }
+  }
+
+  &.is-open {
+    .Collapsable {
+      &-body {
+        max-height: 1000px;
+      }
+
+      &-icon {
+        transform: rotate(90deg);
+
+        &:before {
+          width: 0;
+        }
+      }
+    }
+  }
+}
