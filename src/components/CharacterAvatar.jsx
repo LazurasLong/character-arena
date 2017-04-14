@@ -9,12 +9,14 @@ const CharacterAvatar = ({
 }) => (
   <div className="Avatar">
     <div className="Avatar-wrapper">
-      <img
-        className="Avatar-picture"
-        src={`${AVATAR_URL}${picture}`}
-      />
+      {picture &&
+        <img
+          className="Avatar-picture"
+          src={`${AVATAR_URL}${picture}`}
+        />
+      }
     </div>
-    {faction.length &&
+    {faction.length > 0 &&
       <svg
         className="Avatar-faction"
         xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +30,7 @@ const CharacterAvatar = ({
 );
 
 CharacterAvatar.propTypes = {
-  picture: PropTypes.string.isRequired,
+  picture: PropTypes.string,
   faction: PropTypes.string,
 };
 CharacterAvatar.defaultProps = {

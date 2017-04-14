@@ -10,8 +10,11 @@ $black: rgba(0, 0, 0, 1);
 $red: red;
 $green: green;
 
-$color-alliance: rgba(0, 40, 84, 0.4);
-$color-horde: rgba(133, 0, 0, 0.2);
+$color-error: #9f1600;
+$color-success: $green;
+
+$color-alliance: rgba(0, 40, 130, 1);
+$color-horde: rgba(133, 0, 0, 1);
 
 $color-mage: #68ccef;
 $color-priest: #f0ebe0;

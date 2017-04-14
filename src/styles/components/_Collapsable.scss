@@ -83,4 +83,12 @@
       }
     }
   }
+
+  .is-alliance & {
+    border-color: $color-alliance;
+  }
+
+  .is-horde & {
+    border-color: $color-horde;
+  }
 }
