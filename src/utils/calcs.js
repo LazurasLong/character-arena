@@ -16,4 +16,7 @@ export const compare = ({
   return undefined;
 };
 
-export const getClassSlug = className => className.replace(' ', '-').toLowerCase();
+export const getSlug = name => name
+  .replace(' ', '-')
+  .replace("'", '-')
+  .toLowerCase();

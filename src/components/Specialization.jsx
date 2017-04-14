@@ -11,7 +11,7 @@ const Specialization = ({
   const isCompared = (comparedTo && spec.backgroundImage && comparedTo.backgroundImage);
   const isEqual = (isCompared && spec && spec.backgroundImage && spec.backgroundImage === comparedTo.backgroundImage);
 
-  let differentClassName;
+  let differentClassName = '';
   if (isCompared) {
     if (isEqual) differentClassName = 'is-equal';
     else differentClassName = 'is-different';
