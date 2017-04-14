@@ -1,0 +1,16 @@
+/** @define Link */
+
+.Link {
+  color: $link-color;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $base-color;
+    text-decoration: underline;
+  }
+}
