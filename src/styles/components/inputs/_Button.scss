@@ -10,6 +10,7 @@
   background: $btn-background;
   border: 1px solid $base-border;
 
+  cursor: pointer;
   transition: background $animation-duration;
 
   &:hover,

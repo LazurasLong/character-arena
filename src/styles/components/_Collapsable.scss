@@ -1,6 +1,7 @@
 /** @define Collapsable */
 
 .Collapsable {
+  background: $base-background;
   border: 1px dotted rgba($base-border, .4);
   border-bottom: none;
 
@@ -30,6 +31,7 @@
   &-body {
     overflow: hidden;
     max-height: 0;
+
     transition: max-height $animation-duration;
   }
 

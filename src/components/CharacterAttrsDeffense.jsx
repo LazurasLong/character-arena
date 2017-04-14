@@ -1,23 +1,23 @@
 import React, { PropTypes } from 'react';
 import { compare } from '../utils/calcs.js';
 
-import Attribute from '../components/Attribute.jsx';
+import CharacterAttribute from '../components/CharacterAttribute.jsx';
 
-const DeffenseAttributes = ({
+const CharacterAttrsDeffense = ({
   stats,
   comparedTo,
   hideLabels,
 }) => (
   <div className={`Attributes ${hideLabels && 'Attributes--right'}`}>
 
-    <Attribute
+    <CharacterAttribute
       label="Armor"
       value={stats.armor}
       difference={compare({ base: stats, comparedTo, key: 'armor' })}
       hideLabels={hideLabels}
     />
 
-    <Attribute
+    <CharacterAttribute
       label="Dodge"
       value={stats.dodgeRating}
       difference={compare({ base: stats, comparedTo, key: 'dodgeRating' })}
@@ -26,7 +26,7 @@ const DeffenseAttributes = ({
       hideLabels={hideLabels}
     />
 
-    <Attribute
+    <CharacterAttribute
       label="Parry"
       value={stats.parryRating}
       difference={compare({ base: stats, comparedTo, key: 'parryRating' })}
@@ -35,7 +35,7 @@ const DeffenseAttributes = ({
       hideLabels={hideLabels}
     />
 
-    <Attribute
+    <CharacterAttribute
       label="Block"
       value={stats.block}
       difference={compare({ base: stats, comparedTo, key: 'block' })}
@@ -44,7 +44,7 @@ const DeffenseAttributes = ({
   </div>
 );
 
-DeffenseAttributes.propTypes = {
+CharacterAttrsDeffense.propTypes = {
   stats: PropTypes.shape({
     armor: PropTypes.number.isRequired,
     dodge: PropTypes.number.isRequired,
@@ -65,9 +65,9 @@ DeffenseAttributes.propTypes = {
   }),
   hideLabels: PropTypes.bool,
 };
-DeffenseAttributes.defaultProps = {
+CharacterAttrsDeffense.defaultProps = {
   hideLabels: false,
 };
-DeffenseAttributes.displayName = 'DeffenseAttributes';
+CharacterAttrsDeffense.displayName = 'CharacterAttrsDeffense';
 
-export default DeffenseAttributes;
+export default CharacterAttrsDeffense;

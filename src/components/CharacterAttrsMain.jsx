@@ -1,36 +1,36 @@
 import React, { PropTypes } from 'react';
 import { compare } from '../utils/calcs.js';
 
-import Attribute from '../components/Attribute.jsx';
+import CharacterAttribute from '../components/CharacterAttribute.jsx';
 
-const MainAttributes = ({
+const CharacterAttrsMain = ({
   stats,
   comparedTo,
   hideLabels,
 }) => (
   <div className={`Attributes ${hideLabels && 'Attributes--right'}`}>
-    <Attribute
+    <CharacterAttribute
       label="Strength"
       value={stats.str}
       difference={compare({ base: stats, comparedTo, key: 'str' })}
       hideLabels={hideLabels}
     />
     
-    <Attribute
+    <CharacterAttribute
       label="Agility"
       value={stats.agi}
       difference={compare({ base: stats, comparedTo, key: 'agi' })}
       hideLabels={hideLabels}
     />
 
-    <Attribute
+    <CharacterAttribute
       label="Intelect"
       value={stats.int}
       difference={compare({ base: stats, comparedTo, key: 'int' })}
       hideLabels={hideLabels}
     />
     
-    <Attribute
+    <CharacterAttribute
       label="Stamina"
       value={stats.sta}
       difference={compare({ base: stats, comparedTo, key: 'sta' })}
@@ -39,7 +39,7 @@ const MainAttributes = ({
   </div>
 );
 
-MainAttributes.propTypes = {
+CharacterAttrsMain.propTypes = {
   stats: PropTypes.shape({
     str: PropTypes.number.isRequired,
     agi: PropTypes.number.isRequired,
@@ -54,9 +54,9 @@ MainAttributes.propTypes = {
   }),
   hideLabels: PropTypes.bool,
 };
-MainAttributes.defaultProps = {
+CharacterAttrsMain.defaultProps = {
   hideLabels: false,
 };
-MainAttributes.displayName = 'MainAttributes';
+CharacterAttrsMain.displayName = 'CharacterAttrsMain';
 
-export default MainAttributes;
+export default CharacterAttrsMain;

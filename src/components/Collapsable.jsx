@@ -16,12 +16,23 @@ export default class Collapsable extends Component {
 
     this.handleToggle = this.handleToggle.bind(this);
     this.state = {
-      isOpen: false,
+      /* If there is a status set, use it, if not, it's open by default */
+      isOpen: (props.data && typeof props.data.isOpen !== 'undefined')
+        ? props.data.isOpen
+        : true,
     };
   }
 
   handleToggle() {
-    this.setState({ isOpen: !this.state.isOpen });
+    const { handleToggleCollapsable } = this.props;
+
+    // If custom function was sent, use it
+    if (handleToggleCollapsable) {
+      return handleToggleCollapsable({ element: this });
+    }
+
+    // Set 'isOpen' as opposed
+    return this.setState({ isOpen: !this.state.isOpen });
   }
 
   render() {

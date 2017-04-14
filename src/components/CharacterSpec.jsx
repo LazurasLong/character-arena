@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
-import SpecIcon from '../components/SpecIcon.jsx';
+import CharacterSpecIcon from '../components/CharacterSpecIcon.jsx';
 
-const Specialization = ({
+const CharacterSpec = ({
   className,
   spec,
   comparedTo,
@@ -19,13 +19,13 @@ const Specialization = ({
 
   return (
     <span className={`Specialization ${className} ${differentClassName}`}>
-      <SpecIcon icon={spec.icon} />
+      <CharacterSpecIcon icon={spec.icon} />
       <span className="Character-specName">{spec.name}</span>
     </span>
   );
 };
 
-Specialization.propTypes = {
+CharacterSpec.propTypes = {
   className: PropTypes.string,
   spec: PropTypes.shape({
     name: PropTypes.string,
@@ -36,9 +36,9 @@ Specialization.propTypes = {
     icon: PropTypes.string,
   }),
 };
-Specialization.defaultProps = {
+CharacterSpec.defaultProps = {
   className: '',
 };
-Specialization.displayName = 'Specialization';
+CharacterSpec.displayName = 'CharacterSpec';
 
-export default Specialization;
+export default CharacterSpec;

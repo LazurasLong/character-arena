@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { compare } from '../utils/calcs.js';
 
-import Attribute from '../components/Attribute.jsx';
+import CharacterAttribute from '../components/CharacterAttribute.jsx';
 
-const SecondaryAttributes = ({
+const CharacterAttrsSecondaries = ({
   stats,
   spec,
   comparedTo,
@@ -24,7 +24,7 @@ const SecondaryAttributes = ({
   return (
     <div className={`Attributes ${hideLabels && 'Attributes--right'}`}>
 
-      <Attribute
+      <CharacterAttribute
         label="Critical"
         value={stats.critRating}
         difference={compare({ base: stats, comparedTo, key: 'critRating' })}
@@ -33,7 +33,7 @@ const SecondaryAttributes = ({
         hideLabels={hideLabels}
       />
 
-      <Attribute
+      <CharacterAttribute
         label="Haste"
         value={stats.hasteRating}
         difference={compare({ base: stats, comparedTo, key: 'hasteRating' })}
@@ -43,7 +43,7 @@ const SecondaryAttributes = ({
       />
 
       {/*
-      <Attribute
+      <CharacterAttribute
         label="Leech"
         value={stats.leech}
         difference={compare({ base: stats, comparedTo, key: 'leech' })}
@@ -52,7 +52,7 @@ const SecondaryAttributes = ({
       />
       */}
 
-      <Attribute
+      <CharacterAttribute
         label="Mastery"
         value={stats.masteryRating}
         difference={compare({ base: stats, comparedTo, key: 'masteryRating' })}
@@ -61,7 +61,7 @@ const SecondaryAttributes = ({
         hideLabels={hideLabels}
       />
 
-      <Attribute
+      <CharacterAttribute
         label="Versatility"
         value={stats.versatility}
         difference={compare({ base: stats, comparedTo, key: 'versatility' })}
@@ -71,7 +71,7 @@ const SecondaryAttributes = ({
       />
 
       {/*
-      <Attribute
+      <CharacterAttribute
         label="Avoidance"
         value={stats.avoidanceRating}
         difference={compare({ base: stats, comparedTo, key: 'avoidanceRating' })}
@@ -81,7 +81,7 @@ const SecondaryAttributes = ({
       />
       */}
 
-      <Attribute
+      <CharacterAttribute
         label="Mana Regeneration"
         value={stats.mana5}
         difference={compare({ base: stats, comparedTo, key: 'mana5' })}
@@ -91,7 +91,7 @@ const SecondaryAttributes = ({
   );
 };
 
-SecondaryAttributes.propTypes = {
+CharacterAttrsSecondaries.propTypes = {
   stats: PropTypes.shape({
     crit: PropTypes.number.isRequired,
     critRating: PropTypes.number.isRequired,
@@ -118,9 +118,9 @@ SecondaryAttributes.propTypes = {
   }),
   hideLabels: PropTypes.bool,
 };
-SecondaryAttributes.defaultProps = {
+CharacterAttrsSecondaries.defaultProps = {
   hideLabels: false,
 };
-SecondaryAttributes.displayName = 'SecondaryAttributes';
+CharacterAttrsSecondaries.displayName = 'CharacterAttrsSecondaries';
 
-export default SecondaryAttributes;
+export default CharacterAttrsSecondaries;

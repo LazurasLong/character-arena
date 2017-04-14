@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { fetchCharacter, fetchRival } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
-import CharacterFrame from '../components/CharacterFrame.jsx';
+
+import Sidebar from '../components/Sidebar.jsx';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import Character from '../components/Character.jsx';
 
 class Comparator extends Component {
   static propTypes = {
@@ -35,8 +39,44 @@ class Comparator extends Component {
   constructor(props) {
     super(props);
 
+    this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
+    this.handleToggleCollapsable = this.handleToggleCollapsable.bind(this);
     this.handleFetchCharacter = this.handleFetchCharacter.bind(this);
     this.handleFetchRival = this.handleFetchRival.bind(this);
+
+    this.state = {
+      isSidebarOpen: false,
+      sections: {
+        filters: {
+          isOpen: true,
+          slug: 'filters',
+        },
+        itemLevel: {
+          isOpen: false,
+          slug: 'itemLevel',
+          elements: ['averageItemLevel', 'averageItemLevelEquipped'],
+        },
+        attributes: {
+          isOpen: true,
+          slug: 'attributes',
+          elements: ['str', 'agi', 'int', 'sta'],
+        },
+        enhacements: {
+          isOpen: true,
+          slug: 'enhacements',
+          elements: ['crit', 'haste', 'mastery', 'versatility', 'mana5'],
+        },
+        deffense: {
+          isOpen: false,
+          slug: 'deffense',
+          elements: ['armor', 'dodge', 'parry', 'block'],
+        },
+        talents: {
+          isOpen: true,
+          slug: 'talents',
+        },
+      },
+    };
   }
 
   componentWillMount() {
@@ -54,6 +94,39 @@ class Comparator extends Component {
 
     Promise.all(dataToFetch)
       .then(() => dispatch(fetchCharacter({})));
+  }
+
+  handleToggleSidebar() {
+    this.setState({
+      isSidebarOpen: !this.state.isSidebarOpen,
+    });
+  }
+
+  handleToggleCollapsable({ element }) {
+    const { props: { slug } } = element;
+
+    /* Update general status */
+    this.setState({
+      ...this.state,
+      sections: {
+        ...this.state.sections,
+        [slug]: {
+          ...this.state.sections[slug],
+          isOpen: !this.state.sections[slug].isOpen,
+        },
+      },
+    }, () => {
+  
+      /* Go through all children */
+      for (let x in this) {
+        const ref = this[x];
+
+        /* If our collapsable refference exists, toggle it */
+        if (ref && ref[slug] && ref[slug].state) {
+          ref[slug].setState({ isOpen: this.state.sections[slug].isOpen });
+        }
+      }
+    });
   }
 
   handleFetchCharacter({ realm, characterName }) {
@@ -81,14 +154,38 @@ class Comparator extends Component {
         talents,
       },
     } = this.props;
+    const {
+      isSidebarOpen,
+      sections,
+    } = this.state;
+
+    const options = { region: 'us', language: 'en' };
 
     return (
-      <div className="Comparator">
+      <div className="App">
 
-        {/* First character */}
-        <div className="Character">
-          <h1 className="Character-title">You</h1>
-          <CharacterFrame
+        {/* App Header */}
+        <Header handleToggleSidebar={this.handleToggleSidebar} />
+        
+        {/* App Sidebar */}
+        <Sidebar
+          sections={sections}
+          isOpen={isSidebarOpen}
+          handleToggleSidebar={this.handleToggleSidebar}
+          options={options}
+          ref={(ref) => { this.sidebar = ref; }}
+          handleToggleCollapsable={this.handleToggleCollapsable}
+        />
+
+        {/* App content */}
+        <div className="Comparator">
+
+          {/* First character */}
+          <Character
+            sections={sections}
+            title="You"
+            ref={(ref) => { this.characterFrame = ref; }}
+            handleToggleCollapsable={this.handleToggleCollapsable}
             classes={classes.collection}
             races={races.collection}
             talents={talents.collection}
@@ -96,16 +193,17 @@ class Comparator extends Component {
             handleFetchCharacter={this.handleFetchCharacter}
             character={character}
           />
-        </div>
 
-        {/* Second character */}
-        {(
-          (character && character.name && !character.isFetching)
-          || (rival && rival.name && !rival.isFetching)
-        ) &&
-          <div className="Character">
-            <h1 className="Character-title">Your rival</h1>
-            <CharacterFrame
+          {/* Second character */}
+          {(
+            (character && character.name && !character.isFetching)
+            || (rival && rival.name && !rival.isFetching)
+          ) &&
+            <Character
+              sections={sections}
+              title="Your rival"
+              ref={(ref) => { this.rivalFrame = ref; }}
+              handleToggleCollapsable={this.handleToggleCollapsable}
               classes={classes.collection}
               races={races.collection}
               talents={talents.collection}
@@ -115,8 +213,11 @@ class Comparator extends Component {
               comparedTo={(character && character.name) ? character : undefined}
               isRival
             />
-          </div>
-        }
+          }
+        </div>
+
+        {/* App footer */}
+        <Footer options={options}/>
       </div>
     );
   }
