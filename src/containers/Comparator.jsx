@@ -53,7 +53,7 @@ class Comparator extends Component {
     ];
 
     Promise.all(dataToFetch)
-      // .then(() => dispatch(fetchCharacter({})));
+      .then(() => dispatch(fetchCharacter({})));
   }
 
   handleFetchCharacter({ realm, characterName }) {

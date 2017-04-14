@@ -9,6 +9,7 @@ import Loading from '../components/Loading.jsx';
 import Error from '../components/inputs/Error.jsx';
 import Spacer from '../components/Spacer.jsx';
 
+import Collapsable from '../components/Collapsable.jsx';
 import Avatar from '../components/Avatar.jsx';
 import Class from '../components/Class.jsx';
 import Specialization from '../components/Specialization.jsx';
@@ -168,43 +169,48 @@ export default class CharacterFrame extends Component {
             />
             <Spacer />
 
-            <h2 className="Character-section">Item level</h2>
-            <ItemLevel
-              items={character.items}
-              comparedTo={comparedTo && comparedTo.items}
-              hideLabels={isRival}
-            />
+            <Collapsable title="Item level">
+              <ItemLevel
+                items={character.items}
+                comparedTo={comparedTo && comparedTo.items}
+                hideLabels={isRival}
+              />
+            </Collapsable>
 
-            <h2 className="Character-section">Attributes</h2>
-            <MainAttributes
-              stats={character.stats}
-              comparedTo={comparedTo && comparedTo.stats}
-              hideLabels={isRival}
-            />
+            <Collapsable title="Attributes">
+              <MainAttributes
+                stats={character.stats}
+                comparedTo={comparedTo && comparedTo.stats}
+                hideLabels={isRival}
+              />
+            </Collapsable>
 
-            <h2 className="Character-section">Enhacements</h2>
-            <SecondaryAttributes
-              spec={character.talents[0].spec}
-              stats={character.stats}
-              comparedTo={comparedTo && comparedTo.stats}
-              comparedToSpec={comparedTo && comparedTo.talents[0].spec}
-              hideLabels={isRival}
-            />
+            <Collapsable title="Enhacements">
+              <SecondaryAttributes
+                spec={character.talents[0].spec}
+                stats={character.stats}
+                comparedTo={comparedTo && comparedTo.stats}
+                comparedToSpec={comparedTo && comparedTo.talents[0].spec}
+                hideLabels={isRival}
+              />
+            </Collapsable>
 
-            <h2 className="Character-section">Deffense</h2>
-            <DeffenseAttributes
-              stats={character.stats}
-              comparedTo={comparedTo && comparedTo.stats}
-              hideLabels={isRival}
-            />
+            <Collapsable title="Deffense">
+              <DeffenseAttributes
+                stats={character.stats}
+                comparedTo={comparedTo && comparedTo.stats}
+                hideLabels={isRival}
+              />
+            </Collapsable>
 
-            <h2 className="Character-section">Talents</h2>
-            <Talents
-              spec={character.talents[0] && character.talents[0].spec}
-              availableTalents={availableTalents}
-              usedTalents={character.talents[0]}
-              comparedTo={comparedTo && comparedTo.talents[0]}
-            />
+            <Collapsable title="Talents">
+              <Talents
+                spec={character.talents[0] && character.talents[0].spec}
+                availableTalents={availableTalents}
+                usedTalents={character.talents[0]}
+                comparedTo={comparedTo && comparedTo.talents[0]}
+              />
+            </Collapsable>
           </div>
         }
       </div>
