@@ -5,7 +5,6 @@ import noop from 'lodash/noop';
 import watch from 'node-watch';
 
 const EXPRESS_PATH = path.join(__dirname, '../../src/server/index');
-const SERVER_PORT = 3000;
 
 let server;
 
@@ -41,8 +40,6 @@ const startServer = () => {
       file => !file.match('webpack-stats.json') ? restartServer() : noop(),
     );
   });
-
-  debug('dev')('`browser-sync` listening on port %s', 3000);
 };
 
 // Kill server on exit

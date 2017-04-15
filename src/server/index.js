@@ -1,5 +1,7 @@
 import * as fs from 'fs';
 import express from 'express';
+import session from 'express-session';
+import sessionFileStore from 'session-file-store';
 import bodyParser from 'body-parser';
 import debug from 'debug';
 
@@ -18,6 +20,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+// Session
+const sessionConf = {
+  store:{
+    type: 'file',
+    file: {
+      path: './.sessions',
+      retries: 2,
+    },
+  },
+};
+
+const FileStore = sessionFileStore(session);
+const store = new FileStore({ ...sessionConf.store.file });
+app.use(
+  session({
+    store,
+    secret: '4yk4Ug8SwHQqAw2KmDup', // TODO: extract to an uncommited file
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
 
 // Serve static files if enabled
 app.use('/assets', express.static('/assets'));

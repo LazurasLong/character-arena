@@ -44,7 +44,9 @@ export const composeUrl = ({
 
 // Get cookie value
 export const getCookie = (name) => {
-  const cookies = document.cookie.split(';');
+  const cookies = typeof document !== 'undefined'
+    ? document.cookie.split(';')
+    : [];
   const cookie = cookies.find(c => new RegExp(name).test(c));
 
   return cookie && cookie.split('=')[1];

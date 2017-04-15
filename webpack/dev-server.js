@@ -1,16 +1,31 @@
+import express from 'express';
+import debug from 'debug';
 import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+
 import config from './dev.config.babel.js';
 
-const port = 3001;
+const PORT = 3001;
 const publicPath = config.output && config.output.publicPath;
 
-new WebpackDevServer(webpack(config), {
-  publicPath,
-}).listen(port, '0.0.0.0', (err) => {
-  if (err) {
-    return console.log(err);
-  }
+debug.enable('dev,prod');
 
-  return console.log(`server listening at 0.0.0.0:${port} => 🌍  http://localhost:${port}${publicPath || ''} 🌍`);
+const app = express();
+const compiler = webpack(config);
+
+app.use(
+  webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath,
+    stats: {
+      colors: true,
+    },
+  }),
+);
+
+app.use(webpackHotMiddleware(compiler));
+
+app.listen(PORT, '0.0.0.0', () => {
+  debug('dev')('`webpack-dev-server` listening on port %s', PORT);
 });

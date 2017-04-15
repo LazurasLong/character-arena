@@ -5,45 +5,30 @@ import ReactDOM from 'react-dom';
 // import ReactDOMServer from 'react-dom/server';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
 import thunk from 'redux-thunk';
 
 // Application
-import { SLUG } from '../constants/app.js';
+import configureStore from '../server/configure-store.js';
 import Routes from '../routes.jsx';
+
+import { SLUG } from '../constants/app.js';
 
 // Custom Middlewares
 import api from '../middlewares/api';
 
 import reducers from '../reducers';
 
-import App from '../components/App.jsx';
-import Comparator from '../containers/Comparator.jsx';
-
-import {
-  HOME,
-  COMPARE,
-} from '../constants/appRoutes.js';
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(
-  applyMiddleware(thunk, api)
-));
+const store = configureStore();
+const rootElement = document.getElementById(SLUG);
 
 ReactDOM.render(
   <Provider store={store || {}}>
-    <Router history={browserHistory || {}}>
-      <Route component={App}>
-        <Route
-          path={HOME}
-          component={Comparator}
-        />
-        <Route
-          path={COMPARE}
-          component={Comparator}
-        />
-      </Route>
-    </Router>
+    <Router
+      routes={Routes(store)}
+      history={browserHistory || {}}
+      render={applyRouterMiddleware()}
+    />
   </Provider>,
-  document.getElementById(SLUG)
+  rootElement,
 );

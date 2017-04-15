@@ -1,5 +1,5 @@
 import webAppHandler from './webapp-handler';
-import { TITLE } from '../../constants/app.js';
+import { TITLE, SLUG } from '../../constants/app.js';
 
 export default (html, initialData) => {
   const assets = require('../webpack-stats.json');
@@ -14,14 +14,13 @@ export default (html, initialData) => {
     // '//platform.twitter.com/widgets'
   ];
 
-  return `
-    <!doctype html>
+  return (
+  `<!doctype html>
     <html class="no-js">
       <head>
-        ${TITLE}
+        <title>${TITLE}</title>
         <meta charset="utf-8">
         ${webAppHandler()}
-
         ${thirdPartyScriptsHeader
           .map(script => `<script src="${script}"></script>`)
           .join('\n')
@@ -32,11 +31,10 @@ export default (html, initialData) => {
         }
       </head>
       <body>
-        <div id="root">${html}</div>
-        <script>
-          window.__INITIAL_DATA__ = ${JSON.stringify(initialData)}
-        </script>
-
+        <div id="${SLUG}">
+          ${html}
+        </div>
+        <script>window.__INITIAL_DATA__ = ${JSON.stringify(initialData)}</script>
         ${mainScript
           ? `<script src="${mainScript}"></script>`
           : ''
@@ -46,6 +44,6 @@ export default (html, initialData) => {
           .join('\n')
         }
       </body>
-    </html>
-  `;
+    </html>`
+  );
 };

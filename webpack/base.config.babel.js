@@ -11,7 +11,7 @@ const ROOT_PATH = path.resolve(__dirname, '..');
 
 const JS_REGEX = /\.jsx?$/;
 const CSS_REGEX = /\.s?css$/;
-const ASSETS_REGEX = /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)(\?v=[0-9].[0-9].[0-9])?$/;
+const ASSETS_REGEX = /\.(jpe?g|png|gif|svg)?$/;
 
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
@@ -55,21 +55,6 @@ const webpackConfig = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
-      {
-        test: ASSETS_REGEX,
-        include: SRC_PATH,
-        exclude: [/node_modules/],
-        loader: 'image-webpack-loader',
-        options: {
-          progressive: true,
-          gifsicle: {
-            interlaced: true,
-          },
-          svgo: {
-            cleanupIDs: false,
-          },
-        },
-      },
     ],
   },
 
@@ -77,7 +62,11 @@ const webpackConfig = {
     extensions: ['.js', '.json', '.jsx'],
   },
 
-  plugins: [],
+  plugins: [
+    function writeStatsWhenPluginsDone() {
+      this.plugin('done', writeStats);
+    },
+  ],
 };
 
 export {

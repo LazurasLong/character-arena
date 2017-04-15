@@ -7,10 +7,9 @@ export default function (stats) {
   const publicPath = this.options.output.publicPath;
   const statsJson = stats.toJson();
 
-  const getAssets = ext =>
-    statsJson.assetsByChunkName.main
-      .filter(asset => ext.test(asset))
-      .map(asset => `${publicPath}${asset}`);
+  const getAssets = (ext) => statsJson.assetsByChunkName.main
+    .filter(asset => ext.test(asset))
+    .map(asset => `${publicPath}${asset}`);
 
   const script = getAssets(/\.js$/);
   const style = getAssets(/\.css$/);
@@ -38,6 +37,5 @@ export default function (stats) {
   });
 
   const content = { script, style, images };
-
   fs.writeFileSync(filepath, JSON.stringify(content));
 }

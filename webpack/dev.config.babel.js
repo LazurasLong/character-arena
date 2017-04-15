@@ -15,7 +15,7 @@ import baseConfig, {
 export const HOST = 'localhost';
 export const PORT = 3001;
 
-const PUBLIC_PATH = `/`;
+const PUBLIC_PATH = `//${HOST}:${PORT}/assets/`;
 
 // https://webpack.github.io/docs/configuration.html
 export default {
@@ -95,7 +95,5 @@ export default {
     function startExpressWhenPluginsDone() {
       this.plugin('done', startExpress);
     },
-
-    ...baseConfig.plugins
   ],
 };

@@ -1,4 +1,5 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import mqpacker from 'css-mqpacker';
 
 import baseConfig, {
@@ -92,6 +93,7 @@ export default {
     new ExtractTextPlugin({
       filename: 'styles/[name]-[hash].min.css',
     }),
+    new HtmlWebpackPlugin(),
 
     ...baseConfig.plugins,
   ],

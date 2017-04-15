@@ -12,7 +12,7 @@ import {
   COMPARE,
 } from './constants/appRoutes.js';
 
-export default () => (
+export default (store) => (
   <Route component={App}>
     <Route
       path={HOME}
