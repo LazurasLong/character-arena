@@ -1,7 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import jsonImporter from 'node-sass-json-importer';
 
+import writeStats from './utils/write-stats';
 import postcssConfig from '../postcss.config';
 
 import { TITLE } from '../src/constants/app.js';
@@ -14,57 +15,45 @@ const ASSETS_REGEX = /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)(\?v=[0-9].[0-9].[
 
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
+const WEBAPP_ICONS_PATH = path.resolve(ROOT_PATH, 'src');
 
 const POSTCSS_PLUGINS = postcssConfig.plugins;
+
+const LOADER_POSTCSS = {
+  loader: 'postcss-loader',
+  options: {
+    sourceMap: true,
+    plugins: [...postcssConfig.plugins],
+  },
+};
+
+const LOADER_SASS = {
+  loader: 'sass-loader',
+  options: {
+    sourceMap: true,
+    importer: jsonImporter,
+  },
+};
 
 // https://webpack.github.io/docs/configuration.html
 const webpackConfig = {
   devtool: 'source-map',
 
-  entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3001',
-    'webpack/hot/only-dev-server',
-    './src/server',
-  ],
+  entry: ['babel-polyfill', './src/client/'],
 
   output: {
-     path: DIST_PATH,
-    filename: 'wowCharacterComparision.js',
-    // path: path.resolve(DIST_PATH, 'assets'),
-    // filename: '[name]-[hash].js',
-    // publicPath: '/assets/',
-  },
-
-  node: {
-    fs: 'empty',
-    net: 'empty',
+    path: path.resolve(DIST_PATH, 'assets'),
+    filename: '[name]-[hash].js',
+    publicPath: '/assets/',
   },
 
   module: {
     rules: [
       {
         test: JS_REGEX,
+        include: SRC_PATH,
+        exclude: /node_modules/,
         loader: 'babel-loader',
-        include: SRC_PATH,
-        query: {
-          presets:['react'],
-        },
-      },
-      {
-        test: CSS_REGEX,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: POSTCSS_PLUGINS,
-            },
-          },
-          'sass-loader',
-        ],
-        include: SRC_PATH,
       },
       {
         test: ASSETS_REGEX,
@@ -84,13 +73,20 @@ const webpackConfig = {
     ],
   },
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: TITLE,
-      template: 'src/templates/index.ejs',
-    }),
-  ],
+  resolve: {
+    extensions: ['.js', '.json', '.jsx'],
+  },
+
+  plugins: [],
 };
 
-export default webpackConfig;
+export {
+  webpackConfig as default,
+  DIST_PATH,
+  SRC_PATH,
+  WEBAPP_ICONS_PATH,
+  CSS_REGEX,
+  ASSETS_REGEX,
+  LOADER_POSTCSS,
+  LOADER_SASS,
+};

@@ -1,6 +1,6 @@
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import config from './config.babel';
+import config from './dev.config.babel.js';
 
 const port = 3001;
 const publicPath = config.output && config.output.publicPath;
