@@ -1,7 +1,7 @@
 import webAppHandler from './webapp-handler';
 import { TITLE, SLUG } from '../../constants/app.js';
 
-export default (html, initialData) => {
+export default (html, initialData, initializer) => {
   const assets = require('../webpack-stats.json');
 
   const mainStyle = assets.style && assets.style[0];
@@ -43,6 +43,7 @@ export default (html, initialData) => {
           .map(script => `<script src="${script}"></script>`)
           .join('\n')
         }
+        ${initializer ? initializer : ''}
       </body>
     </html>`
   );

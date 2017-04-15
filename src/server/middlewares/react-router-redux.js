@@ -42,11 +42,14 @@ export default function (config) {
               </Provider>,
             );
 
-            res.status(200).send(
-              renderLayout(html, {
-                initialState: store.getState(),
-              }),
-            );
+            const htmlTemplate = renderLayout(html, {
+              initialState: store.getState(),
+            });
+
+            res.status(200).send(htmlTemplate);
+
+            // const filepath = path.resolve(__dirname, '../../../dist/index.html');
+            // fs.writeFile(filepath, htmlTemplate);
           })
           .catch((e) => {
             if (e.status === 401) {
