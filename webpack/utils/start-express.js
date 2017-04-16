@@ -4,7 +4,7 @@ import debug from 'debug';
 import noop from 'lodash/noop';
 import watch from 'node-watch';
 
-const EXPRESS_PATH = path.join(__dirname, '../../src/server/index');
+const EXPRESS_PATH = path.join(__dirname, '../../src/server');
 
 let server;
 

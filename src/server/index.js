@@ -5,6 +5,8 @@ import sessionFileStore from 'session-file-store';
 import bodyParser from 'body-parser';
 import debug from 'debug';
 
+import { SESSION_SECRET } from '../../.env.js';
+
 // Application
 import routes from '../routes';
 
@@ -37,7 +39,7 @@ const store = new FileStore({ ...sessionConf.store.file });
 app.use(
   session({
     store,
-    secret: '4yk4Ug8SwHQqAw2KmDup', // TODO: extract to an uncommited file
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   }),
