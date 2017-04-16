@@ -2,19 +2,18 @@ import {
   FETCH_CHARACTER_REQUEST,
   FETCH_CHARACTER_SUCCESS,
   FETCH_CHARACTER_ERROR,
+  SWITCH_CHARACTER,
+  REMOVE_CHARACTER,
 } from '../constants/actionTypes.js';
 
 const isTheSameCharacter = (original, compared) => {
   const result = (original.name === compared.name && original.realm === compared.realm);
-
-  console.log('isTheSameCharacter', result);
+  
   return result;
 };
 
 const isInCollection = (collection, character) => {
-  const result = collection.findIndex(char => isTheSameCharacter(char, character)) >= 0;
-
-  console.log('isInCollection', result);
+  const result = collection.findIndex(char => isTheSameCharacter(char, character));
   return result;
 }
 
@@ -48,11 +47,9 @@ export default (state = initialState, action) => {
       };
 
     case FETCH_CHARACTER_SUCCESS:
-      console.log('New character fetched');
-
       return {
         ...state,
-        collection: isInCollection(state.collection, action.payload.data)
+        collection: isInCollection(state.collection, action.payload.data) >= 0
           ? [...state.collection.map(char => character(char, action))]
           : [...state.collection, {...action.payload.data}],
         isFetching: false,
@@ -65,6 +62,25 @@ export default (state = initialState, action) => {
         isFetching: false,
         error: action.payload.error,
       };
+
+    case SWITCH_CHARACTER:
+      return {
+        ...state,
+        collection: [
+          state.collection.find(char => isTheSameCharacter(char, action.extra)),
+          ...state.collection.slice(0, isInCollection(state.collection, action.extra)),
+          ...state.collection.slice(isInCollection(state.collection, action.extra) + 1),
+        ],
+      }
+
+    case REMOVE_CHARACTER:
+      return {
+        ...state,
+        collection: [
+          ...state.collection.slice(0, isInCollection(state.collection, action.extra)),
+          ...state.collection.slice(isInCollection(state.collection, action.extra) + 1),
+        ],
+      }
 
     default:
       return state;

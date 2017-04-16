@@ -1,3 +1,40 @@
+/*
+  CHARACTER RELATED
+*/
+// Find character's race
+export const getCharacterRace = ({
+  raceId,
+  races,
+}) => {
+  const selectedRace = races.find(r => r.id === raceId);
+
+  return selectedRace || raceId;
+};
+
+// Find character's class
+export const getCharacterClass = ({
+  classId,
+  classes,
+}) => {
+  const selectedClass = classes.find(c => c.id === classId);
+  selectedClass.slug = getSlug(selectedClass.name);
+
+  return selectedClass || classId;
+};
+
+// Find available talents for a given class
+export const getAvailableTalents = ({
+  classId,
+  talents,
+}) => {
+  const selectedTalents = talents[classId];
+
+  return selectedTalents;
+};
+
+/*
+  ATTRIBUTES RELATED
+*/
 // Given 2 resources and a key, compare and get numeric difference
 // between data with the same key in each object
 export const compare = ({
@@ -17,6 +54,9 @@ export const compare = ({
   return undefined;
 };
 
+/*
+  URL RELATED
+*/
 // Given a name, it'll return a url-friendly slug
 export const getSlug = name => name
   .replace(' ', '-')
@@ -42,6 +82,9 @@ export const composeUrl = ({
     .replace(/:characterName/g, character && character.characterName);
 };
 
+/*
+  COOKIES RELATED
+*/
 // Get cookie value
 export const getCookie = (name) => {
   const cookies = typeof document !== 'undefined'

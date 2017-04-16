@@ -14,10 +14,22 @@ import {
 } from '../constants/actionTypes.js';
 
 const initialState = {
-  races: {},
-  classes: {},
-  realms: {},
-  talents: {},
+  races: {
+    collection: [],
+    isFetching: false,
+  },
+  classes: {
+    collection: [],
+    isFetching: false,
+  },
+  realms: {
+    collection: [],
+    isFetching: false,
+  },
+  talents: {
+    collection: [],
+    isFetching: false,
+  },
 };
 
 export default (state = initialState, action) => {
