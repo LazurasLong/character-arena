@@ -224,7 +224,7 @@ class Comparator extends Component {
 
           {/* No errors */}
           {!isServiceUnavailable &&
-            <div>
+            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
               {/* Fetched Characters */}
               {characters && characters.collection && characters.collection.map((character, index) => {
                 return (

@@ -4,6 +4,7 @@
   position: relative;
   z-index: order('content');
   float: left;
+  overflow: auto;
 
   display: block;
   width: 100%;
@@ -24,6 +25,14 @@
 
   &--lower {
     color: $red;
+  }
+
+  &-wrapper {
+    position: relative;
+    float: left;
+
+    display: inline-block;
+    min-width: 100%;
   }
 
   &:after {

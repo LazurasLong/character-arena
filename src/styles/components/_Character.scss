@@ -5,8 +5,9 @@
   float: left;
 
   display: inline-block;
-  width: calc(50% - 10px);
-  max-width: 400px;
+  // width: calc(50% - 10px);
+  // max-width: 300px;
+  width: 300px;
   padding: 10px;
   margin: 5px;
 
@@ -67,11 +68,9 @@
   }
 }
 
-
 @media screen and (min-width: breakpoint('tablet')) {
   .Character {
-    width: calc(50% - 40px);
+    // width: calc(50% - 40px);
     padding: 20px;
-    margin: 20px;
   }
 }
