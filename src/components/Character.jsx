@@ -82,6 +82,7 @@ export default class CharacterFrame extends Component {
               character={character}
               handleSwitchCharacter={handleSwitchCharacter}
               handleRemoveCharacter={handleRemoveCharacter}
+              isMain={!comparedTo}
             />
 
             <CharacterHeader
