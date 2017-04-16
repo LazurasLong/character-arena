@@ -4,6 +4,7 @@ import mqpacker from 'css-mqpacker';
 import baseConfig, {
   SRC_PATH,
   WEBAPP_ICONS_PATH,
+  ASSETS_REGEX,
   CSS_REGEX,
   LOADER_POSTCSS,
   LOADER_SASS,
@@ -46,7 +47,7 @@ export default {
         },
       },
       {
-        test: /\.jpe?g|png|gif|svg?$/,
+        test: ASSETS_REGEX,
         include: SRC_PATH,
         exclude: [/node_modules/, WEBAPP_ICONS_PATH],
         use: [
