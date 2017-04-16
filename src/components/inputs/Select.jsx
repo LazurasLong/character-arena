@@ -36,13 +36,14 @@ Select.propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     timezone: PropTypes.string,
-  })).isRequired,
+  })),
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   reference: PropTypes.func,
   handleChange: PropTypes.func,
 };
 Select.defaultProps = {
+  options: [],
   placeholder: '',
   required: false,
   reference: () => {},

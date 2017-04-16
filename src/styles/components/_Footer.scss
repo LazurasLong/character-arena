@@ -4,7 +4,9 @@
   position: relative;
   float: left;
 
+  display: block;
   width: 100%;
+  height: $footer-mobile-height;
   padding: 20px;
 
   font-size: 11px;
@@ -31,6 +33,8 @@
   .Footer{
     left: $sidebar-width;
     width: calc(100% - #{$sidebar-width});
+    height: $footer-desktop-height;
+
     font-size: 13px;
 
     &-left,

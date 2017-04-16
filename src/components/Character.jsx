@@ -17,13 +17,19 @@ import CharacterTalents from '../components/CharacterTalents.jsx';
 
 export default class CharacterFrame extends Component {
   static propTypes = {
+    /* Required props */
     sections: PropTypes.object.isRequired,
-    handleToggleCollapsable: PropTypes.func,
+    handleToggleCollapsable: PropTypes.func.isRequired,
+    handleFetchCharacter: PropTypes.func.isRequired,
+
+    /* Optional props */
+    availableRealms: PropTypes.array,
     classes: PropTypes.array,
     races: PropTypes.array,
     talents: PropTypes.object,
-    availableRealms: PropTypes.array,
-    handleFetchCharacter: PropTypes.func.isRequired,
+    title: PropTypes.string,
+
+    /* Maybe-Undefined props */
     character: PropTypes.shape({
       name: PropTypes.string,
       thumbnail: PropTypes.string,
@@ -31,7 +37,7 @@ export default class CharacterFrame extends Component {
       class: PropTypes.number,
       items: PropTypes.object,
       stats: PropTypes.object,
-    }).isRequired,
+    }),
     comparedTo: PropTypes.shape({
       name: PropTypes.string.isRequired,
       thumbnail: PropTypes.string.isRequired,
@@ -40,33 +46,80 @@ export default class CharacterFrame extends Component {
       items: PropTypes.object.isRequired,
       stats: PropTypes.object.isRequired,
     }),
-    isRival: PropTypes.bool,
   };
 
   static defaultProps = {
+    availableRealms: [],
     classes: [],
     races: [],
     talents: {},
-    availableRealms: [],
-    isRival: false,
+    title: 'New character',
   };
 
-  static displayName = 'CharacterFrame';
+  static displayName = 'Character';
 
   render() {
     const {
       sections,
-      title,
       handleToggleCollapsable,
       handleFetchCharacter,
-      character,
-      comparedTo,
-      isRival,
+
+      availableRealms,
       classes,
       races,
       talents,
-      availableRealms,
+      title,
+
+      character,
+      comparedTo,
     } = this.props;
+
+    /* If there is no character */
+    // TODO: Abstract this to a new component (CharacterFinder.jsx)
+    if (!character) {
+      return (
+        <div className={`Character ${characterRace ? `is-${characterRace.side}` : ''}`}>
+          
+          {/* Filters */}
+          <Collapsable
+            title={title}
+            slug="filters"
+            data={sections.filters}
+            ref={(ref) => { this.filters = ref; }}
+            handleToggleCollapsable={handleToggleCollapsable}
+          >
+            <div className="Character-filters">
+              {/* Dropdown with realms */}
+              <Select
+                options={availableRealms}
+                placeholder="Character's realm"
+                required
+                reference={(ref) => { this.realm = ref; }}
+              />
+            
+              {/* User will write character's name */}
+              <Input
+                type="text"
+                placeholder="Character's name"
+                required
+                reference={(ref) => { this.characterName = ref; }}
+              />
+
+              {/* Search button */}
+              <button
+                className="Button"
+                onClick={() => { handleFetchCharacter({
+                  realm: this.realm.value,
+                  characterName: this.characterName.value,
+                }); }
+              }>
+                Search
+              </button>
+            </div>
+          </Collapsable>
+        </div>
+      );
+    }
 
     // Get character class and talents
     const classIndex = classes.findIndex(c => c.id === character.class);
@@ -82,46 +135,7 @@ export default class CharacterFrame extends Component {
     }
 
     return (
-      <div className={`Character ${characterRace ? `is-${characterRace.side}` : ''}`}>
-        
-        {/* Filters */}
-        <Collapsable
-          title={title}
-          slug="filters"
-          data={sections.filters}
-          ref={(ref) => { this.filters = ref; }}
-          handleToggleCollapsable={handleToggleCollapsable}
-        >
-          <div className="Character-filters">
-            {/* Dropdown with realms */}
-            <Select
-              options={availableRealms}
-              placeholder="Character's realm"
-              required
-              reference={(ref) => { this.realm = ref; }}
-            />
-          
-            {/* User will write character's name */}
-            <Input
-              type="text"
-              placeholder="Character's name"
-              required
-              reference={(ref) => { this.characterName = ref; }}
-            />
-
-            {/* Search button */}
-            <button
-              className="Button"
-              onClick={() => { handleFetchCharacter({
-                realm: this.realm.value,
-                characterName: this.characterName.value,
-              }); }
-            }>
-              Search
-            </button>
-          </div>
-        </Collapsable>
-        
+      <div className={`Character ${characterRace ? `is-${characterRace.side}` : ''}`}>        
         {/* Loading character */}
         {character && character.isFetching &&
           <Loading />
@@ -153,7 +167,7 @@ export default class CharacterFrame extends Component {
               <CharacterAttrsItems
                 items={character.items}
                 comparedTo={comparedTo && comparedTo.items}
-                hideLabels={isRival}
+                hideLabels={!!comparedTo}
               />
             </Collapsable>
 
@@ -168,7 +182,7 @@ export default class CharacterFrame extends Component {
               <CharacterAttrsMain
                 stats={character.stats}
                 comparedTo={comparedTo && comparedTo.stats}
-                hideLabels={isRival}
+                hideLabels={!!comparedTo}
               />
             </Collapsable>
 
@@ -185,7 +199,7 @@ export default class CharacterFrame extends Component {
                 stats={character.stats}
                 comparedTo={comparedTo && comparedTo.stats}
                 comparedToSpec={comparedTo && comparedTo.talents[0].spec}
-                hideLabels={isRival}
+                hideLabels={!!comparedTo}
               />
             </Collapsable>
 
@@ -200,7 +214,7 @@ export default class CharacterFrame extends Component {
               <CharacterAttrsDeffense
                 stats={character.stats}
                 comparedTo={comparedTo && comparedTo.stats}
-                hideLabels={isRival}
+                hideLabels={!!comparedTo}
               />
             </Collapsable>
 
