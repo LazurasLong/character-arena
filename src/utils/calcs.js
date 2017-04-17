@@ -87,22 +87,17 @@ export const composeUrl = ({
     .replace(/:characterName/g, character && character.characterName);
 };
 
-export const composeHomePathname = ({
-  region,
-  language,
-}) => HOME
-  .replace(':region', region)
-  .replace(':language', language)
-  .replace('(', '')
-  .replace(')', '')
-  .concat('/');
-
-export const composeCharactersPathname = ({
+export const composePathname = ({
   region,
   language,
   collection
 }) => {
-  let pathname = composeHomePathname({ region, language });
+  let pathname = HOME
+    .replace(':region', region)
+    .replace(':language', language)
+    .replace('(', '')
+    .replace(')', '')
+    .concat('/');
 
   collection.forEach(char => {
     pathname = `${pathname}${char.realm}-${char.name},`;

@@ -77,7 +77,7 @@ export default class CharacterFrame extends Component {
         }
 
         {/* Character info */}
-        {character && character.name && !character.isFetching &&
+        {character && !character.isFetching && !character.error &&
           <div className="Character-data">
             <CharacterActions
               character={character}

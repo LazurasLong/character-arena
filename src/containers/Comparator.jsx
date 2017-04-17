@@ -5,7 +5,7 @@ import {
   getCharacterClass,
   getAvailableTalents,
   composeHomePathname,
-  composeCharactersPathname,
+  composePathname,
   getSlug,
   getCookie,
   setCookie
@@ -64,7 +64,7 @@ class Comparator extends Component {
     this.handleFetchCharacter = this.handleFetchCharacter.bind(this);
     this.handleSwitchCharacter = this.handleSwitchCharacter.bind(this);
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
-    this.handleCollectionChange = this.handleCollectionChange.bind(this);
+    this.handleDataChange = this.handleDataChange.bind(this);
 
     const {
       params,
@@ -214,7 +214,10 @@ class Comparator extends Component {
         ...this.state.options,
         region: region && region.value,
       },
-    }, this.fetchInitialData);
+    }, () => {
+      this.handleDataChange();
+      this.fetchInitialData();
+    });
   }
 
   handleSelectLanguage() {
@@ -232,7 +235,10 @@ class Comparator extends Component {
         ...this.state.options,
         language: language && language.value,
       },
-    }, this.fetchInitialData);
+    }, () => {
+      this.handleDataChange();
+      this.fetchInitialData();
+    });
   }
 
   handleToggleCollapsable({ element }) {
@@ -256,28 +262,28 @@ class Comparator extends Component {
     const { options: { region, language } } = this.state;
 
     Promise.all([dispatch(fetchCharacter({ region, language, realm, characterName }))])
-      .then(this.handleCollectionChange);
+      .then(this.handleDataChange);
   }
 
   handleSwitchCharacter({ character }) {
     const { dispatch } = this.props;
 
     Promise.all([dispatch(switchCharacter(character))])
-      .then(this.handleCollectionChange);
+      .then(this.handleDataChange);
   }
 
   handleRemoveCharacter({ character }) {
     const { dispatch } = this.props;
 
     Promise.all([dispatch(removeCharacter(character))])
-      .then(this.handleCollectionChange);
+      .then(this.handleDataChange);
   }
 
-  handleCollectionChange() {
+  handleDataChange() {
     const { characters: { collection }, location } = this.props;
     const { options: { region, language } } = this.state;
 
-    this.context.router.push(composeCharactersPathname({ region, language, collection }));
+    this.context.router.push(composePathname({ region, language, collection }));
   }
 
   render() {
@@ -334,7 +340,7 @@ class Comparator extends Component {
                 // Get character data
                 const selectedCharacter = {...character};
                 let comparedTo;
-                if (!selectedCharacter.isFetching) {
+                if (!selectedCharacter.isFetching && !selectedCharacter.error) {
                   selectedCharacter.race = getCharacterRace({
                     raceId: selectedCharacter.race,
                     races: races.collection

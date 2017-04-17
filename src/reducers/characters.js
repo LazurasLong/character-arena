@@ -22,6 +22,17 @@ const isInCollection = (collection, character) => {
 
 const character = (state, action) => {
   switch (action.type) {
+    case FETCH_CHARACTER_REQUEST:
+      if (action.payload && isTheSameCharacter(state, action.payload)) {
+        return {
+          ...state,
+          isFetching: true,
+          error: undefined,
+        };
+      }
+
+      return state;
+
     case FETCH_CHARACTER_SUCCESS:
       if (action.payload && action.payload.data && isTheSameCharacter(state, action.payload.data)) {
         return {
@@ -34,11 +45,14 @@ const character = (state, action) => {
       return state;
 
     case FETCH_CHARACTER_ERROR:
-      return {
-        ...state,
-        error: action.payload.error,
-        isFetching: false,
-      };
+      if (action.payload && isTheSameCharacter(state, action.payload)) {
+        return {
+          ...action.payload,
+          isFetching: false,
+        };
+      }
+
+      return state;
 
     default:
       return state;
