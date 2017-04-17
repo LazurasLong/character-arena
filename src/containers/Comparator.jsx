@@ -4,6 +4,8 @@ import {
   getCharacterRace,
   getCharacterClass,
   getAvailableTalents,
+  composeHomePathname,
+  composeCharactersPathname,
   getSlug,
   getCookie,
   setCookie
@@ -62,6 +64,7 @@ class Comparator extends Component {
     this.handleFetchCharacter = this.handleFetchCharacter.bind(this);
     this.handleSwitchCharacter = this.handleSwitchCharacter.bind(this);
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
+    this.handleCollectionChange = this.handleCollectionChange.bind(this);
 
     const {
       params,
@@ -131,13 +134,7 @@ class Comparator extends Component {
         },
       } = this.state;
 
-      this.context && this.context.router.push(`${
-        HOME
-          .replace(':region', region)
-          .replace(':language', language)
-          .replace('(', '')
-          .replace(')', '')
-      }/`);
+      this.context.router.push(composeHomePathname({ region, language }));
     }
 
     this.fetchInitialData();
@@ -258,34 +255,29 @@ class Comparator extends Component {
     const { dispatch } = this.props;
     const { options: { region, language } } = this.state;
 
-    dispatch(fetchCharacter({ region, language, realm, characterName }))
-      .then(() => {
-        const {
-          location,
-        } = this.props;
-
-        console.log(location.pathname[location.pathname.length - 1]);
-        this.context.router.push(`${
-          location.pathname}${
-            (location.pathname[location.pathname.length - 1] !== ',' && location.pathname[location.pathname.length - 1] !== '/')
-              ? ','
-              : ''}${
-              realm}-${
-                characterName
-              },`);
-      });
+    Promise.all([dispatch(fetchCharacter({ region, language, realm, characterName }))])
+      .then(this.handleCollectionChange);
   }
 
   handleSwitchCharacter({ character }) {
     const { dispatch } = this.props;
 
-    dispatch(switchCharacter(character));
+    Promise.all([dispatch(switchCharacter(character))])
+      .then(this.handleCollectionChange);
   }
 
   handleRemoveCharacter({ character }) {
     const { dispatch } = this.props;
 
-    dispatch(removeCharacter(character));
+    Promise.all([dispatch(removeCharacter(character))])
+      .then(this.handleCollectionChange);
+  }
+
+  handleCollectionChange() {
+    const { characters: { collection }, location } = this.props;
+    const { options: { region, language } } = this.state;
+
+    this.context.router.push(composeCharactersPathname({ region, language, collection }));
   }
 
   render() {

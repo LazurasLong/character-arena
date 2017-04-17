@@ -1,3 +1,5 @@
+import { HOME } from '../constants/appRoutes.js';
+
 /*
   CHARACTER RELATED
 */
@@ -84,6 +86,30 @@ export const composeUrl = ({
     .replace(/:realm/g, character && character.realm)
     .replace(/:characterName/g, character && character.characterName);
 };
+
+export const composeHomePathname = ({
+  region,
+  language,
+}) => HOME
+  .replace(':region', region)
+  .replace(':language', language)
+  .replace('(', '')
+  .replace(')', '')
+  .concat('/');
+
+export const composeCharactersPathname = ({
+  region,
+  language,
+  collection
+}) => {
+  let pathname = composeHomePathname({ region, language });
+
+  collection.forEach(char => {
+    pathname = `${pathname}${char.realm}-${char.name},`;
+  });
+
+  return pathname;
+}
 
 /*
   COOKIES RELATED
