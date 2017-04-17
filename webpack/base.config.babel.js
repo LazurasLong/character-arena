@@ -15,7 +15,7 @@ const ASSETS_REGEX = /\.(jpe?g|png|gif|svg)?$/;
 
 const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
-const WEBAPP_ICONS_PATH = path.resolve(ROOT_PATH, 'src');
+const WEBAPP_ICONS_PATH = path.resolve(ROOT_PATH, 'src', 'images', 'favicons');
 
 const POSTCSS_PLUGINS = postcssConfig.plugins;
 

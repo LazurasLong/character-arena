@@ -47,7 +47,7 @@ export const REGIONS = [
 ];
 
 // Icons
-export const BLIZZARD_ICONS = "assets/blizzard-icons.svg#";
+export const BLIZZARD_ICONS = "/images/blizzard-icons.svg#";
 export const SPEC_ICONS = 'http://media.blizzard.com/wow/icons/36/:iconName.jpg';
 // export const TALENT_ICON = 'http://media.blizzard.com/wow/icons/18/:iconName.jpg';       // Old
 export const TALENT_ICON = 'https://blzmedia-a.akamaihd.net/wow/icons/56/:iconName.jpg';    // New
