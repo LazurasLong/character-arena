@@ -99,9 +99,11 @@ export const composePathname = ({
     .replace(')', '')
     .concat('/');
 
-  collection && collection.forEach(char => {
-    pathname = `${pathname}${char.realm}-${char.name},`;
-  });
+  if (typeof collection !== 'undefined') {
+    collection.forEach(char => {
+      pathname = `${pathname}${char.realm}-${char.name},`;
+    });
+  }
 
   return pathname;
 }
