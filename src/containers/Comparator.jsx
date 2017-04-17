@@ -10,6 +10,7 @@ import {
 } from '../utils/calcs.js';
 
 import { REGIONS } from '../constants/app.js';
+import { HOME } from '../constants/appRoutes.js';
 
 import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
@@ -44,6 +45,10 @@ class Comparator extends Component {
     }).isRequired,
   };
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
+
   static displayName = 'Comparator';
 
   constructor(props) {
@@ -66,7 +71,6 @@ class Comparator extends Component {
     const region = (regionIndex >= 0)
       ? params.region
       : getCookie('region') || 'us';
-
 
     const languageIndex = (regionIndex >= 0)
       ? REGIONS[regionIndex].languages.findIndex(lan => lan.slug === params.language)
@@ -115,6 +119,27 @@ class Comparator extends Component {
   }
 
   componentWillMount() {
+    const {
+      params,
+    } = this.props;
+
+    if ((!params.region || !params.language) && !params.characters) {
+      const {
+        options: {
+          region,
+          language,
+        },
+      } = this.state;
+
+      this.context && this.context.router.push(`
+        HOME
+          .replace(':region', region)
+          .replace(':language', language)
+          .replace('(', '')
+          .replace(')', '')
+      /`);
+    }
+
     this.fetchInitialData();
   }
 
