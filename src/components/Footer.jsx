@@ -1,19 +1,42 @@
 import React from 'react';
+
 import Spacer from '../components/Spacer.jsx';
 
-import { WOWPROGRESS, LEADERBOARDS_PVE, LEADERBOARDS_PVP, WOW_WEB_ENHACER } from '../constants/app.js';
+import {
+  TITLE,
+  SITE_URL,
+  IMPERDIBLESOFT,
+  WOWPROGRESS,
+  LEADERBOARDS_PVE,
+  LEADERBOARDS_PVP,
+  WOW_WEB_ENHACER,
+} from '../constants/app.js';
 
 const Footer = ({ options: { region, language } }) => (
   <footer className="Footer">
-    <Spacer />
     <div className="Footer-left">
-      <img className="Footer-logo" />
+      <p>
+        Created by <a className="Link" target="_blank" rel="noopener noreferrer" href={IMPERDIBLESOFT}>ImperdibleSoft</a>
+      </p>
+      <ul className="Footer-links">
+        <li className="Footer-link">
+          <a
+            className="Link"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={SITE_URL}
+          >
+            <img className="Footer-logo" />
+            {TITLE}
+          </a>
+        </li>
+      </ul>
     </div>
     <div className="Footer-right">
       <p>Some interesting links:</p>
       <ul className="Footer-links">
         <li className="Footer-link">
-          <a 
+          <a
             className="Link"
             target="_blank"
             rel="noopener noreferrer"
@@ -25,7 +48,7 @@ const Footer = ({ options: { region, language } }) => (
           >PvE Leaderboards</a>
         </li>
         <li className="Footer-link">
-          <a 
+          <a
             className="Link"
             target="_blank"
             rel="noopener noreferrer"
@@ -37,7 +60,7 @@ const Footer = ({ options: { region, language } }) => (
           >PvP Leaderboards</a>
         </li>
         <li className="Footer-link">
-          <a 
+          <a
             className="Link"
             target="_blank"
             rel="noopener noreferrer"
@@ -45,7 +68,7 @@ const Footer = ({ options: { region, language } }) => (
           >WoW Progress</a>
         </li>
         <li className="Footer-link">
-          <a 
+          <a
             className="Link"
             target="_blank"
             rel="noopener noreferrer"

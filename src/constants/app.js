@@ -1,9 +1,11 @@
 
 // App data
-export const TITLE = 'WoW Character Comparision';
-export const SLUG = 'wow-character-comparision';
+export const TITLE = 'Character Arena';
+export const SLUG = 'character-arena';
 export const EMAIL = 'rafael.perez@imperdiblesoft.com';
-export const URL = 'https://www.charactercomparision.com';
+export const SITE_URL = 'https://characterarena.com';
+
+
 export const REGIONS = [
   {
     slug: 'us',
@@ -50,6 +52,7 @@ export const SPEC_ICONS = 'http://media.blizzard.com/wow/icons/36/:iconName.jpg'
 export const TALENT_ICON = 'https://blzmedia-a.akamaihd.net/wow/icons/56/:iconName.jpg';    // New
 
 // Links
+export const IMPERDIBLESOFT = 'http://www.imperdiblesoft.com';
 export const WOWPROGRESS = 'https://www.wowprogress.com';
 export const WOWPROGRESS_ICON = `${WOWPROGRESS}/favicon.ico`;
 export const WOWPROGRESS_CHAR = `${WOWPROGRESS}/character/:region/:realm/:characterName`;
