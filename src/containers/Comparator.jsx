@@ -9,6 +9,8 @@ import {
   setCookie
 } from '../utils/calcs.js';
 
+import { REGIONS } from '../constants/app.js';
+
 import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
@@ -56,11 +58,28 @@ class Comparator extends Component {
     this.handleSwitchCharacter = this.handleSwitchCharacter.bind(this);
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
 
+    const {
+      params,
+    } = this.props;
+
+    const regionIndex = REGIONS.findIndex(reg => reg.slug === params.region);
+    const region = (regionIndex >= 0)
+      ? params.region
+      : getCookie('region') || 'us';
+
+
+    const languageIndex = (regionIndex >= 0)
+      ? REGIONS[regionIndex].languages.findIndex(lan => lan.slug === params.language)
+      : undefined;
+    const language = (languageIndex >= 0)
+      ? params.language
+      : getCookie('language') || 'en';
+
     this.state = {
       isSidebarOpen: false,
       options: {
-        region: getCookie('region') || 'us',
-        language: getCookie('language') || 'en',
+        region: region,
+        language: language,
       },
       sections: {
         filters: {
@@ -101,7 +120,6 @@ class Comparator extends Component {
 
   fetchInitialData() {
     const {
-      params,
       dispatch,
     } = this.props;
 
@@ -223,7 +241,7 @@ class Comparator extends Component {
 
         {/* App Header */}
         <Header handleToggleSidebar={this.handleToggleSidebar} />
-        
+
         {/* App Sidebar */}
         <Sidebar
           options={options}
