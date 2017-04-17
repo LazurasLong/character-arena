@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import { TITLE } from '../constants/app.js';
+
 const Header = ({
   handleToggleSidebar,
 }) => (
@@ -7,7 +9,7 @@ const Header = ({
     <div className="Header-bar">
       <img className="Header-logo" />
       <button className="Button Button--invisible Header-menu" onClick={handleToggleSidebar} />
-      <span className="Header-label">WoW Character Comparision</span>
+      <span className="Header-label">{TITLE}</span>
     </div>
   </header>
 );
