@@ -4,7 +4,8 @@ export const TITLE = 'Character Arena';
 export const SLUG = 'character-arena';
 export const EMAIL = 'rafael.perez@imperdiblesoft.com';
 export const SITE_URL = 'https://characterarena.com';
-
+export const COLOR = '#1C110D';
+export const DESCRIPTION = 'Compare your character with others, and learn what you need to change';
 
 export const REGIONS = [
   {
