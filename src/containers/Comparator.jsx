@@ -4,7 +4,6 @@ import {
   getCharacterRace,
   getCharacterClass,
   getAvailableTalents,
-  composeHomePathname,
   composePathname,
   getSlug,
   getCookie,
@@ -134,7 +133,7 @@ class Comparator extends Component {
         },
       } = this.state;
 
-      this.context.router.push(composeHomePathname({ region, language }));
+      this.context.router.push(composePathname({ region, language }));
     }
 
     this.fetchInitialData();
