@@ -99,7 +99,7 @@ export const composePathname = ({
     .replace(')', '')
     .concat('/');
 
-  collection.forEach(char => {
+  collection && collection.forEach(char => {
     pathname = `${pathname}${char.realm}-${char.name},`;
   });
 
