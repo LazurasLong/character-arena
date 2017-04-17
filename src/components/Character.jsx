@@ -28,13 +28,14 @@ export default class CharacterFrame extends Component {
     /* Maybe-Undefined props */
     character: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      thumbnail: PropTypes.string.isRequired,
-      race: PropTypes.object.isRequired,
-      class: PropTypes.object.isRequired,
-      items: PropTypes.object.isRequired,
-      stats: PropTypes.object.isRequired,
-      talents: PropTypes.array.isRequired,
-      availableTalents: PropTypes.object.isRequired,
+      realm: PropTypes.string.isRequired,
+      thumbnail: PropTypes.string,
+      race: PropTypes.object,
+      class: PropTypes.object,
+      items: PropTypes.object,
+      stats: PropTypes.object,
+      talents: PropTypes.array,
+      availableTalents: PropTypes.object,
     }).isRequired,
     comparedTo: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -76,7 +77,7 @@ export default class CharacterFrame extends Component {
         }
 
         {/* Character info */}
-        {character && character.name && !character.isFetching &&
+        {character && !character.isFetching && !character.error &&
           <div className="Character-data">
             <CharacterActions
               character={character}

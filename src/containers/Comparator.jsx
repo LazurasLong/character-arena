@@ -4,10 +4,15 @@ import {
   getCharacterRace,
   getCharacterClass,
   getAvailableTalents,
+  composeHomePathname,
+  composePathname,
   getSlug,
   getCookie,
   setCookie
 } from '../utils/calcs.js';
+
+import { REGIONS } from '../constants/app.js';
+import { HOME } from '../constants/appRoutes.js';
 
 import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
@@ -42,6 +47,10 @@ class Comparator extends Component {
     }).isRequired,
   };
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
+
   static displayName = 'Comparator';
 
   constructor(props) {
@@ -55,12 +64,29 @@ class Comparator extends Component {
     this.handleFetchCharacter = this.handleFetchCharacter.bind(this);
     this.handleSwitchCharacter = this.handleSwitchCharacter.bind(this);
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
+    this.handleDataChange = this.handleDataChange.bind(this);
+
+    const {
+      params,
+    } = this.props;
+
+    const regionIndex = REGIONS.findIndex(reg => reg.slug === params.region);
+    const region = (regionIndex >= 0)
+      ? params.region
+      : getCookie('region') || 'us';
+
+    const languageIndex = (regionIndex >= 0)
+      ? REGIONS[regionIndex].languages.findIndex(lan => lan.slug === params.language)
+      : undefined;
+    const language = (languageIndex >= 0)
+      ? params.language
+      : getCookie('language') || 'en';
 
     this.state = {
       isSidebarOpen: false,
       options: {
-        region: getCookie('region') || 'us',
-        language: getCookie('language') || 'en',
+        region: region,
+        language: language,
       },
       sections: {
         filters: {
@@ -96,12 +122,26 @@ class Comparator extends Component {
   }
 
   componentWillMount() {
+    const {
+      params,
+    } = this.props;
+
+    if ((!params.region || !params.language) && !params.characters) {
+      const {
+        options: {
+          region,
+          language,
+        },
+      } = this.state;
+
+      this.context.router.push(composeHomePathname({ region, language }));
+    }
+
     this.fetchInitialData();
   }
 
   fetchInitialData() {
     const {
-      params,
       dispatch,
     } = this.props;
 
@@ -112,14 +152,45 @@ class Comparator extends Component {
       },
     } = this.state;
 
-    const dataToFetch = [
-      dispatch(fetchRaces({ region, language })),
-      dispatch(fetchClasses({ region, language })),
-      dispatch(fetchRealms({ region, language })),
-      dispatch(fetchTalents({ region, language })),
-    ];
+    const dataToFetch = [];
+    dataToFetch.push(dispatch(fetchRaces({ region, language })));
+    dataToFetch.push(dispatch(fetchClasses({ region, language })));
+    dataToFetch.push(dispatch(fetchTalents({ region, language })));
+    dataToFetch.push(dispatch(fetchRealms({ region, language })));
 
-    Promise.all(dataToFetch);
+    // Get basic data
+    Promise.all(dataToFetch)
+      .then(() => {
+        const {
+          params: { characters },
+        } = this.props;
+
+        // If there are characters on the URL
+        if (characters) {
+
+          const charactersData = [];
+
+          // Go through each character
+          characters.split(',').forEach(char => {
+            const data = char.split('-');
+            if (data && data[0] && data[1]) {
+
+              const character = {
+                region,
+                language,
+                realm: char.split('-')[0],
+                characterName: char.split('-')[1],
+              };
+
+              // Add it to 'data that needs to be fetched'
+              charactersData.push(dispatch(fetchCharacter(character)));
+            }
+          });
+
+          Promise.all(charactersData);
+        }
+      })
+      .catch((errors) => { console.log(errors); });
   }
 
   handleToggleSidebar() {
@@ -143,7 +214,10 @@ class Comparator extends Component {
         ...this.state.options,
         region: region && region.value,
       },
-    }, this.fetchInitialData);
+    }, () => {
+      this.handleDataChange();
+      this.fetchInitialData();
+    });
   }
 
   handleSelectLanguage() {
@@ -161,7 +235,10 @@ class Comparator extends Component {
         ...this.state.options,
         language: language && language.value,
       },
-    }, this.fetchInitialData);
+    }, () => {
+      this.handleDataChange();
+      this.fetchInitialData();
+    });
   }
 
   handleToggleCollapsable({ element }) {
@@ -184,19 +261,29 @@ class Comparator extends Component {
     const { dispatch } = this.props;
     const { options: { region, language } } = this.state;
 
-    dispatch(fetchCharacter({ region, language, realm, characterName }));
+    Promise.all([dispatch(fetchCharacter({ region, language, realm, characterName }))])
+      .then(this.handleDataChange);
   }
 
   handleSwitchCharacter({ character }) {
     const { dispatch } = this.props;
 
-    dispatch(switchCharacter(character));
+    Promise.all([dispatch(switchCharacter(character))])
+      .then(this.handleDataChange);
   }
 
   handleRemoveCharacter({ character }) {
     const { dispatch } = this.props;
 
-    dispatch(removeCharacter(character));
+    Promise.all([dispatch(removeCharacter(character))])
+      .then(this.handleDataChange);
+  }
+
+  handleDataChange() {
+    const { characters: { collection }, location } = this.props;
+    const { options: { region, language } } = this.state;
+
+    this.context.router.push(composePathname({ region, language, collection }));
   }
 
   render() {
@@ -223,7 +310,7 @@ class Comparator extends Component {
 
         {/* App Header */}
         <Header handleToggleSidebar={this.handleToggleSidebar} />
-        
+
         {/* App Sidebar */}
         <Sidebar
           options={options}
@@ -252,21 +339,33 @@ class Comparator extends Component {
 
                 // Get character data
                 const selectedCharacter = {...character};
-                selectedCharacter.race = getCharacterRace({ raceId: selectedCharacter.race, races: races.collection });
-                selectedCharacter.class = getCharacterClass({ classId: selectedCharacter.class, classes: classes.collection });
-                selectedCharacter.availableTalents = getAvailableTalents({ classId: selectedCharacter.class.id || selectedCharacter.class, talents: talents.collection });
-
-                /* ComparedTo data */
                 let comparedTo;
+                if (!selectedCharacter.isFetching && !selectedCharacter.error) {
+                  selectedCharacter.race = getCharacterRace({
+                    raceId: selectedCharacter.race,
+                    races: races.collection
+                  });
+                  selectedCharacter.class = getCharacterClass({
+                    classId: selectedCharacter.class,
+                    classes: classes.collection
+                  });
+                  selectedCharacter.availableTalents = getAvailableTalents({
+                    classId: selectedCharacter.class && selectedCharacter.class.id
+                      ? selectedCharacter.class.id
+                      : selectedCharacter.class,
+                    talents: talents.collection
+                  });
 
-                /* If this is not first character */
-                if (index !== 0) {
+                  /* ComparedTo data */
+                  /* If this is not first character */
+                  if (index !== 0 && characters.collection[0] && !characters.collection[0].isFetching) {
 
-                  // Set the comparedTo character
-                  comparedTo = {...characters.collection[0]};
-                  comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
-                  comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
-                  comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
+                    // Set the comparedTo character
+                    comparedTo = {...characters.collection[0]};
+                    comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
+                    comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
+                    comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
+                  }
                 }
 
                 return (

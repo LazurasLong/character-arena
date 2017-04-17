@@ -1,3 +1,5 @@
+import { HOME } from '../constants/appRoutes.js';
+
 /*
   CHARACTER RELATED
 */
@@ -17,7 +19,9 @@ export const getCharacterClass = ({
   classes,
 }) => {
   const selectedClass = classes.find(c => c.id === classId);
-  selectedClass.slug = getSlug(selectedClass.name);
+  if (selectedClass) {
+    selectedClass.slug =  getSlug(selectedClass.name);
+  }
 
   return selectedClass || classId;
 };
@@ -59,8 +63,9 @@ export const compare = ({
 */
 // Given a name, it'll return a url-friendly slug
 export const getSlug = name => name
-  .replace(' ', '-')
-  .replace("'", '-')
+  .replace(' ', '')
+  .replace("'", '')
+  .replace("-", '')
   .toLowerCase();
 
 // Given a URL and some data, will replace variables on the URL
@@ -81,6 +86,25 @@ export const composeUrl = ({
     .replace(/:realm/g, character && character.realm)
     .replace(/:characterName/g, character && character.characterName);
 };
+
+export const composePathname = ({
+  region,
+  language,
+  collection
+}) => {
+  let pathname = HOME
+    .replace(':region', region)
+    .replace(':language', language)
+    .replace('(', '')
+    .replace(')', '')
+    .concat('/');
+
+  collection.forEach(char => {
+    pathname = `${pathname}${char.realm}-${char.name},`;
+  });
+
+  return pathname;
+}
 
 /*
   COOKIES RELATED

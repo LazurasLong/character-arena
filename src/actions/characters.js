@@ -39,6 +39,10 @@ const fetchCharacter = ({
         FETCH_CHARACTER_SUCCESS,
         FETCH_CHARACTER_ERROR,
       ],
+      extra: {
+        realm,
+        name: characterName,
+      }
     },
   };
 };
