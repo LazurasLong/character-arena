@@ -9,7 +9,7 @@ export default {
 
   output: {
     path: DIST_PATH,
-    filename: 'index.js',
+    filename: 'app.js',
   },
 
   target: 'node',
