@@ -131,13 +131,13 @@ class Comparator extends Component {
         },
       } = this.state;
 
-      this.context && this.context.router.push(`
+      this.context && this.context.router.push(`${
         HOME
           .replace(':region', region)
           .replace(':language', language)
           .replace('(', '')
           .replace(')', '')
-      /`);
+      }/`);
     }
 
     this.fetchInitialData();
@@ -155,12 +155,11 @@ class Comparator extends Component {
       },
     } = this.state;
 
-    const dataToFetch = [
-      dispatch(fetchRaces({ region, language })),
-      dispatch(fetchClasses({ region, language })),
-      dispatch(fetchRealms({ region, language })),
-      dispatch(fetchTalents({ region, language })),
-    ];
+    const dataToFetch = [];
+    dataToFetch.push(dispatch(fetchRaces({ region, language })));
+    dataToFetch.push(dispatch(fetchClasses({ region, language })));
+    dataToFetch.push(dispatch(fetchTalents({ region, language })));
+    dataToFetch.push(dispatch(fetchRealms({ region, language })));
 
     // Get basic data
     Promise.all(dataToFetch)
@@ -176,15 +175,19 @@ class Comparator extends Component {
 
           // Go through each character
           characters.split(',').forEach(char => {
-            const character = {
-              region,
-              language,
-              realm: char.split('-')[0],
-              characterName: char.split('-')[1],
-            };
+            const data = char.split('-');
+            if (data && data[0] && data[1]) {
 
-            // Add it to 'data that needs to be fetched'
-            charactersData.push(dispatch(fetchCharacter(character)));
+              const character = {
+                region,
+                language,
+                realm: char.split('-')[0],
+                characterName: char.split('-')[1],
+              };
+
+              // Add it to 'data that needs to be fetched'
+              charactersData.push(dispatch(fetchCharacter(character)));
+            }
           });
 
           Promise.all(charactersData);
@@ -255,7 +258,22 @@ class Comparator extends Component {
     const { dispatch } = this.props;
     const { options: { region, language } } = this.state;
 
-    dispatch(fetchCharacter({ region, language, realm, characterName }));
+    dispatch(fetchCharacter({ region, language, realm, characterName }))
+      .then(() => {
+        const {
+          location,
+        } = this.props;
+
+        console.log(location.pathname[location.pathname.length - 1]);
+        this.context.router.push(`${
+          location.pathname}${
+            (location.pathname[location.pathname.length - 1] !== ',' && location.pathname[location.pathname.length - 1] !== '/')
+              ? ','
+              : ''}${
+              realm}-${
+                characterName
+              },`);
+      });
   }
 
   handleSwitchCharacter({ character }) {
