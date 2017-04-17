@@ -9,22 +9,23 @@ import CharacterSpec from '../components/CharacterSpec.jsx';
 
 const CharacterHeader = ({
   character,
-  characterRace,
-  characterClass,
   comparedTo,
 }) => (
   <div className="Character-header">
     {/* Character avatar */}
     <CharacterAvatar
       picture={character.thumbnail}
-      faction={characterRace.side}
+      faction={character.race.side}
     />
 
     {/* Character name */}
     <p className="Character-name">{character.level} {character.name}</p>
 
     {/* Character class */}
-    <CharacterClass className="Character-class" characterClass={characterClass} />
+    <CharacterClass
+      className="Character-class"
+      characterClass={character.class}
+    />
 
     {/* Character spec */}
     <CharacterSpec

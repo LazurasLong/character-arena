@@ -1,13 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getCookie, setCookie } from '../utils/calcs.js';
+import {
+  getCharacterRace,
+  getCharacterClass,
+  getAvailableTalents,
+  getSlug,
+  getCookie,
+  setCookie
+} from '../utils/calcs.js';
 
-import { fetchCharacter, fetchRival } from '../actions/characters.js';
+import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
 import Sidebar from '../components/Sidebar.jsx';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
+import CharacterFinder from '../components/CharacterFinder.jsx';
 import Character from '../components/Character.jsx';
 
 class Comparator extends Component {
@@ -45,7 +53,8 @@ class Comparator extends Component {
     this.handleSelectLanguage = this.handleSelectLanguage.bind(this);
     this.handleToggleCollapsable = this.handleToggleCollapsable.bind(this);
     this.handleFetchCharacter = this.handleFetchCharacter.bind(this);
-    this.handleFetchRival = this.handleFetchRival.bind(this);
+    this.handleSwitchCharacter = this.handleSwitchCharacter.bind(this);
+    this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
 
     this.state = {
       isSidebarOpen: false,
@@ -168,17 +177,6 @@ class Comparator extends Component {
           isOpen: !this.state.sections[slug].isOpen,
         },
       },
-    }, () => {
-  
-      /* Go through all children */
-      for (let x in this) {
-        const ref = this[x];
-
-        /* If our collapsable refference exists, toggle it */
-        if (ref && ref[slug] && ref[slug].state) {
-          ref[slug].setState({ isOpen: this.state.sections[slug].isOpen });
-        }
-      }
     });
   }
 
@@ -189,25 +187,27 @@ class Comparator extends Component {
     dispatch(fetchCharacter({ region, language, realm, characterName }));
   }
 
-  handleFetchRival({ realm, characterName }) {
+  handleSwitchCharacter({ character }) {
     const { dispatch } = this.props;
-    const { options: { region, language } } = this.state;
 
-    dispatch(fetchRival({ region, language, realm, characterName }));
+    dispatch(switchCharacter(character));
+  }
+
+  handleRemoveCharacter({ character }) {
+    const { dispatch } = this.props;
+
+    dispatch(removeCharacter(character));
   }
 
   render() {
     const {
-      characters: {
-        character,
-        rival,
-      },
       resources: {
         classes,
         races,
         realms,
         talents,
       },
+      characters,
     } = this.props;
 
     const {
@@ -215,6 +215,8 @@ class Comparator extends Component {
       options,
       sections,
     } = this.state;
+
+    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error);
 
     return (
       <div className="App">
@@ -237,42 +239,61 @@ class Comparator extends Component {
 
         {/* App content */}
         <div className="Comparator">
+          {/* There is an error fetching base data */}
+          {isServiceUnavailable &&
+            <p>Service unavailable</p>
+          }
 
-          {/* First character */}
-          <Character
-            options={options}
-            sections={sections}
-            title="You"
-            ref={(ref) => { this.characterFrame = ref; }}
-            handleToggleCollapsable={this.handleToggleCollapsable}
-            classes={classes.collection}
-            races={races.collection}
-            talents={talents.collection}
-            availableRealms={realms.collection}
-            handleFetchCharacter={this.handleFetchCharacter}
-            character={character}
-          />
+          {/* No errors */}
+          {!isServiceUnavailable &&
+            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
+              {/* Fetched Characters */}
+              {characters.collection.map((character, index) => {
 
-          {/* Second character */}
-          {(
-            (character && character.name && !character.isFetching)
-            || (rival && rival.name && !rival.isFetching)
-          ) &&
-            <Character
-              options={options}
-              sections={sections}
-              title="Your rival"
-              ref={(ref) => { this.rivalFrame = ref; }}
-              handleToggleCollapsable={this.handleToggleCollapsable}
-              classes={classes.collection}
-              races={races.collection}
-              talents={talents.collection}
-              availableRealms={realms.collection}
-              handleFetchCharacter={this.handleFetchRival}
-              character={rival}
-              comparedTo={(character && character.name) ? character : undefined}
-              isRival
-            />
+                // Get character data
+                const selectedCharacter = {...character};
+                selectedCharacter.race = getCharacterRace({ raceId: selectedCharacter.race, races: races.collection });
+                selectedCharacter.class = getCharacterClass({ classId: selectedCharacter.class, classes: classes.collection });
+                selectedCharacter.availableTalents = getAvailableTalents({ classId: selectedCharacter.class.id || selectedCharacter.class, talents: talents.collection });
+
+                /* ComparedTo data */
+                let comparedTo;
+
+                /* If this is not first character */
+                if (index !== 0) {
+
+                  // Set the comparedTo character
+                  comparedTo = {...characters.collection[0]};
+                  comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
+                  comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
+                  comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
+                }
+
+                return (
+                  <Character
+                    key={`character-${index}`}
+                    sections={sections}
+                    handleToggleCollapsable={this.handleToggleCollapsable}
+                    handleSwitchCharacter={this.handleSwitchCharacter}
+                    handleRemoveCharacter={this.handleRemoveCharacter}
+
+                    character={selectedCharacter}
+
+                    comparedTo={comparedTo}
+                    ref={(ref) => { this[`characterFrame${index}`] = ref; }}
+                  />
+                );
+              })}
+
+              {/* New character */}
+              <CharacterFinder
+                collapsableData={sections.filters}
+                reference={(ref) => { this.filters = ref; }}
+                availableRealms={realms.collection}
+                handleToggleCollapsable={this.handleToggleCollapsable}
+                handleFetchCharacter={this.handleFetchCharacter}
+              />
+            </div>
           }
         </div>
 

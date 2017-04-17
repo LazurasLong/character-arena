@@ -2,9 +2,8 @@ import {
   FETCH_CHARACTER_REQUEST,
   FETCH_CHARACTER_SUCCESS,
   FETCH_CHARACTER_ERROR,
-  FETCH_RIVAL_REQUEST,
-  FETCH_RIVAL_SUCCESS,
-  FETCH_RIVAL_ERROR,
+  SWITCH_CHARACTER,
+  REMOVE_CHARACTER,
 } from '../constants/actionTypes.js';
 
 import {
@@ -44,32 +43,34 @@ const fetchCharacter = ({
   };
 };
 
-const fetchRival = ({
-  region,
-  language,
-  realm = defaultRealm,
-  characterName = defaultCharacterName,
-  fields = defaultFields,
+const switchCharacter = ({
+  realm,
+  name,
 }) => {
   return {
-    [CALL_API]: {
-      endpoint: composeUrl({
-        url: CHARACTER,
-        region,
-        language,
-        character: { realm, characterName },
-        fields,
-      }),
-      types: [
-        FETCH_RIVAL_REQUEST,
-        FETCH_RIVAL_SUCCESS,
-        FETCH_RIVAL_ERROR,
-      ],
+    type: SWITCH_CHARACTER,
+    extra: {
+      realm,
+      name,
+    },
+  };
+};
+
+const removeCharacter = ({
+  realm,
+  name,
+}) => {
+  return {
+    type: REMOVE_CHARACTER,
+    extra: {
+      realm,
+      name,
     },
   };
 };
 
 export {
   fetchCharacter,
-  fetchRival,
+  switchCharacter,
+  removeCharacter,
 };

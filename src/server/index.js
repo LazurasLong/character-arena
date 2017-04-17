@@ -1,49 +1,62 @@
-import '../styles/main.scss';
+import * as fs from 'fs';
+import express from 'express';
+import session from 'express-session';
+import sessionFileStore from 'session-file-store';
+import bodyParser from 'body-parser';
+import debug from 'debug';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-// import ReactDOMServer from 'react-dom/server';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
-import thunk from 'redux-thunk';
+import { SESSION_SECRET } from '../../.env.js';
 
 // Application
-import { SLUG } from '../constants/app.js';
-import Routes from '../routes.jsx';
+import routes from '../routes';
 
-// Custom Middlewares
-import api from '../middlewares/api';
+// Custom middlewares
+import reactRouterReduxMiddleware from './middlewares/react-router-redux';
+import reduxStore from './middlewares/redux-store';
 
-import reducers from '../reducers';
+const app = express();
 
-import App from '../components/App.jsx';
-import Comparator from '../containers/Comparator.jsx';
+// To take post parameters
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
-import {
-  HOME,
-  COMPARE,
-} from '../constants/appRoutes.js';
+// parse application/json
+app.use(bodyParser.json());
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(
-  applyMiddleware(thunk, api)
-));
+// Session
+const sessionConf = {
+  store:{
+    type: 'file',
+    file: {
+      path: './.sessions',
+      retries: 2,
+    },
+  },
+};
 
-ReactDOM.render(
-  <Provider store={store || {}}>
-    <Router history={browserHistory || {}}>
-  <Route component={App}>
-    <Route
-      path={HOME}
-      component={Comparator}
-    />
-    <Route
-      path={COMPARE}
-      component={Comparator}
-    />
-  </Route>
-    </Router>
-  </Provider>,
-  document.getElementById(SLUG)
+const FileStore = sessionFileStore(session);
+const store = new FileStore({ ...sessionConf.store.file });
+app.use(
+  session({
+    store,
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  }),
 );
+
+// Serve static files if enabled
+app.use('/assets', express.static('/assets'));
+
+// Redux store. Set redux store into res.locals
+app.use(reduxStore());
+
+// Redux & React-Router Middleware
+app.use(reactRouterReduxMiddleware({ routes }));
+
+// Listen
+app.listen(3000);
+
+if (process.send) process.send('online');
+
+debug('dev')('`server` listening on port %s', 3000);

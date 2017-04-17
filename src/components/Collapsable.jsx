@@ -36,8 +36,9 @@ export default class Collapsable extends Component {
   }
 
   render() {
-    const { title, children } = this.props;
-    const { isOpen } = this.state;
+    const { title, data, children } = this.props;
+    
+    const isOpen = (data && typeof data.isOpen !== 'undefined') ? data.isOpen : this.state.isOpen;
 
     return (
       <section className={`Collapsable ${isOpen ? 'is-open' : ''}`}>

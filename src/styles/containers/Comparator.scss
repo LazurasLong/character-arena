@@ -2,12 +2,13 @@
 
 .Comparator {
   position: relative;
-  float: left;
   z-index: order('content');
-  clear: both;
+  float: left;
+  overflow: auto;
 
-  display: inline-block;
+  display: block;
   width: 100%;
+  min-height: 100%;
   padding: 5px;
 
   background: rgba($base-background, .5);
@@ -25,6 +26,20 @@
   &--lower {
     color: $red;
   }
+
+  &-wrapper {
+    position: relative;
+    float: left;
+
+    display: inline-block;
+    min-width: 100%;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    height: $footer-mobile-height;
+  }
 }
 
 @media screen and (min-width: breakpoint('landscape-tablet')) {
@@ -32,5 +47,9 @@
     left: $sidebar-width;
     width: calc(100% - #{$sidebar-width});
     padding: 20px;
+
+    &:after {
+      height: $footer-desktop-height;
+    }
   }
 }
