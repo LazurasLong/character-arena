@@ -44,7 +44,7 @@ const webpackConfig = {
   output: {
     path: path.resolve(DIST_PATH, 'assets'),
     filename: '[name]-[hash].js',
-    publicPath: 'assets/',
+    publicPath: '/assets/',
   },
 
   module: {
