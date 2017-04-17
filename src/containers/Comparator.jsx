@@ -137,7 +137,35 @@ class Comparator extends Component {
       dispatch(fetchTalents({ region, language })),
     ];
 
-    Promise.all(dataToFetch);
+    // Get basic data
+    Promise.all(dataToFetch)
+      .then(() => {
+        const {
+          params: { characters },
+        } = this.props;
+
+        // If there are characters on the URL
+        if (characters) {
+
+          const charactersData = [];
+
+          // Go through each character
+          characters.split(',').forEach(char => {
+            const character = {
+              region,
+              language,
+              realm: char.split('-')[0],
+              characterName: char.split('-')[1],
+            };
+
+            // Add it to 'data that needs to be fetched'
+            charactersData.push(dispatch(fetchCharacter(character)));
+          });
+
+          Promise.all(charactersData);
+        }
+      })
+      .catch((errors) => { console.log(errors); });
   }
 
   handleToggleSidebar() {
@@ -270,21 +298,33 @@ class Comparator extends Component {
 
                 // Get character data
                 const selectedCharacter = {...character};
-                selectedCharacter.race = getCharacterRace({ raceId: selectedCharacter.race, races: races.collection });
-                selectedCharacter.class = getCharacterClass({ classId: selectedCharacter.class, classes: classes.collection });
-                selectedCharacter.availableTalents = getAvailableTalents({ classId: selectedCharacter.class.id || selectedCharacter.class, talents: talents.collection });
-
-                /* ComparedTo data */
                 let comparedTo;
+                if (!selectedCharacter.isFetching) {
+                  selectedCharacter.race = getCharacterRace({
+                    raceId: selectedCharacter.race,
+                    races: races.collection
+                  });
+                  selectedCharacter.class = getCharacterClass({
+                    classId: selectedCharacter.class,
+                    classes: classes.collection
+                  });
+                  selectedCharacter.availableTalents = getAvailableTalents({
+                    classId: selectedCharacter.class && selectedCharacter.class.id
+                      ? selectedCharacter.class.id
+                      : selectedCharacter.class,
+                    talents: talents.collection
+                  });
 
-                /* If this is not first character */
-                if (index !== 0) {
+                  /* ComparedTo data */
+                  /* If this is not first character */
+                  if (index !== 0 && characters.collection[0] && !characters.collection[0].isFetching) {
 
-                  // Set the comparedTo character
-                  comparedTo = {...characters.collection[0]};
-                  comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
-                  comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
-                  comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
+                    // Set the comparedTo character
+                    comparedTo = {...characters.collection[0]};
+                    comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
+                    comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
+                    comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
+                  }
                 }
 
                 return (

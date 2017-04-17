@@ -6,26 +6,39 @@ import {
   REMOVE_CHARACTER,
 } from '../constants/actionTypes.js';
 
+import { getSlug } from '../utils/calcs.js'
+
 const isTheSameCharacter = (original, compared) => {
-  const result = (original.name === compared.name && original.realm === compared.realm);
-  
+  const result = (original.name === compared.name && getSlug(original.realm) === getSlug(compared.realm));
+
   return result;
 };
 
 const isInCollection = (collection, character) => {
   const result = collection.findIndex(char => isTheSameCharacter(char, character));
+
   return result;
 }
 
 const character = (state, action) => {
   switch (action.type) {
     case FETCH_CHARACTER_SUCCESS:
-      if (isTheSameCharacter(state, action.payload.data)) {
+      if (action.payload && action.payload.data && isTheSameCharacter(state, action.payload.data)) {
         return {
+          ...state,
           ...action.payload.data,
+          isFetching: false,
         };
       }
+
       return state;
+
+    case FETCH_CHARACTER_ERROR:
+      return {
+        ...state,
+        error: action.payload.error,
+        isFetching: false,
+      };
 
     default:
       return state;
@@ -34,7 +47,6 @@ const character = (state, action) => {
 
 const initialState = {
   collection: [],
-  isFetching: false,
 };
 
 export default (state = initialState, action) => {
@@ -42,8 +54,9 @@ export default (state = initialState, action) => {
     case FETCH_CHARACTER_REQUEST:
       return {
         ...state,
-        isFetching: true,
-        error: undefined,
+        collection: isInCollection(state.collection, action.payload) >= 0
+          ? [...state.collection.map(char => character(char, action))]
+          : [...state.collection, {...action.payload, isFetching: true}],
       };
 
     case FETCH_CHARACTER_SUCCESS:
@@ -51,16 +64,15 @@ export default (state = initialState, action) => {
         ...state,
         collection: isInCollection(state.collection, action.payload.data) >= 0
           ? [...state.collection.map(char => character(char, action))]
-          : [...state.collection, {...action.payload.data}],
-        isFetching: false,
-        error: undefined,
+          : [...state.collection, {...action.payload.data, isFetching: false}],
       };
-    
+
     case FETCH_CHARACTER_ERROR:
       return {
         ...state,
-        isFetching: false,
-        error: action.payload.error,
+        collection: [
+          ...state.collection.map(char => character(char, action))
+        ],
       };
 
     case SWITCH_CHARACTER:

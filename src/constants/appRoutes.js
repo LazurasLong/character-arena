@@ -1,3 +1,4 @@
 
 export const HOME = '/(:region-:language)';
-export const COMPARE = '/compare(/:charRealm/:charName)';
+
+export const COMPARE = `${HOME}(/:characters)`;

@@ -17,7 +17,9 @@ export const getCharacterClass = ({
   classes,
 }) => {
   const selectedClass = classes.find(c => c.id === classId);
-  selectedClass.slug = getSlug(selectedClass.name);
+  if (selectedClass) {
+    selectedClass.slug =  getSlug(selectedClass.name);
+  }
 
   return selectedClass || classId;
 };
@@ -59,8 +61,9 @@ export const compare = ({
 */
 // Given a name, it'll return a url-friendly slug
 export const getSlug = name => name
-  .replace(' ', '-')
-  .replace("'", '-')
+  .replace(' ', '')
+  .replace("'", '')
+  .replace("-", '')
   .toLowerCase();
 
 // Given a URL and some data, will replace variables on the URL
