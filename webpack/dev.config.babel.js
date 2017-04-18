@@ -45,18 +45,18 @@ export default {
         test: /\.png$/,
         include: WEBAPP_ICONS_PATH,
         exclude: /node_modules/,
-        loader: 'file-loader',
+        loader: 'url-loader',
         options: {
-          name: '[path][name]_[hash].[ext]',
+          name: '[path][name].[ext]',
         },
       },
       {
         test: IMAGES_REGEX,
         include: SRC_PATH,
         exclude: [/node_modules/, WEBAPP_ICONS_PATH],
-        loader: 'file-loader',
+        loader: 'url-loader',
         options: {
-          name: '[path][name]_[hash].[ext]',
+          name: '[path][name].[ext]',
         },
       },
       {

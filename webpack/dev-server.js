@@ -18,9 +18,6 @@ app.use(
   webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath,
-    stats: {
-      colors: true,
-    },
   }),
 );
 
