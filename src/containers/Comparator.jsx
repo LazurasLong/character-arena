@@ -18,9 +18,10 @@ import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/r
 
 import Sidebar from '../components/Sidebar.jsx';
 import Header from '../components/Header.jsx';
+import Builder from '../components/Builder.jsx';
 import Footer from '../components/Footer.jsx';
-import CharacterFinder from '../components/CharacterFinder.jsx';
 import Character from '../components/Character.jsx';
+import CharacterFinder from '../components/CharacterFinder.jsx';
 
 class Comparator extends Component {
   static propTypes = {
@@ -321,6 +322,14 @@ class Comparator extends Component {
           options={options}
           ref={(ref) => { this.sidebar = ref; }}
           handleToggleCollapsable={this.handleToggleCollapsable}
+        />
+
+        {/* App builder */}
+        <Builder
+          realms={realms}
+          races={races}
+          classes={classes}
+          talents={talents}
         />
 
         {/* App content */}
