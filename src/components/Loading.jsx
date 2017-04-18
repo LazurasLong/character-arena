@@ -5,9 +5,7 @@ import CharacterAvatar from '../components/CharacterAvatar.jsx';
 
 const Loading = () => (
   <div className="Character-header">
-
-    <CharacterAvatar picture={imageResolver('../images/favicons/android-chrome-192x192.png')} />
-
+    <img src={imageResolver('../images/favicons/android-chrome-192x192.png')} />
     <p className="Character-name">Loading fighter's data...</p>
   </div>
 );
