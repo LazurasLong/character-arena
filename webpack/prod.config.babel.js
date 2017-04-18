@@ -43,7 +43,7 @@ export default {
         exclude: /node_modules/,
         loader: 'file-loader',
         options: {
-          name: 'favicons/[name]_[hash].[ext]',
+          name: 'images/favicons/[name]_[hash].[ext]',
         },
       },
       {
