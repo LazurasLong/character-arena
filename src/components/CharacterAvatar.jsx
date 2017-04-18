@@ -20,7 +20,7 @@ const CharacterAvatar = ({
     </div>
     {faction.length > 0 &&
       <svg
-        className="Avatar-faction"
+        className={`Avatar-faction Avatar--${faction}`}
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/2000/xlink"
         viewBox="0 0 64 64"

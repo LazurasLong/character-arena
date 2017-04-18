@@ -2,7 +2,6 @@ import debug from 'debug';
 
 export default (imagePath) => {
   const images = require('../server/webpack-stats.json').images;
-  console.log(images);
 
   // Find the correct image
   const regex = new RegExp(`${imagePath}$`);

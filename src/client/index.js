@@ -10,6 +10,7 @@ import thunk from 'redux-thunk';
 import '../styles/main.scss';
 
 // IMPORTANT: This require is making favicons work. Do not remove
+require.context('../images/', false, /\.(jpe?g|png|gif|svg)?$/);
 require.context('../images/favicons/', false, /\.png$/);
 
 // Application

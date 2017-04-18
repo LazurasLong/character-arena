@@ -9,6 +9,7 @@ $white: rgba(255, 255, 255, 1);
 $black: rgba(0, 0, 0, 1);
 $red: red;
 $green: green;
+$gold: #f8b700;
 
 $color-error: #9f1600;
 $color-success: $green;
@@ -29,7 +30,7 @@ $color-dk: #c41e3b;
 $color-paladin: #f48cba;
 $color-warrior: #c69b6d;
 
-$base-color: #f8b700;
+$base-color: $gold;
 $base-background: #1C110D;
 $base-border: #c77e19;
 
@@ -55,6 +56,7 @@ $avatar-size: 100px;
 
 // Header
 $header-mobile-height: 44px;
+$header-desktop-height: 80px;
 $header-background: $base-background;
 
 // Sidebar

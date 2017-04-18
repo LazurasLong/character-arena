@@ -40,25 +40,22 @@ export default {
 
       {
         test: /\.png$/,
-        include: IMAGES_PATH,
+        include: WEBAPP_ICONS_PATH,
         exclude: /node_modules/,
         loader: 'file-loader',
         options: {
           name: '[path][name]_[hash].[ext]',
         },
       },
-      // {
-      //   test: IMAGES_REGEX,
-      //   include: IMAGES_PATH,
-      //   exclude: [/node_modules/, WEBAPP_ICONS_PATH],
-      //   loader: 'file-loader',
-      //   options: {
-      //     name: '[path][name]_[hash].[ext]',
-      //   },
-      //   // use: [
-      //   //   IMAGE_OPTIMIZER,
-      //   // ],
-      // },
+      {
+        test: IMAGES_REGEX,
+        include: IMAGES_PATH,
+        exclude: [/node_modules/, WEBAPP_ICONS_PATH],
+        loader: 'file-loader',
+        options: {
+          name: '[path][name]_[hash].[ext]',
+        },
+      },
       {
         test: CSS_REGEX,
         include: SRC_PATH,
