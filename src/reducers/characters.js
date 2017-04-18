@@ -44,16 +44,6 @@ const character = (state, action) => {
 
       return state;
 
-    case FETCH_CHARACTER_ERROR:
-      if (action.payload && isTheSameCharacter(state, action.payload)) {
-        return {
-          ...action.payload,
-          isFetching: false,
-        };
-      }
-
-      return state;
-
     default:
       return state;
   }
@@ -67,7 +57,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CHARACTER_REQUEST:
       return {
-        ...state,
         collection: isInCollection(state.collection, action.payload) >= 0
           ? [...state.collection.map(char => character(char, action))]
           : [...state.collection, {...action.payload, isFetching: true}],
@@ -75,7 +64,6 @@ export default (state = initialState, action) => {
 
     case FETCH_CHARACTER_SUCCESS:
       return {
-        ...state,
         collection: isInCollection(state.collection, action.payload.data) >= 0
           ? [...state.collection.map(char => character(char, action))]
           : [...state.collection, {...action.payload.data, isFetching: false}],
@@ -83,10 +71,10 @@ export default (state = initialState, action) => {
 
     case FETCH_CHARACTER_ERROR:
       return {
-        ...state,
         collection: [
-          ...state.collection.map(char => character(char, action))
+          ...state.collection.filter(char => (char.name !== action.payload.name && char.realm !== action.payload.realm)),
         ],
+        error: action.payload.error,
       };
 
     case SWITCH_CHARACTER:
