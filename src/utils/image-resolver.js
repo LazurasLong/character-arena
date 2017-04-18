@@ -12,8 +12,7 @@ export default (imagePath) => {
     const image = images.find(img => regex.test(img.original));
 
     // Serve image.
-    console.log(image && image.compiled);
-    if (image) return image.compiled;
+    if (image) return image.compiled.toString();
 
     // Serve a not-found asset maybe?
     return '';
