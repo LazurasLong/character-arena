@@ -4,7 +4,7 @@ import { ENV } from '../../.env.js';
 
 export default (imagePath) => {
   // Prod enviroment, loading images
-  if (false) {
+  if (!false) {
     const images = require('../server/webpack-stats.json').images;
 
     // Find the correct image
