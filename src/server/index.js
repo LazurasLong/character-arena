@@ -46,7 +46,7 @@ app.use(
 );
 
 // Serve static files if enabled
-app.use('/assets', express.static('/assets'));
+app.use('/assets', express.static('dist/assets'));
 
 // Redux store. Set redux store into res.locals
 app.use(reduxStore());

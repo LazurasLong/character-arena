@@ -24,7 +24,8 @@
     padding: 5px;
   }
 
-  &-logo,
+  &-logo-mobile,
+  &-logo-desktop,
   &-menu,
   &-label {
     position: relative;
@@ -32,11 +33,20 @@
     height: #{$header-mobile-height - 10px};
   }
 
-  &-logo,
+  &-logo-mobile,
+  &-logo-desktop,
   &-menu {
     display: none;
     width: #{$header-mobile-height - 10px};
     padding: 5px;
+  }
+
+  &-logo-mobile {
+    display: inline-block;
+  }
+
+  &-logo-desktop {
+    display: none;
   }
 
   &-menu {
@@ -45,7 +55,7 @@
 
   &-label {
     display: inline-block;
-    padding-left: 20px;
+    padding-left: 10px;
 
     line-height: #{$header-mobile-height - 10px};
     vertical-align: middle;
@@ -57,18 +67,40 @@
     &,
     &-bar{
       width: calc(100% - #{$sidebar-width});
+      height: $header-desktop-height;
     }
 
     &-bar {
       left: $sidebar-width;
     }
 
-    &-logo {
+    &-logo-mobile,
+    &-logo-desktop,
+    &-menu,
+    &-label {
+      height: #{$header-desktop-height - 10px};
+    }
+
+    &-logo-mobile,
+    &-logo-desktop,
+    &-menu {
+      width: #{$header-desktop-height - 10px};
+    }
+
+    &-logo-mobile {
+      display: none;
+    }
+
+    &-logo-desktop {
       display: inline-block;
     }
 
     &-menu {
       display: none;
+    }
+
+    &-label {
+      line-height: #{$header-desktop-height - 10px};
     }
   }
 }

@@ -37,7 +37,7 @@ const startServer = () => {
     // Start watcher on server files and reload browser on change
     watch(
       path.join(__dirname, '../../src/server'),
-      file => !file.match('webpack-stats.json') ? restartServer() : noop(),
+      (e, file) => !file.match('webpack-stats.json') ? restartServer() : noop(),
     );
   });
 };

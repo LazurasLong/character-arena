@@ -7,7 +7,7 @@ import baseConfig, {
   SRC_PATH,
   WEBAPP_ICONS_PATH,
   CSS_REGEX,
-  ASSETS_REGEX,
+  IMAGES_REGEX,
   LOADER_POSTCSS,
   LOADER_SASS,
 } from './base.config.babel.js';
@@ -45,18 +45,18 @@ export default {
         test: /\.png$/,
         include: WEBAPP_ICONS_PATH,
         exclude: /node_modules/,
-        loader: 'file-loader',
+        loader: 'url-loader',
         options: {
-          name: '[path][name]_[hash].[ext]',
+          name: '[path][name].[ext]',
         },
       },
       {
-        test: ASSETS_REGEX,
+        test: IMAGES_REGEX,
         include: SRC_PATH,
         exclude: [/node_modules/, WEBAPP_ICONS_PATH],
-        loader: 'file-loader',
+        loader: 'url-loader',
         options: {
-          name: '[path][name]_[hash].[ext]',
+          name: '[path][name].[ext]',
         },
       },
       {

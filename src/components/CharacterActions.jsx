@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BLIZZARD_ICONS } from '../constants/app.js';
+import imageResolver from '../utils/image-resolver.js';
 
 const CharacterActions = ({
   character,
@@ -22,7 +22,7 @@ const CharacterActions = ({
           xmlnsXlink="http://www.w3.org/2000/xlink"
           viewBox="0 0 64 64"
         >
-          <use xlinkHref={`${BLIZZARD_ICONS}focus`} />
+          <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#objective`} />
         </svg>
       </button>
     }
@@ -39,7 +39,7 @@ const CharacterActions = ({
         xmlnsXlink="http://www.w3.org/2000/xlink"
         viewBox="0 0 64 64"
       >
-        <use xlinkHref={`${BLIZZARD_ICONS}close`} />
+        <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#close`} />
       </svg>
     </button>
   </div>

@@ -1,5 +1,3 @@
-import '../styles/main.scss';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import ReactDOMServer from 'react-dom/server';
@@ -7,6 +5,13 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
 import thunk from 'redux-thunk';
+
+// require the scss and do nothing to expose it to webpack
+import '../styles/main.scss';
+
+// IMPORTANT: This require is making favicons work. Do not remove
+require.context('../images/', false, /\.(jpe?g|png|gif|svg)?$/);
+require.context('../images/favicons/', false, /\.png$/);
 
 // Application
 import configureStore from '../server/configure-store.js';

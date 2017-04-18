@@ -4,7 +4,7 @@ const CharacterClass = ({
   characterClass,
   className,
 }) => (
-  <span className={`${className} color--${characterClass.name.toLowerCase().replace(' ', '-')}`}>
+  <span className={`${className} color--${characterClass.slug}`}>
     {characterClass.name}
   </span>
 );

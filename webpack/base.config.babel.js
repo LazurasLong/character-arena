@@ -11,11 +11,12 @@ const ROOT_PATH = path.resolve(__dirname, '..');
 
 const JS_REGEX = /\.jsx?$/;
 const CSS_REGEX = /\.s?css$/;
-const ASSETS_REGEX = /\.(jpe?g|png|gif|svg)?$/;
+const IMAGES_REGEX = /\.(jpe?g|png|gif|svg)?$/;
 
-const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
-const WEBAPP_ICONS_PATH = path.resolve(ROOT_PATH, 'src');
+const SRC_PATH = path.resolve(ROOT_PATH, 'src');
+const IMAGES_PATH = path.resolve(ROOT_PATH, 'src', 'images');
+const WEBAPP_ICONS_PATH = path.resolve(ROOT_PATH, 'src', 'images', 'favicons');
 
 const POSTCSS_PLUGINS = postcssConfig.plugins;
 
@@ -71,11 +72,12 @@ const webpackConfig = {
 
 export {
   webpackConfig as default,
+  CSS_REGEX,
+  IMAGES_REGEX,
   DIST_PATH,
   SRC_PATH,
   WEBAPP_ICONS_PATH,
-  CSS_REGEX,
-  ASSETS_REGEX,
+  IMAGES_PATH,
   LOADER_POSTCSS,
   LOADER_SASS,
 };

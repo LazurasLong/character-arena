@@ -4,7 +4,8 @@ export const TITLE = 'Character Arena';
 export const SLUG = 'character-arena';
 export const EMAIL = 'rafael.perez@imperdiblesoft.com';
 export const SITE_URL = 'https://characterarena.com';
-
+export const COLOR = '#1C110D';
+export const DESCRIPTION = 'Compare your character with others, and learn what you need to change';
 
 export const REGIONS = [
   {
@@ -46,7 +47,7 @@ export const REGIONS = [
 ];
 
 // Icons
-export const BLIZZARD_ICONS = "assets/blizzard-icons.svg#";
+export const BLIZZARD_ICONS = "/images/blizzard-icons.svg#";
 export const SPEC_ICONS = 'http://media.blizzard.com/wow/icons/36/:iconName.jpg';
 // export const TALENT_ICON = 'http://media.blizzard.com/wow/icons/18/:iconName.jpg';       // Old
 export const TALENT_ICON = 'https://blzmedia-a.akamaihd.net/wow/icons/56/:iconName.jpg';    // New

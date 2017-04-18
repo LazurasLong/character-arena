@@ -40,13 +40,24 @@
     bottom: $avatar-size * .1;
     left: 50%;
 
-    display: none;  // TODO: Remove this when SVGs are available
-    width: $avatar-size * .3;
-    height: $avatar-size * .3;
-    margin-left: ($avatar-size / 2) * -0.9;
+    width: $avatar-size * .4;
+    height: $avatar-size * .4;
+    padding: 3px;
+    margin-left: -$avatar-size * .5;
+    margin-bottom: -$avatar-size * .1;
 
     background: $base-background;
     border: 2px solid $base-border;
     border-radius: 50%;
+  }
+
+  &--horde {
+    background: $color-horde;
+    fill: $black;
+  }
+
+  &--alliance {
+    background: $color-alliance;
+    fill: $gold;
   }
 }
