@@ -19,9 +19,6 @@ export const getCharacterClass = ({
   classes,
 }) => {
   const selectedClass = classes.find(c => c.id === classId);
-  if (selectedClass) {
-    selectedClass.slug =  getSlug(selectedClass.name);
-  }
 
   return selectedClass || classId;
 };

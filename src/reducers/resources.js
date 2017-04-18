@@ -75,7 +75,30 @@ export default (state = initialState, action) => {
         ...state,
         classes: {
           ...state.classes,
-          collection: action.payload.data.classes,
+          collection: action.payload.data.classes.map(c => {
+            let slug;
+
+            switch(c.id) {
+              case 1: slug = 'warrior'; break;
+              case 2: slug = 'paladin'; break;
+              case 3: slug = 'hunter'; break;
+              case 4: slug = 'rogue'; break;
+              case 5: slug = 'priest'; break;
+              case 6: slug = 'death-knight'; break;
+              case 7: slug = 'shaman'; break;
+              case 8: slug = 'mage'; break;
+              case 9: slug = 'warlock'; break;
+              case 10: slug = 'monk'; break;
+              case 11: slug = 'druid'; break;
+              case 12: slug = 'demon-hunter'; break;
+              default: slug = ''; break;
+            }
+
+            return {
+              ...c,
+              slug,
+            };
+          }),
           isFetching: false,
         },
       };
