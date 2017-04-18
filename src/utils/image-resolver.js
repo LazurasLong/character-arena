@@ -4,7 +4,7 @@ import { ENV } from '../../.env.js';
 
 export default (imagePath) => {
   // Prod enviroment, loading images
-  if (false) {
+  if (!false) {
     const images = require('../server/webpack-stats.json').images;
 
     // Find the correct image
@@ -12,7 +12,7 @@ export default (imagePath) => {
     const image = images.find(img => regex.test(img.original));
 
     // Serve image.
-    if (image) return image.compiled;
+    if (image) return image.compiled.toString();
 
     // Serve a not-found asset maybe?
     return '';

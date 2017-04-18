@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Select from '../components/inputs/Select.jsx';
 import Input from '../components/inputs/Input.jsx';
+import Error from '../components/inputs/Error.jsx';
 
 import Collapsable from '../components/Collapsable.jsx';
 
@@ -12,6 +13,7 @@ class CharacterFinder extends Component {
     availableRealms: PropTypes.array.isRequired,
     handleFetchCharacter: PropTypes.func.isRequired,
     handleToggleCollapsable: PropTypes.func,
+    error: PropTypes.object,
   };
 
   static displayName = 'CharacterFinder';
@@ -23,6 +25,7 @@ class CharacterFinder extends Component {
       handleToggleCollapsable,
       handleFetchCharacter,
       availableRealms,
+      error,
     } = this.props;
 
     return (
@@ -63,6 +66,10 @@ class CharacterFinder extends Component {
             }>
               Search
             </button>
+
+            {error &&
+              <Error error={error} />
+            }
           </div>
         </Collapsable>
       </div>

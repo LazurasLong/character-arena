@@ -18,7 +18,7 @@ class Sidebar extends Component {
     } = this.props;
 
     return (
-      <aside className={`Sidebar ${isOpen && 'is-open'}`}>
+      <aside className={`Sidebar ${isOpen ? 'is-open' : ''}`}>
         
         {/* Sidebar head */}
         <div className="Sidebar-head">

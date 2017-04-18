@@ -4,9 +4,9 @@ const Error = ({error}) => {
   const { data } = error;
   
   return (
-  <div className="Error">
-    <p className="Error-msg">{(data && data.reason) || 'Unexpected error'}</p>
-  </div>
+    <div className="Error">
+      <p className="Error-msg">{(data && data.reason) || 'Unexpected error'}</p>
+    </div>
   )
 };
 

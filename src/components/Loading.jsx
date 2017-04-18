@@ -1,13 +1,12 @@
 import React from 'react';
+import imageResolver from '../utils/image-resolver.js';
 
 import CharacterAvatar from '../components/CharacterAvatar.jsx';
 
 const Loading = () => (
   <div className="Character-header">
-
-    <CharacterAvatar />
-
-    <p className="Character-name">Loading...</p>
+    <img src={imageResolver('../images/favicons/android-chrome-192x192.png')} />
+    <p className="Character-name">Loading fighter's data...</p>
   </div>
 );
 
