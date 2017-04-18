@@ -2,7 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
-import baseConfig, { ROOT_PATH, SRC_PATH, DIST_PATH, ASSETS_REGEX } from './base.config.babel.js';
+import baseConfig, { ROOT_PATH, SRC_PATH, DIST_PATH, IMAGES_REGEX } from './base.config.babel.js';
 
 export default {
   entry: path.resolve(SRC_PATH, 'server'),
@@ -38,5 +38,5 @@ export default {
     ...baseConfig.resolve,
   },
 
-  plugins: [new webpack.IgnorePlugin(ASSETS_REGEX)],
+  plugins: [new webpack.IgnorePlugin(IMAGES_REGEX)],
 };

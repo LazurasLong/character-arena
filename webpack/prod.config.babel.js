@@ -2,10 +2,11 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import mqpacker from 'css-mqpacker';
 
 import baseConfig, {
+  IMAGES_REGEX,
+  CSS_REGEX,
   SRC_PATH,
   WEBAPP_ICONS_PATH,
-  ASSETS_REGEX,
-  CSS_REGEX,
+  IMAGES_PATH,
   LOADER_POSTCSS,
   LOADER_SASS,
 } from './base.config.babel.js';
@@ -39,29 +40,25 @@ export default {
 
       {
         test: /\.png$/,
-        include: WEBAPP_ICONS_PATH,
+        include: IMAGES_PATH,
         exclude: /node_modules/,
         loader: 'file-loader',
         options: {
-          name: 'images/favicons/[name]_[hash].[ext]',
+          name: '[path][name]_[hash].[ext]',
         },
       },
-      {
-        test: ASSETS_REGEX,
-        include: SRC_PATH,
-        exclude: [/node_modules/, WEBAPP_ICONS_PATH],
-        use: [
-          {
-            // inline base64 URLs for <=8k images, direct URLs for the rest
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-              name: '[path][name]_[hash].[ext]',
-            },
-          },
-          IMAGE_OPTIMIZER,
-        ],
-      },
+      // {
+      //   test: IMAGES_REGEX,
+      //   include: IMAGES_PATH,
+      //   exclude: [/node_modules/, WEBAPP_ICONS_PATH],
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '[path][name]_[hash].[ext]',
+      //   },
+      //   // use: [
+      //   //   IMAGE_OPTIMIZER,
+      //   // ],
+      // },
       {
         test: CSS_REGEX,
         include: SRC_PATH,
