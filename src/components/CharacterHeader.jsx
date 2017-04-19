@@ -46,7 +46,7 @@ const CharacterHeader = ({
           .replace(':language', 'en')
           .replace(':realm', character.realm)
           .replace(':characterName', character.name)
-      }><img src={WORLDOFWARCRAFT_ICON} /></a>
+      }><img alt="Link to World of Warcraft Armory" src={WORLDOFWARCRAFT_ICON} /></a>
       <a
         className="Character-specIcon"
         title="View on WowProgress"
@@ -56,7 +56,7 @@ const CharacterHeader = ({
           .replace(':region', 'us')
           .replace(':realm', getSlug(character.realm))
           .replace(':characterName', character.name)
-      }><img src={WOWPROGRESS_ICON} /></a>
+      }><img alt="Link to WoWProgress.com" src={WOWPROGRESS_ICON} /></a>
     </div>
   </div>
 );

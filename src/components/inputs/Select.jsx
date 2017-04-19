@@ -12,6 +12,7 @@ const Select = ({
     className="Select"
     required={required}
     ref={reference}
+    label={placeholder}
     defaultValue={value}
     onChange={handleChange}
   >
