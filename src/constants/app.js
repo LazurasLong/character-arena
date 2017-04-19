@@ -4,6 +4,7 @@ export const TITLE = 'Character Arena';
 export const SLUG = 'character-arena';
 export const EMAIL = 'rafael.perez@imperdiblesoft.com';
 export const SITE_URL = 'https://characterarena.com';
+export const REPO_URL = `https://www.github.com/ImperdibleSoft/${SLUG}`;
 export const COLOR = '#1C110D';
 export const DESCRIPTION = 'Compare your character with others, and learn what you need to change';
 
@@ -59,7 +60,7 @@ export const WOWPROGRESS_ICON = `${WOWPROGRESS}/favicon.ico`;
 export const WOWPROGRESS_CHAR = `${WOWPROGRESS}/character/:region/:realm/:characterName`;
 
 export const WORLDOFWARCRAFT = 'https://www.worldofwarcraft.com/:region-:language';
-export const WORLDOFWARCRAFT_ICON = 'http://us.battle.net/wow/static/images/meta/favicon.ico';
+export const WORLDOFWARCRAFT_ICON = 'https://us.battle.net/wow/static/images/meta/favicon.ico';
 export const WORLDOFWARCRAFT_ARMORY = 'http://:region.battle.net/wow/:language/character/:realm/:characterName/simple';
 export const LEADERBOARDS_PVE = `${WORLDOFWARCRAFT}/game/pve/leaderboards`;
 export const LEADERBOARDS_PVP = `${WORLDOFWARCRAFT}/game/pvp/leaderboards/3v3`;

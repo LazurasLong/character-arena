@@ -5,6 +5,7 @@ import Spacer from '../components/Spacer.jsx';
 import {
   TITLE,
   SITE_URL,
+  REPO_URL,
   IMPERDIBLESOFT,
   WOWPROGRESS,
   LEADERBOARDS_PVE,
@@ -28,6 +29,17 @@ const Footer = ({ options: { region, language } }) => (
           >
             <img className="Footer-logo" />
             {TITLE}
+          </a>
+        </li>
+        <li className="Footer-link">
+          <a
+            className="Link"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={REPO_URL}
+          >
+            <img className="Footer-logo" />
+            Github
           </a>
         </li>
       </ul>
