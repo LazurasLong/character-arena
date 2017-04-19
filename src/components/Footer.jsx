@@ -16,33 +16,22 @@ import {
 const Footer = ({ options: { region, language } }) => (
   <footer className="Footer">
     <div className="Footer-left">
-      <p>
-        Created by <a className="Link" target="_blank" rel="noopener noreferrer" href={IMPERDIBLESOFT}>ImperdibleSoft</a>
-      </p>
-      <ul className="Footer-links">
-        <li className="Footer-link">
-          <a
-            className="Link"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={SITE_URL}
-          >
-            <img className="Footer-logo" />
-            {TITLE}
-          </a>
-        </li>
-        <li className="Footer-link">
-          <a
-            className="Link"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={REPO_URL}
-          >
-            <img className="Footer-logo" />
-            Github
-          </a>
-        </li>
-      </ul>
+        <p>Created by <a
+          className="Link"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={IMPERDIBLESOFT}
+        >
+          ImperdibleSoft
+        </a></p>
+        <p>Help us on <a
+          className="Link"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={REPO_URL}
+        >
+          Github
+        </a></p>
     </div>
     <div className="Footer-right">
       <p>Some interesting links:</p>
