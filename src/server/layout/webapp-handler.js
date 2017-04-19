@@ -68,6 +68,12 @@ const getMetas = () => {
 // This is intended to setup different icons to support different OS web applications
 const getLinks = () => {
   const webAppLinks = [
+    // Manifest.json
+    {
+      rel: 'manifest',
+      href: '/assets/manifest.json',
+    },
+
     // // Standard icons
     // { rel: 'shorcut icon', type: 'image/x-icon', href: `/favicon.ico?v=${Math.random()}` },
 

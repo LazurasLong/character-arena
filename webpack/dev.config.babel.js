@@ -51,15 +51,6 @@ export default {
         },
       },
       {
-        test: /manifest\.json/,
-        include: SRC_PATH,
-        exclude: /node_modules/,
-        loader: 'url-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
-      },
-      {
         test: IMAGES_REGEX,
         include: SRC_PATH,
         exclude: [/node_modules/, WEBAPP_ICONS_PATH],

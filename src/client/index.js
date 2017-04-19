@@ -6,6 +6,9 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
 import thunk from 'redux-thunk';
 
+// require the manifest.json
+import '../manifest.json';
+
 // require the scss and do nothing to expose it to webpack
 import '../styles/main.scss';
 
