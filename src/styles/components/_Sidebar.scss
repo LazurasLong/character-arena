@@ -3,7 +3,7 @@
 .Sidebar {
   position: fixed;
   top: 0;
-  left: -$sidebar-width;;
+  left: -$sidebar-width;
   z-index: order('sidebar');
 
   display: inline-block;
@@ -24,10 +24,14 @@
     font-weight: 700;
   }
 
-  &-logo,
+  &-close,
   &-label {
     position: relative;
     display: inline-block;
+  }
+
+  &-close {
+    margin-top: 5px;
   }
 
   &-label {
@@ -88,6 +92,10 @@
 
     &-head {
       padding: 0;
+    }
+
+    &-close {
+      display: none;
     }
 
     &-label {

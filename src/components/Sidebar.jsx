@@ -26,7 +26,7 @@ class Sidebar extends Component {
           
           {/* Close button */}
           <button
-            className="Button Button--icon Button--invisible"
+            className="Button Button--icon Button--invisible Sidebar-close"
             onClick={handleToggleSidebar}
           >
           <svg
