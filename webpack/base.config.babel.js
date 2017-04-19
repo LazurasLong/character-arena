@@ -51,6 +51,13 @@ const webpackConfig = {
   module: {
     rules: [
       {
+        test: /manifest.json$/,
+        loader: 'file-loader?name=manifest.json!web-app-manifest-loader',
+        // options: {
+        //   name: 'manifest.json',
+        // }
+      },
+      {
         test: JS_REGEX,
         include: SRC_PATH,
         exclude: /node_modules/,
