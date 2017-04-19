@@ -8,6 +8,7 @@ const Input = ({
 }) => (
   <input
     type={type}
+    label={placeholder}
     placeholder={placeholder}
     required={required}
     ref={reference}
