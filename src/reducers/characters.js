@@ -72,7 +72,7 @@ export default (state = initialState, action) => {
     case FETCH_CHARACTER_ERROR:
       return {
         collection: [
-          ...state.collection.filter(char => (char.name !== action.payload.name && char.realm !== action.payload.realm)),
+          ...state.collection.filter(char => (char.name !== action.payload.name || char.realm !== action.payload.realm)),
         ],
         error: action.payload.error,
       };
