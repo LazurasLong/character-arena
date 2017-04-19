@@ -3,40 +3,31 @@
 .Sidebar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -$sidebar-width;;
   z-index: order('sidebar');
 
   display: inline-block;
   width: 100%;
   height: 100%;
-
-  margin-left: -100%;
+  max-width: $sidebar-width;
 
   background-color: $base-background;
-  transition: margin-left $animation-duration;
+  transition: left $animation-duration;
 
   &-head {
     position: relative;
     display: block;
     width: 100%;
-    padding-top: 10px;
 
     font-family: $title-font-stack;
     font-size: 16px;
     font-weight: 700;
   }
 
-  &-close,
   &-logo,
   &-label {
     position: relative;
-    float: left;
     display: inline-block;
-  }
-
-  &-close {
-    width: $header-mobile-height;
-    height: $header-mobile-height;
   }
 
   &-label {
@@ -66,23 +57,47 @@
     vertical-align: middle;
   }
 
+  &:before {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: none;
+    width: 100%;
+    height: 100%;
+
+    background: $backdrop-background;
+    content: "";
+  }
+
   &.is-open {
-    margin-left: 0;
+    left: 0;
+
+    &:before {
+      display: block;
+    }
   }
 }
 
 @media screen and (min-width: breakpoint('landscape-tablet')) {
   .Sidebar {
+    left: 0;
+
     width: $sidebar-width;
     height: 100%;
-    margin: 0;
 
     &-head {
       padding: 0;
     }
 
-    &-close {
-      display: none;
+    &-label {
+      height: $header-desktop-height;
+
+      line-height: $header-desktop-height;
+    }
+
+    &:before {
+      display: none !important;
     }
   }
 }

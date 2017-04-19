@@ -24,8 +24,7 @@
     padding: 5px;
   }
 
-  &-logo-mobile,
-  &-logo-desktop,
+  &-logo,
   &-menu,
   &-label {
     position: relative;
@@ -33,20 +32,19 @@
     height: #{$header-mobile-height - 10px};
   }
 
-  &-logo-mobile,
-  &-logo-desktop,
+  &-logo,
   &-menu {
     display: none;
-    width: #{$header-mobile-height - 10px};
+    height: $header-mobile-height;
     padding: 5px;
   }
 
-  &-logo-mobile {
-    display: inline-block;
+  &-logo {
+    display: none;
   }
 
-  &-logo-desktop {
-    display: none;
+  &-logo {
+    padding: #{($header-desktop-height - $header-mobile-height) / 2};
   }
 
   &-menu {
@@ -74,24 +72,18 @@
       left: $sidebar-width;
     }
 
-    &-logo-mobile,
-    &-logo-desktop,
+    &-logo,
     &-menu,
     &-label {
       height: #{$header-desktop-height - 10px};
     }
 
-    &-logo-mobile,
-    &-logo-desktop,
+    &-logo,
     &-menu {
       width: #{$header-desktop-height - 10px};
     }
 
-    &-logo-mobile {
-      display: none;
-    }
-
-    &-logo-desktop {
+    &-logo {
       display: inline-block;
     }
 

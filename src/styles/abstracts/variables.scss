@@ -54,13 +54,14 @@ $btn-color-disabled: #a2a2a2;
 $avatar-size: 100px;
 
 // Header
-$header-mobile-height: 44px;
-$header-desktop-height: 80px;
+$header-mobile-height: 60px;
+$header-desktop-height: 100px;
 $header-background: $base-background;
 
 // Sidebar
 $sidebar-width: 200px;
 $sidebar-background: #211510;
+$backdrop-background: rgba(0, 0, 0, .4);
 
 // Talents
 $talent-height: 32px;
