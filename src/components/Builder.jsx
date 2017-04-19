@@ -23,7 +23,11 @@ const Builder = ({
     <div className={className}>
       <div className="Builder-wrapper">
         <h2 className="Builder-title">Building the arena</h2>
-        <img className="Builder-logo" src={imageResolver('../images/favicons/android-chrome-192x192.png')} />
+        <img
+          alt="App logo"
+          className="Builder-logo"
+          src={imageResolver('../images/favicons/android-chrome-192x192.png')}
+        />
 
         <div className="Builder-info">
           <BuilderItem

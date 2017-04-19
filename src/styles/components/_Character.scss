@@ -42,6 +42,11 @@
     }
   }
 
+  &-placeholder {
+    width: $avatar-size;
+    height: $avatar-size;
+  }
+
   &-name {
     font-family: $title-font-stack;
     font-weight: 700;

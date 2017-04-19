@@ -13,6 +13,7 @@ const CharacterAvatar = ({
     <div className="Avatar-wrapper">
       {picture &&
         <img
+          alt="Character avatar"
           className="Avatar-picture"
           src={`${AVATAR_URL}${picture}`}
         />

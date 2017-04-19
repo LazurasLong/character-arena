@@ -19,7 +19,11 @@ const Header = ({
           <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#menu`} />
         </svg>
       </button>
-      <img className="Header-logo" src={imageResolver('../images/favicons/favicon-96x96.png')} />
+      <img
+        alt="App logo"
+        className="Header-logo"
+        src={imageResolver('../images/favicons/favicon-96x96.png')}
+      />
       <span className="Header-label">{TITLE}</span>
     </div>
   </header>
