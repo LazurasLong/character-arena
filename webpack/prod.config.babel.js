@@ -1,5 +1,9 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin';
 import mqpacker from 'css-mqpacker';
+
+import { SLUG } from '../src/constants/app.js';
+import { version } from '../src/manifest.json';
 
 import baseConfig, {
   IMAGES_REGEX,
@@ -86,6 +90,15 @@ export default {
   plugins: [
     new ExtractTextPlugin({
       filename: 'styles/[name]-[hash].min.css',
+    }),
+
+    new SWPrecacheWebpackPlugin({
+      cacheId: `${SLUG}-${version}`,
+      minify: true,
+      // runtimeCaching: [{
+      //   handler: 'cacheFirst',
+      //   urlPattern: /[.]mp3$/,
+      // }],
     }),
 
     ...baseConfig.plugins,
