@@ -35,10 +35,20 @@ import baseConfig, {
 const IMAGE_OPTIMIZER = {
   loader: 'image-webpack-loader',
   options: {
-    progressive: true,
+    // interlaced: false,
+    mozjpeg: {
+      progressive: true,
+    },
     gifsicle: {
       interlaced: true,
     },
+    optipng: {
+      optimizationLevel: 7,
+    },
+    // pngquant: {
+    //   quality: '75-90',
+    //   speed: 3,
+    // },
     svgo: {
       cleanupIDs: false,
     },
@@ -63,19 +73,29 @@ export default {
         test: /\.png$/,
         include: WEBAPP_ICONS_PATH,
         exclude: /node_modules/,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name]_[hash].[ext]',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name]_[hash].[ext]',
+            },
+          },
+          IMAGE_OPTIMIZER,
+        ],
       },
       {
         test: IMAGES_REGEX,
         include: IMAGES_PATH,
         exclude: [/node_modules/, WEBAPP_ICONS_PATH],
-        loader: 'file-loader',
-        options: {
-          name: '[path][name]_[hash].[ext]',
-        },
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name]_[hash].[ext]',
+            },
+          },
+          IMAGE_OPTIMIZER,
+        ],
       },
       {
         test: CSS_REGEX,
