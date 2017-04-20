@@ -44,6 +44,13 @@ export default (html, initialData, initializer) => {
           .join('\n')
         }
         ${initializer ? initializer : ''}
+        <script type="text/javascript">
+          (function() {
+            if('serviceWorker' in navigator) {
+              navigator.serviceWorker.register('/assets/service-worker.js');
+            }
+          })();
+        </script>
       </body>
     </html>`
   );
