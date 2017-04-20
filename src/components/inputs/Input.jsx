@@ -6,13 +6,17 @@ const Input = ({
   required,
   reference,
 }) => (
-  <input
-    type={type}
-    label={placeholder}
-    placeholder={placeholder}
-    required={required}
-    ref={reference}
-  />
+  <label
+    className="Input"
+  >
+    <span className="Input-label">{placeholder}</span>
+    <input
+      className="Input-field"
+      type={type}
+      required={required}
+      ref={reference}
+    />
+  </label>
 );
 
 Input.propTypes = {

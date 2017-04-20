@@ -55,12 +55,12 @@ const CharacterTalents = ({
   }
 
   return (
-    <div className="Talents">
+    <div className="CharacterTalents">
       {talentsGrid.map((tier, index) => (
-        <div className="Talents-tier" key={`tier-${index}`}>
+        <div className="CharacterTalents-tier" key={`tier-${index}`}>
           {tier.map((talent, index2) => (
             <div
-              className={` Talents-column ${
+              className={` CharacterTalents-column ${
                 talent.isUsed ? 'is-used' : ''
               } ${
                 talent.isActive ? 'is-active' : ''

@@ -3,17 +3,32 @@
 .Select {
   position: relative;
 
-  display: block;
-  width: 100%;
-  height: 45px;
-  padding: 10px;
-  padding-right: 42px;
 
-  color: $black;
-  font-family: $list-font-stack;
-  font-size: 18px;
-  font-weight: 700;
-  text-align: center;
+  color: #fff;
+  font-family: $text-font-stack;
+  font-size: 14px;
 
-  background: $base-color;
+  &,
+  &-label,
+  &-field {
+    display: block;
+    width: 100%;
+  }
+
+  &-label {
+    padding: 10px 0;
+  }
+
+  &-field {
+    height: 45px;
+    padding: 10px;
+    padding-right: 42px;
+
+    color: $black;
+    font-family: $list-font-stack;
+    font-size: 18px;
+    font-weight: 700;
+
+    background: $base-color;
+  }
 }

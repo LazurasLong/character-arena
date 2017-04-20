@@ -1,11 +1,20 @@
-/** @define Talents */
-.Talents {
+/** @define CharacterTalents */
+.CharacterTalents {
 
   &-tier {
     position: relative;
     display: block;
 
     width: 100%;
+  }
+
+  &-talentIcon {
+    width: $talent-height;
+    height: $talent-height;
+    padding: 2px;
+
+    border-radius: 2px;
+    border: 2px solid transparent;
   }
 
   &-column {
@@ -22,30 +31,21 @@
     }
 
     &.is-active{
-      .Talents-talentIcon {
+      .CharacterTalents-talentIcon {
         border-color: $green;
       }
     }
 
     &.is-rival {
-      .Talents-talentIcon {
+      .CharacterTalents-talentIcon {
         border-color: $red;
       }
     }
 
     &.is-used.is-rival {
-      .Talents-talentIcon {
+      .CharacterTalents-talentIcon {
         border-color: transparent;
       }
     }
-  }
-
-  &-talentIcon {
-    width: $talent-height;
-    height: $talent-height;
-    padding: 2px;
-
-    border-radius: 2px;
-    border: 2px solid transparent;
   }
 }

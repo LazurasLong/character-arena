@@ -14,18 +14,19 @@
   'components/inputs/Button',
   'components/inputs/Error',
   'components/inputs/Input',
+  'components/inputs/Link',
   'components/inputs/Select',
-  'components/Avatar',
-  'components/Attributes',
   'components/Builder',
   'components/Character',
+  'components/CharacterActions',
+  'components/CharacterAttributes',
+  'components/CharacterAvatar',
+  'components/CharacterTalents',
   'components/Collapsable',
   'components/Footer',
   'components/Header',
-  'components/Link',
-  'components/Spacer',
   'components/Sidebar',
-  'components/Talents';
+  'components/Spacer';
 
 html,
 body {

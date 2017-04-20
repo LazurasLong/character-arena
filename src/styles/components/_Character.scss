@@ -16,10 +16,6 @@
   background-color: rgba($base-background, .7);
   border-radius: 5px;
 
-  &-actions {
-    text-align: right;
-  }
-
   &-title {
     font-size: 20px;
     font-weight: normal;
@@ -31,7 +27,7 @@
     
     text-align: left;
 
-    * {
+    & > * {
       margin: 10px 0;
     }
   }

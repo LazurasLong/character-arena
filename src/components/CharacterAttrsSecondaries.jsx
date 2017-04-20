@@ -22,7 +22,7 @@ const CharacterAttrsSecondaries = ({
 
 
   return (
-    <div className={`Attributes ${hideLabels && 'Attributes--right'}`}>
+    <div className={`CharacterAttributes ${hideLabels && 'CharacterAttributes--right'}`}>
 
       <CharacterAttribute
         label="Critical"

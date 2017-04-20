@@ -6,7 +6,7 @@
 
   display: block;
   width: 100%;
-  height: $footer-mobile-height;
+  min-height: $footer-mobile-height;
   padding: 20px;
 
   font-size: 11px;
@@ -18,6 +18,8 @@
   &-right {
     width: 100%;
     padding: 10px 20px;
+
+    background: $base-background;
   }
 
   &-link {
@@ -33,7 +35,7 @@
   .Footer{
     left: $sidebar-width;
     width: calc(100% - #{$sidebar-width});
-    height: $footer-desktop-height;
+    min-height: $footer-desktop-height;
 
     font-size: 13px;
 

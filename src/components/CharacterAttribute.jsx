@@ -9,15 +9,15 @@ const CharacterAttribute = ({
   hideLabels,
   isPercentage,
 }) => (
-  <div className="Attributes-item">
+  <div className="CharacterAttributes-item">
     {/* Show labels */}
     {!hideLabels &&
-      <span className="Attributes-label">{label}</span>
+      <span className="CharacterAttributes-label">{label}</span>
     }
 
     {/* Show difference */}
     {typeof difference !== 'undefined' &&
-      <span className={`Attributes-value Comparator-difference ${(difference > 0) ? 'Comparator--greater' : 'Comparator--lower'}`}>
+      <span className={`CharacterAttributes-value Comparator-difference ${(difference > 0) ? 'Comparator--greater' : 'Comparator--lower'}`}>
         { (difference > 0) ? `+${difference}` : difference}{isPercentage ? '%' : ''}
         {typeof percentageDifference !== 'undefined' &&
           <span>
@@ -29,7 +29,7 @@ const CharacterAttribute = ({
     }
 
     {/* Show values */}
-    <span className="Attributes-value">
+    <span className="CharacterAttributes-value">
       {`${parseInt(value, 10)}${isPercentage ? '%' : ''}`}
       {typeof percentageValue !== 'undefined' &&
         <span>

@@ -8,7 +8,7 @@ const CharacterActions = ({
   handleRemoveCharacter,
   isMain,
 }) => (
-  <div className="Character-actions">
+  <div className="CharacterActions">
     {/* Switch character */}
     {!isMain &&
       <button
