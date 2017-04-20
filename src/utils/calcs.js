@@ -103,7 +103,18 @@ export const composePathname = ({
   }
 
   return pathname;
-}
+};
+
+export const composeUrlPattern = (url) => {
+  const pattern = url
+    .replace(':region', '(.*)')
+    .replace(':language', '(.*)')
+    .replace(':realm', '(.*)')
+    .replace(':characterName', '(.*)')
+    .replace(':iconName', '(.*)');
+
+  return new RegExp(pattern);
+};
 
 /*
   COOKIES RELATED

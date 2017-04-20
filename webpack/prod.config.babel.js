@@ -1,8 +1,22 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin';
 import mqpacker from 'css-mqpacker';
+import { composeUrlPattern } from '../src/utils/calcs.js';
 
-import { SLUG } from '../src/constants/app.js';
+import {
+  SLUG,
+  SITE_URL,
+  SPEC_ICONS,
+  TALENT_ICON,
+  WOWPROGRESS_ICON,
+  WORLDOFWARCRAFT_ICON,
+} from '../src/constants/app.js';
+
+import {
+  BASE_URL,
+  AVATAR_URL,
+} from '../src/constants/apiRoutes.js';
+
 import { version } from '../src/manifest.json';
 
 import baseConfig, {
@@ -96,10 +110,44 @@ export default {
     new SWPrecacheWebpackPlugin({
       cacheId: `${SLUG}-${version}`,
       minify: true,
-      // runtimeCaching: [{
-      //   handler: 'cacheFirst',
-      //   urlPattern: /[.]mp3$/,
-      // }],
+      runtimeCaching: [
+        // App itself
+        {
+          // urlPattern: new RegExp('http://localhost:3000/'),
+          urlPattern: new RegExp(SITE_URL),
+          handler: 'fastest',
+        },
+
+        // External icons
+        {
+          urlPattern: composeUrlPattern(SPEC_ICONS),
+          handler: 'fastest',
+        },
+        {
+          urlPattern: composeUrlPattern(TALENT_ICON),
+          handler: 'fastest',
+        },
+        {
+          urlPattern: composeUrlPattern(WOWPROGRESS_ICON),
+          handler: 'fastest',
+        },
+        {
+          urlPattern: composeUrlPattern(WORLDOFWARCRAFT_ICON),
+          handler: 'fastest',
+        },
+
+        // API Request
+        {
+          urlPattern: composeUrlPattern(BASE_URL),
+          handler: 'fastest',
+        },
+
+        // Character avatars
+        {
+          urlPattern: composeUrlPattern(AVATAR_URL),
+          handler: 'fastest',
+        },
+      ],
     }),
 
     ...baseConfig.plugins,
