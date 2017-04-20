@@ -1,14 +1,29 @@
 /** @define Input */
 
-.Input,
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  
+.Input {
+  position: relative;
+
   color: #fff;
   font-family: $text-font-stack;
   font-size: 14px;
-  
-  background: rgba(0,0,0,.5);
-  border: solid 1px #504137;
+
+  &,
+  &-label,
+  &-field {
+    display: block;
+    width: 100%;
+  }
+
+  &-label {
+    padding: 10px 0;
+  }
+
+  &-field {
+    padding: 10px;
+
+    color: inherit;
+
+    background: rgba(0,0,0,.5);
+    border: solid 1px #504137;
+  }
 }

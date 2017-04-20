@@ -5,7 +5,7 @@ const CharacterTalentsIcon = ({ icon, description }) => icon
   ? (
     <img
       alt="Talent icon"
-      className="Talents-talentIcon"
+      className="CharacterTalents-talentIcon"
       src={TALENT_ICON.replace(':iconName', icon)}
       title={description}
     />

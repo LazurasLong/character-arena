@@ -20,7 +20,7 @@ const CharacterAttrsItems = ({
   }
 
   return (
-    <div className={`Attributes ${hideLabels && 'Attributes--right'}`}>
+    <div className={`CharacterAttributes ${hideLabels && 'CharacterAttributes--right'}`}>
 
       {/* Average item level */}
       <CharacterAttribute
