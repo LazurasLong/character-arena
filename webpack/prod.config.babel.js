@@ -8,6 +8,7 @@ import { version } from '../src/manifest.json';
 import baseConfig, {
   IMAGES_REGEX,
   CSS_REGEX,
+  DIST_PATH,
   SRC_PATH,
   WEBAPP_ICONS_PATH,
   IMAGES_PATH,

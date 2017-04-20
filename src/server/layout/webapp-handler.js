@@ -71,7 +71,7 @@ const getLinks = () => {
     // Manifest.json
     {
       rel: 'manifest',
-      href: '/assets/manifest.json',
+      href: '/manifest.json',
     },
 
     // // Standard icons

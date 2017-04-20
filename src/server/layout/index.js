@@ -47,7 +47,7 @@ export default (html, initialData, initializer) => {
         <script type="text/javascript">
           (function() {
             if('serviceWorker' in navigator) {
-              navigator.serviceWorker.register('/assets/service-worker.js');
+              navigator.serviceWorker.register('/service-worker.js');
             }
           })();
         </script>

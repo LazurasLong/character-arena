@@ -43,9 +43,9 @@ const webpackConfig = {
   entry: ['babel-polyfill', './src/client/'],
 
   output: {
-    path: path.resolve(DIST_PATH, 'assets'),
+    path: DIST_PATH,
     filename: '[name]-[hash].js',
-    publicPath: '/assets/',
+    publicPath: '/',
   },
 
   module: {
