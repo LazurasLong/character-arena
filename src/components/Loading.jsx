@@ -3,7 +3,7 @@ import imageResolver from '../utils/image-resolver.js';
 
 import CharacterAvatar from '../components/CharacterAvatar.jsx';
 
-const Loading = () => (
+const LoadingCharacter = () => (
   <div className="Character-header">
     <img
       alt="Loading character placeholder"
@@ -14,4 +14,9 @@ const Loading = () => (
   </div>
 );
 
-export default Loading;
+const Loading = ({ className }) => <p className={className}>Loading</p>
+
+export {
+  LoadingCharacter as default,
+  Loading,
+};

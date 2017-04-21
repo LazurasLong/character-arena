@@ -11,7 +11,7 @@ const Builder = ({
 }) => {
 
   /* All info has been loaded */
-  const className = `Builder ${(
+  const className = `Character Builder ${(
     true
     && !realms.isFetching && !realms.error && realms.collection.length > 0
     && !races.isFetching && !races.error && races.collection.length > 0
