@@ -373,6 +373,8 @@ class Comparator extends Component {
                 <Character
                   key={`character-${index}`}
                   sections={sections}
+                  region={options.region}
+                  language={options.language}
                   handleToggleCollapsable={this.handleToggleCollapsable}
                   handleSwitchCharacter={this.handleSwitchCharacter}
                   handleRemoveCharacter={this.handleRemoveCharacter}
