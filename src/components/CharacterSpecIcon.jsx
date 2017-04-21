@@ -1,12 +1,17 @@
 import React from 'react';
-import { SPEC_ICONS } from '../constants/app.js';
+import { fillUrlData } from '../utils/calcs.js';
+
+import { TALENT_ICON } from '../constants/app.js';
 
 const CharacterSpecIcon = ({ icon }) => icon
   ? (
     <img
       alt={`Specialization icon`}
       className="Character-specIcon"
-      src={SPEC_ICONS.replace(':iconName', icon)}
+      src={fillUrlData({
+        url: TALENT_ICON,
+        iconName: icon
+      })}
     />
   )
   : <div />;

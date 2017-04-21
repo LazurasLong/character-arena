@@ -1,4 +1,5 @@
 import React from 'react';
+import { fillUrlData } from '../utils/calcs.js';
 
 import Spacer from '../components/Spacer.jsx';
 
@@ -41,11 +42,11 @@ const Footer = ({ options: { region, language } }) => (
             className="Link"
             target="_blank"
             rel="noopener noreferrer"
-            href={
-              LEADERBOARDS_PVE
-              .replace(':region', region)
-              .replace(':language', language)
-            }
+            href={fillUrlData({
+              url: LEADERBOARDS_PVE,
+              region: region,
+              language: language,
+            })}
           >PvE Leaderboards</a>
         </li>
         <li className="Footer-link">
@@ -53,11 +54,11 @@ const Footer = ({ options: { region, language } }) => (
             className="Link"
             target="_blank"
             rel="noopener noreferrer"
-            href={
-              LEADERBOARDS_PVP
-              .replace(':region', region)
-              .replace(':language', language)
-            }
+            href={fillUrlData({
+              url: LEADERBOARDS_PVP,
+              region: region,
+              language: language,
+            })}
           >PvP Leaderboards</a>
         </li>
         <li className="Footer-link">
