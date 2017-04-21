@@ -19,6 +19,8 @@ export default class CharacterFrame extends Component {
   static propTypes = {
     /* Required props */
     sections: PropTypes.object.isRequired,
+    region: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     handleToggleCollapsable: PropTypes.func.isRequired,
 
     /* Optional props */
@@ -54,6 +56,8 @@ export default class CharacterFrame extends Component {
   render() {
     const {
       sections,
+      region,
+      language,
       handleToggleCollapsable,
 
       handleFetchCharacter,
@@ -89,6 +93,8 @@ export default class CharacterFrame extends Component {
             <CharacterHeader
               character={character}
               comparedTo={comparedTo}
+              region={region}
+              language={language}
             />
 
             {/* Item level */}

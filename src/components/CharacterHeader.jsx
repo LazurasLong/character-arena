@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSlug } from '../utils/calcs.js';
+import { getSlug, fillUrlData } from '../utils/calcs.js';
 
 import { WOWPROGRESS_CHAR, WOWPROGRESS_ICON, WORLDOFWARCRAFT_ARMORY, WORLDOFWARCRAFT_ICON } from '../constants/app.js';
 
@@ -10,6 +10,8 @@ import CharacterSpec from '../components/CharacterSpec.jsx';
 const CharacterHeader = ({
   character,
   comparedTo,
+  region,
+  language,
 }) => (
   <div className="Character-header">
     {/* Character avatar */}
@@ -41,21 +43,25 @@ const CharacterHeader = ({
         title="View on World of Warcraft armory"
         target="_blank"
         rel="noopener noreferrer"
-        href={WORLDOFWARCRAFT_ARMORY
-          .replace(':region', 'us')
-          .replace(':language', 'en')
-          .replace(':realm', character.realm)
-          .replace(':characterName', character.name)
+        href={fillUrlData({
+          url: WORLDOFWARCRAFT_ARMORY,
+          region: region,
+          language: language,
+          realm: character.realm,
+          characterName: character.name,
+        })
       }><img alt="Link to World of Warcraft Armory" src={WORLDOFWARCRAFT_ICON} /></a>
       <a
         className="Character-specIcon"
         title="View on WowProgress"
         target="_blank"
         rel="noopener noreferrer"
-        href={WOWPROGRESS_CHAR
-          .replace(':region', 'us')
-          .replace(':realm', getSlug(character.realm))
-          .replace(':characterName', character.name)
+        href={fillUrlData({
+          url: WOWPROGRESS_CHAR,
+          region: region,
+          realm: character.realm,
+          characterName: character.name,
+        })
       }><img alt="Link to WoWProgress.com" src={WOWPROGRESS_ICON} /></a>
     </div>
   </div>

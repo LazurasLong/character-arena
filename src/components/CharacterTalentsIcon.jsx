@@ -1,4 +1,6 @@
 import React from 'react';
+import { fillUrlData } from '../utils/calcs.js';
+
 import { TALENT_ICON } from '../constants/app.js';
 
 const CharacterTalentsIcon = ({ icon, description }) => icon
@@ -6,7 +8,10 @@ const CharacterTalentsIcon = ({ icon, description }) => icon
     <img
       alt="Talent icon"
       className="CharacterTalents-talentIcon"
-      src={TALENT_ICON.replace(':iconName', icon)}
+      src={fillUrlData({
+        url: TALENT_ICON,
+        iconName: icon
+      })}
       title={description}
     />
   )

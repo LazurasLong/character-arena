@@ -65,6 +65,22 @@ export const getSlug = name => name
   .replace("-", '')
   .toLowerCase();
 
+export const fillUrlData = ({
+  url,
+  region,
+  language,
+  realm,
+  characterName,
+  iconName,
+}) => {
+  return url
+    .replace(/:region/g, region)
+    .replace(/:language/g, language)
+    .replace(/:realm/g, realm)
+    .replace(/:characterName/g, characterName)
+    .replace(/:iconName/g, iconName);
+};
+
 // Given a URL and some data, will replace variables on the URL
 export const composeUrl = ({
   url,
@@ -77,11 +93,13 @@ export const composeUrl = ({
     ? `${url}?locale=:language_:region&fields=${fields.map(f => `${f}`)}`
     : `${url}?locale=:language_:region`;
 
-  return constructedURL
-    .replace(/:region/g, region)
-    .replace(/:language/g, language)
-    .replace(/:realm/g, character && character.realm)
-    .replace(/:characterName/g, character && character.characterName);
+  return fillUrlData({
+    url: constructedURL,
+    region,
+    language,
+    realm: character && character.realm,
+    characterName: character && character.characterName,
+  });
 };
 
 export const composePathname = ({
@@ -106,12 +124,14 @@ export const composePathname = ({
 };
 
 export const composeUrlPattern = (url) => {
-  const pattern = url
-    .replace(':region', '(.*)')
-    .replace(':language', '(.*)')
-    .replace(':realm', '(.*)')
-    .replace(':characterName', '(.*)')
-    .replace(':iconName', '(.*)');
+  const pattern = fillUrlData({
+    url: url,
+    region: '(.*)',
+    language: '(.*)',
+    realm: '(.*)',
+    characterName: '(.*)',
+    iconName: '(.*)',
+  });
 
   return new RegExp(pattern);
 };

@@ -119,10 +119,11 @@ export default {
         },
 
         // External icons
-        {
-          urlPattern: composeUrlPattern(SPEC_ICONS),
-          handler: 'fastest',
-        },
+        // Using talent icons instead
+        // {
+        //   urlPattern: composeUrlPattern(SPEC_ICONS),
+        //   handler: 'fastest',
+        // },
         {
           urlPattern: composeUrlPattern(TALENT_ICON),
           handler: 'fastest',
