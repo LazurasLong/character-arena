@@ -324,17 +324,17 @@ class Comparator extends Component {
           handleToggleCollapsable={this.handleToggleCollapsable}
         />
 
-        {/* App builder */}
-        <Builder
-          realms={realms}
-          races={races}
-          classes={classes}
-          talents={talents}
-        />
-
         {/* App content */}
         <div className="Comparator">
           <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
+            {/* App builder */}
+            <Builder
+              realms={realms}
+              races={races}
+              classes={classes}
+              talents={talents}
+            />
+
             {/* Fetched Characters */}
             {characters.collection.map((character, index) => {
 
