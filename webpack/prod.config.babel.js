@@ -1,6 +1,8 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
 import mqpacker from 'css-mqpacker';
+
 import { composeUrlPattern } from '../src/utils/calcs.js';
 
 import {
@@ -149,6 +151,11 @@ export default {
           handler: 'fastest',
         },
       ],
+    }),
+
+    new CompressionPlugin({
+      threshold: 20480,
+      minRatio: 0.6,
     }),
 
     ...baseConfig.plugins,
