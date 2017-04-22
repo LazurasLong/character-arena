@@ -17,6 +17,7 @@
     "axios": "^0.16.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.17.1",
+    "compression": "^1.6.2",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
     "fs": "^0.0.1-security",
