@@ -6,7 +6,9 @@ import { BASE_URL } from '../constants/apiRoutes.js';
 
 class Client {
   constructor() {
-    this.client = axios.create();
+    this.client = axios.create({
+      'Content-Encoding': 'gzip',
+    });
 
     // Response interceptors
     const handleResponseSuccess = ({ data }) => data;

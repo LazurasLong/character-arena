@@ -3,6 +3,7 @@ import express from 'express';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 import bodyParser from 'body-parser';
+import compression from 'compression';
 import debug from 'debug';
 
 import { SESSION_SECRET } from '../../.env.js';
@@ -44,6 +45,9 @@ app.use(
     saveUninitialized: false,
   }),
 );
+
+// Enable compressed files
+app.use(compression());
 
 // Serve static files if enabled
 app.use('/', express.static('dist/'));
