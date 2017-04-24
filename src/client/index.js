@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
 import thunk from 'redux-thunk';
+import ReactGA from 'react-ga';
 
 // require the manifest.json
 import '../manifest.json';
@@ -21,6 +22,7 @@ import configureStore from '../server/configure-store.js';
 import Routes from '../routes.jsx';
 
 import { SLUG } from '../constants/app.js';
+import { ANALYTICS_TAG, ENV } from '../../.env.js';
 
 // Custom Middlewares
 import api from '../middlewares/api';
@@ -30,12 +32,24 @@ import reducers from '../reducers';
 const store = configureStore();
 const rootElement = document.getElementById(SLUG);
 
+if (!ENV || ENV !== 'dev') {
+  ReactGA.initialize(ANALYTICS_TAG);
+}
+
+const logPageView = () => {
+  if (!ENV || ENV !== 'dev') {
+    ReactGA.set({ page: window.location.pathname });
+    ReactGA.pageview(window.location.pathname);
+  }
+};
+
 ReactDOM.render(
   <Provider store={store || {}}>
     <Router
       routes={Routes(store)}
       history={browserHistory || {}}
       render={applyRouterMiddleware()}
+      onUpdate={logPageView}
     />
   </Provider>,
   rootElement,

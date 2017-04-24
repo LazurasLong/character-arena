@@ -23,6 +23,7 @@
     "fs": "^0.0.1-security",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-ga": "^2.2.0",
     "react-redux": "^5.0.4",
     "react-router": "2.8.1",
     "redux": "^3.6.0",
