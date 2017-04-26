@@ -10,6 +10,7 @@
   width: 100%;
   min-height: 100%;
   padding: 5px;
+  margin-bottom: -$footer-mobile-height;
 
   text-align: left;
 
@@ -35,9 +36,12 @@
   }
 
   &:after {
-    content: "";
+    position: relative;
+    float: left;
     display: block;
+    width: 100%;
     height: $footer-mobile-height;
+    content: "";
   }
 }
 
@@ -46,6 +50,7 @@
     left: $sidebar-width;
     width: calc(100% - #{$sidebar-width});
     padding: 20px;
+    margin-bottom: -$footer-desktop-height;
 
     &:after {
       height: $footer-desktop-height;

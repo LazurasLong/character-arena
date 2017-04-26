@@ -64,12 +64,12 @@
   .Header {
     &,
     &-bar{
-      width: calc(100% - #{$sidebar-width});
       height: $header-desktop-height;
     }
 
     &-bar {
       left: $sidebar-width;
+      width: calc(100% - #{$sidebar-width});
     }
 
     &-logo,

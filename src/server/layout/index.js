@@ -31,12 +31,12 @@ export default (html, initialData, initializer) => {
           ${html}
         </div>
         <script>window.__INITIAL_DATA__ = ${JSON.stringify(initialData)}</script>
-        ${mainScript
-          ? `<script src="${mainScript}"></script>`
-          : ''
-        }
         ${mainStyle
           ? `<link rel="stylesheet" href="${mainStyle}">`
+          : ''
+        }
+        ${mainScript
+          ? `<script src="${mainScript}"></script>`
           : ''
         }
         ${thirdPartyScriptsBody
