@@ -50,9 +50,8 @@ const IMAGE_OPTIMIZER = {
     },
     // pngquant
     pngquant: {
-      quality: '65-90',
+      quality: '50-90',
       speed: 3,
-      verbose: true,
     },
     // SVGO
     svgo: {
@@ -82,13 +81,13 @@ export default {
         include: WEBAPP_ICONS_PATH,
         exclude: /node_modules/,
         use: [
-          IMAGE_OPTIMIZER,
           {
             loader: 'file-loader',
             options: {
               name: '[path][name]_[hash].[ext]',
             },
           },
+          IMAGE_OPTIMIZER,
         ],
       },
       {
@@ -96,13 +95,13 @@ export default {
         include: IMAGES_PATH,
         exclude: [/node_modules/, WEBAPP_ICONS_PATH],
         use: [
-          IMAGE_OPTIMIZER,
           {
             loader: 'file-loader',
             options: {
               name: '[path][name]_[hash].[ext]',
             },
           },
+          IMAGE_OPTIMIZER,
         ],
       },
       {
