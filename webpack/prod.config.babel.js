@@ -52,6 +52,7 @@ const IMAGE_OPTIMIZER = {
     pngquant: {
       quality: '50-90',
       speed: 3,
+      verbose: true,
     },
     // SVGO
     svgo: {
