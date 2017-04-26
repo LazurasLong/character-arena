@@ -25,10 +25,6 @@ export default (html, initialData, initializer) => {
           .map(script => `<script src="${script}"></script>`)
           .join('\n')
         }
-        ${mainStyle
-          ? `<link rel="stylesheet" href="${mainStyle}">`
-          : ''
-        }
       </head>
       <body>
         <div id="${SLUG}">
@@ -37,6 +33,10 @@ export default (html, initialData, initializer) => {
         <script>window.__INITIAL_DATA__ = ${JSON.stringify(initialData)}</script>
         ${mainScript
           ? `<script src="${mainScript}"></script>`
+          : ''
+        }
+        ${mainStyle
+          ? `<link rel="stylesheet" href="${mainStyle}">`
           : ''
         }
         ${thirdPartyScriptsBody
