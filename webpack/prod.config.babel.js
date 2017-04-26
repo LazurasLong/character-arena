@@ -34,23 +34,31 @@ import baseConfig, {
 
 const IMAGE_OPTIMIZER = {
   loader: 'image-webpack-loader',
-  options: {
-    // interlaced: false,
+  query: {
+    // mozjpeg
     mozjpeg: {
       progressive: true,
+      quality: 65,
     },
+    // gifsicle
     gifsicle: {
       interlaced: true,
     },
+    // optipng
     optipng: {
       optimizationLevel: 7,
     },
-    // pngquant: {
-    //   quality: '75-90',
-    //   speed: 3,
-    // },
+    // pngquant
+    pngquant: {
+      quality: '65-90',
+      speed: 3,
+      verbose: true,
+    },
+    // SVGO
     svgo: {
-      cleanupIDs: false,
+      plugins: [
+        {cleanupIDs: false},
+      ],
     },
   },
 };
@@ -74,13 +82,13 @@ export default {
         include: WEBAPP_ICONS_PATH,
         exclude: /node_modules/,
         use: [
+          IMAGE_OPTIMIZER,
           {
             loader: 'file-loader',
             options: {
               name: '[path][name]_[hash].[ext]',
             },
           },
-          IMAGE_OPTIMIZER,
         ],
       },
       {
@@ -88,13 +96,13 @@ export default {
         include: IMAGES_PATH,
         exclude: [/node_modules/, WEBAPP_ICONS_PATH],
         use: [
+          IMAGE_OPTIMIZER,
           {
             loader: 'file-loader',
             options: {
               name: '[path][name]_[hash].[ext]',
             },
           },
-          IMAGE_OPTIMIZER,
         ],
       },
       {
