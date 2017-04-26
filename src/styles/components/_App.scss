@@ -1,20 +1,18 @@
 .App {
-  min-height: 100%;
-  margin-bottom: -$footer-mobile-height;
+  position: relative;
+  float: left;
 
-  &:after {
-    content: "";
-    display: block;
-    height: $footer-mobile-height;
-  }
+  display: block;
+  width: 100%;
+  min-height: 100%;
+
+  background-attachment: fixed;
+  background-position: top center;
+  background-repeat: no-repeat;
 }
 
-@media screen and (min-width: breakpoint('landscape-tablet')) {
+@media screen and (min-width: breakpoint('hd')) {
   .App {
-    margin-bottom: -$footer-desktop-height;
-
-    &:after {
-      height: $footer-desktop-height;
-    }
+    background-size: cover;
   }
 }

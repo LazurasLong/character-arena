@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import imageResolver from '../utils/image-resolver.js';
 import {
   getCharacterRace,
   getCharacterClass,
@@ -306,7 +307,7 @@ class Comparator extends Component {
     const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error);
 
     return (
-      <div className="App">
+      <div className="App" style={{ backgroundImage: `url(${imageResolver('../images/background.jpg')})` }}>
 
         {/* App Header */}
         <Header handleToggleSidebar={this.handleToggleSidebar} />

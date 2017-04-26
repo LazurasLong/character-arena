@@ -25,16 +25,16 @@ export default (html, initialData, initializer) => {
           .map(script => `<script src="${script}"></script>`)
           .join('\n')
         }
-        ${mainStyle
-          ? `<link rel="stylesheet" href="${mainStyle}">`
-          : ''
-        }
       </head>
       <body>
         <div id="${SLUG}">
           ${html}
         </div>
         <script>window.__INITIAL_DATA__ = ${JSON.stringify(initialData)}</script>
+        ${mainStyle
+          ? `<link rel="stylesheet" href="${mainStyle}">`
+          : ''
+        }
         ${mainScript
           ? `<script src="${mainScript}"></script>`
           : ''
