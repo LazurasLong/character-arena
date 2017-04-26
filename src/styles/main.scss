@@ -62,9 +62,3 @@ body {
 .height {
   height: 100%;
 }
-
-@media screen and (min-width: breakpoint('hd')) {
-  body {
-    background-size: cover;
-  }
-}
