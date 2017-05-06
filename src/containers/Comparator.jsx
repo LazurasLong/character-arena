@@ -262,8 +262,18 @@ class Comparator extends Component {
     const { dispatch } = this.props;
     const { options: { region, language } } = this.state;
 
-    Promise.all([dispatch(fetchCharacter({ region, language, realm, characterName }))])
-      .then(this.handleDataChange);
+    const characterTrimmed = characterName
+      .replace(/\ /g, '');
+
+    if (
+      realm && realm !== '' && realm !== ' ' &&
+      characterName && characterName !== '' && characterName !== ' '
+    ) {
+      console.log(`realm: <<${realm}>>`);
+      console.log(`characterName: <<${characterTrimmed}>>`);
+      Promise.all([dispatch(fetchCharacter({ region, language, realm, characterName: characterTrimmed }))])
+        .then(this.handleDataChange);
+    }
   }
 
   handleSwitchCharacter({ character }) {
@@ -328,75 +338,83 @@ class Comparator extends Component {
         {/* App content */}
         <div className="Comparator">
           <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
+
             {/* App builder */}
-            <Builder
-              realms={realms}
-              races={races}
-              classes={classes}
-              talents={talents}
-            />
+            {isServiceUnavailable &&
+              <Builder
+                realms={realms}
+                races={races}
+                classes={classes}
+                talents={talents}
+              />
+            }
 
-            {/* Fetched Characters */}
-            {characters.collection.map((character, index) => {
-
-              // Get character data
-              const selectedCharacter = {...character};
-              let comparedTo;
-              if (!selectedCharacter.isFetching && !selectedCharacter.error) {
-                selectedCharacter.race = getCharacterRace({
-                  raceId: selectedCharacter.race,
-                  races: races.collection
-                });
-                selectedCharacter.class = getCharacterClass({
-                  classId: selectedCharacter.class,
-                  classes: classes.collection
-                });
-                selectedCharacter.availableTalents = getAvailableTalents({
-                  classId: selectedCharacter.class && selectedCharacter.class.id
-                    ? selectedCharacter.class.id
-                    : selectedCharacter.class,
-                  talents: talents.collection
-                });
-
-                /* ComparedTo data */
-                /* If this is not first character */
-                if (index !== 0 && characters.collection[0] && !characters.collection[0].isFetching) {
-
-                  // Set the comparedTo character
-                  comparedTo = {...characters.collection[0]};
-                  comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
-                  comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
-                  comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
-                }
-              }
-
-              return (
-                <Character
-                  key={`character-${index}`}
-                  sections={sections}
-                  region={options.region}
-                  language={options.language}
+            {/* Comparator */}
+            {!isServiceUnavailable &&
+              <div>
+                {/* New character */}
+                <CharacterFinder
+                  collapsableData={sections.filters}
+                  reference={(ref) => { this.filters = ref; }}
+                  availableRealms={realms.collection}
                   handleToggleCollapsable={this.handleToggleCollapsable}
-                  handleSwitchCharacter={this.handleSwitchCharacter}
-                  handleRemoveCharacter={this.handleRemoveCharacter}
-
-                  character={selectedCharacter}
-
-                  comparedTo={comparedTo}
-                  ref={(ref) => { this[`characterFrame${index}`] = ref; }}
+                  handleFetchCharacter={this.handleFetchCharacter}
+                  error={characters.error}
                 />
-              );
-            })}
 
-            {/* New character */}
-            <CharacterFinder
-              collapsableData={sections.filters}
-              reference={(ref) => { this.filters = ref; }}
-              availableRealms={realms.collection}
-              handleToggleCollapsable={this.handleToggleCollapsable}
-              handleFetchCharacter={this.handleFetchCharacter}
-              error={characters.error}
-            />
+                {/* Fetched Characters */}
+                {characters.collection.map((character, index) => {
+
+                  // Get character data
+                  const selectedCharacter = {...character};
+                  let comparedTo;
+                  if (!selectedCharacter.isFetching && !selectedCharacter.error) {
+                    selectedCharacter.race = getCharacterRace({
+                      raceId: selectedCharacter.race,
+                      races: races.collection
+                    });
+                    selectedCharacter.class = getCharacterClass({
+                      classId: selectedCharacter.class,
+                      classes: classes.collection
+                    });
+                    selectedCharacter.availableTalents = getAvailableTalents({
+                      classId: selectedCharacter.class && selectedCharacter.class.id
+                        ? selectedCharacter.class.id
+                        : selectedCharacter.class,
+                      talents: talents.collection
+                    });
+
+                    /* ComparedTo data */
+                    /* If this is not first character */
+                    if (index !== 0 && characters.collection[0] && !characters.collection[0].isFetching) {
+
+                      // Set the comparedTo character
+                      comparedTo = {...characters.collection[0]};
+                      comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
+                      comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
+                      comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
+                    }
+                  }
+
+                  return (
+                    <Character
+                      key={`character-${index}`}
+                      sections={sections}
+                      region={options.region}
+                      language={options.language}
+                      handleToggleCollapsable={this.handleToggleCollapsable}
+                      handleSwitchCharacter={this.handleSwitchCharacter}
+                      handleRemoveCharacter={this.handleRemoveCharacter}
+
+                      character={selectedCharacter}
+
+                      comparedTo={comparedTo}
+                      ref={(ref) => { this[`characterFrame${index}`] = ref; }}
+                    />
+                  );
+                })}
+              </div>
+            }
           </div>
         </div>
 
