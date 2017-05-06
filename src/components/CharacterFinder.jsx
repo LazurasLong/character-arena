@@ -29,8 +29,6 @@ class CharacterFinder extends Component {
       error,
     } = this.props;
 
-    const isAvailable = !!availableRealms.length;
-
     return (
       <div className="Character">
         
@@ -42,46 +40,38 @@ class CharacterFinder extends Component {
           ref={reference}
           handleToggleCollapsable={handleToggleCollapsable}
         >
-          {!isAvailable &&
-            <div className="Character-filters">
-              <Loading />
-            </div>
-          }
+          <div className="Character-filters">
+            {/* Dropdown with realms */}
+            <Select
+              options={availableRealms}
+              placeholder="Character's realm"
+              required
+              reference={(ref) => { this.realm = ref; }}
+            />
+          
+            {/* User will write character's name */}
+            <Input
+              type="text"
+              placeholder="Character's name"
+              required
+              reference={(ref) => { this.characterName = ref; }}
+            />
 
-          {isAvailable &&
-            <div className="Character-filters">
-              {/* Dropdown with realms */}
-              <Select
-                options={availableRealms}
-                placeholder="Character's realm"
-                required
-                reference={(ref) => { this.realm = ref; }}
-              />
-            
-              {/* User will write character's name */}
-              <Input
-                type="text"
-                placeholder="Character's name"
-                required
-                reference={(ref) => { this.characterName = ref; }}
-              />
+            {/* Search button */}
+            <button
+              className="Button"
+              onClick={() => { handleFetchCharacter({
+                realm: this.realm.value,
+                characterName: this.characterName.value,
+              }); }
+            }>
+              Search
+            </button>
 
-              {/* Search button */}
-              <button
-                className="Button"
-                onClick={() => { handleFetchCharacter({
-                  realm: this.realm.value,
-                  characterName: this.characterName.value,
-                }); }
-              }>
-                Search
-              </button>
-
-              {error &&
-                <Error error={error} />
-              }
-            </div>
-          }
+            {error &&
+              <Error error={error} />
+            }
+          </div>
         </Collapsable>
       </div>
     );
