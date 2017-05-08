@@ -63,15 +63,6 @@ class Sidebar extends Component {
           />
           <br />
 
-          {/* Character selector */}
-          <Collapsable
-            title="Character selector"
-            slug="filters"
-            data={sections.filters}
-            ref={(ref) => { this.filters = ref; }}
-            handleToggleCollapsable={handleToggleCollapsable}
-          />
-
           {/* Item level */}
           <Collapsable
             title="Item level"

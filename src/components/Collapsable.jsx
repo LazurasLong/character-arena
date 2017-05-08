@@ -3,10 +3,12 @@ import React, { Component, PropTypes } from 'react';
 export default class Collapsable extends Component {
   static propTypes = {
     title: PropTypes.string,
+    disabled: PropTypes.bool,
   };
   
   static defaultProps = {
     title: '',
+    disabled: false,
   };
 
   static displayName = 'Collapsable';
@@ -24,27 +26,31 @@ export default class Collapsable extends Component {
   }
 
   handleToggle() {
-    const { handleToggleCollapsable } = this.props;
+    const { handleToggleCollapsable, disabled } = this.props;
 
-    // If custom function was sent, use it
-    if (handleToggleCollapsable) {
-      return handleToggleCollapsable({ element: this });
+    if (!disabled) {
+      // If custom function was sent, use it
+      if (handleToggleCollapsable) {
+        return handleToggleCollapsable({ element: this });
+      }
+
+      // Set 'isOpen' as opposed
+      return this.setState({ isOpen: !this.state.isOpen });
     }
-
-    // Set 'isOpen' as opposed
-    return this.setState({ isOpen: !this.state.isOpen });
   }
 
   render() {
-    const { title, data, children } = this.props;
+    const { title, data, disabled, children } = this.props;
     
     const isOpen = (data && typeof data.isOpen !== 'undefined') ? data.isOpen : this.state.isOpen;
 
     return (
-      <section className={`Collapsable ${isOpen ? 'is-open' : ''}`}>
+      <section className={`Collapsable ${isOpen || disabled ? 'is-open' : ''} ${disabled ? 'is-disabled' : ''}`}>
         <div className="Collapsable-head" onClick={this.handleToggle}>
           <h2 className="Collapsable-title">{title}</h2>
-          <span className="Collapsable-icon" />
+          {!disabled &&
+            <span className="Collapsable-icon" />
+          }
         </div>
 
         <div className="Collapsable-body">{children}</div>

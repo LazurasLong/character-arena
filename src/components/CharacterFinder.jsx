@@ -39,6 +39,7 @@ class CharacterFinder extends Component {
           data={collapsableData}
           ref={reference}
           handleToggleCollapsable={handleToggleCollapsable}
+          disabled
         >
           <div className="Character-filters">
             {/* Dropdown with realms */}

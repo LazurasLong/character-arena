@@ -17,6 +17,7 @@ import { HOME } from '../constants/appRoutes.js';
 import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
+import Error from '../components/inputs/Error.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import Header from '../components/Header.jsx';
 import Builder from '../components/Builder.jsx';
@@ -314,7 +315,21 @@ class Comparator extends Component {
       sections,
     } = this.state;
 
+    const isServiceLoading = (classes.isFetching || races.isFetching || realms.isFetching || talents.isFetching);
     const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error);
+
+    let dataFailing;
+    if (isServiceUnavailable) {
+      if (classes.error) {
+        dataFailing = classes;
+      } else if (races.error) {
+        dataFailing = races;
+      } else if (realms.error) {
+        dataFailing = realms;
+      } else if (talents.error) {
+        dataFailing = talents;
+      }
+    }
 
     return (
       <div className="App" style={{ backgroundImage: `url(${imageResolver('../images/background.jpg')})` }}>
@@ -338,9 +353,8 @@ class Comparator extends Component {
         {/* App content */}
         <div className="Comparator">
           <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
-
             {/* App builder */}
-            {isServiceUnavailable &&
+            {isServiceLoading || isServiceUnavailable &&
               <Builder
                 realms={realms}
                 races={races}
@@ -350,7 +364,7 @@ class Comparator extends Component {
             }
 
             {/* Comparator */}
-            {!isServiceUnavailable &&
+            {!isServiceLoading && !isServiceUnavailable &&
               <div>
                 {/* New character */}
                 <CharacterFinder
