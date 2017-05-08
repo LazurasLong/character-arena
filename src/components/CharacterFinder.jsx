@@ -34,8 +34,6 @@ class CharacterFinder extends Component {
         
         {/* Filters */}
         <Collapsable
-          title="New character"
-          slug="filters"
           data={collapsableData}
           ref={reference}
           handleToggleCollapsable={handleToggleCollapsable}

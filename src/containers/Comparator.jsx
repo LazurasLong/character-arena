@@ -94,30 +94,55 @@ class Comparator extends Component {
         filters: {
           isOpen: true,
           slug: 'filters',
+          title: 'New character',
         },
         itemLevel: {
           isOpen: false,
           slug: 'itemLevel',
-          elements: ['averageItemLevel', 'averageItemLevelEquipped'],
+          title: 'Item Level',
+          elements: [
+            {name: 'Average', slug: 'averageItemLevel'},
+            {name: 'Equipped', slug: 'averageItemLevelEquipped'},
+          ],
         },
         attributes: {
           isOpen: true,
           slug: 'attributes',
-          elements: ['str', 'agi', 'int', 'sta'],
+          title: 'Attributes',
+          elements: [
+            {name: 'Strength', slug: 'str'},
+            {name: 'Agility', slug: 'agi'},
+            {name: 'Intelect', slug: 'int'},
+            {name: 'Stamina', slug: 'sta'},
+          ],
         },
         enhacements: {
           isOpen: true,
           slug: 'enhacements',
-          elements: ['crit', 'haste', 'mastery', 'versatility', 'mana5'],
+          title: 'Enhacements',
+          elements: [
+            {name: 'Critical', slug: 'crit'},
+            {name: 'Haste', slug: 'haste'},
+            {name: 'Mastery', slug: 'mastery'},
+            {name: 'Versatility', slug: 'versatility'},
+            {name: 'Mana Regen', slug: 'mana5'},
+          ],
         },
         deffense: {
           isOpen: false,
           slug: 'deffense',
-          elements: ['armor', 'dodge', 'parry', 'block'],
+          title: 'Deffense',
+          elements: [
+            {name: 'Armor', slug: 'armor'},
+            {name: 'Dodge', slug: 'dodge'},
+            {name: 'Parry', slug: 'parry'},
+            {name: 'Block', slug: 'block'},
+          ],
         },
         talents: {
           isOpen: true,
           slug: 'talents',
+          title: 'Talents',
         },
       },
     };
@@ -244,7 +269,7 @@ class Comparator extends Component {
   }
 
   handleToggleCollapsable({ element }) {
-    const { props: { slug } } = element;
+    const { props: { data: { slug } } } = element;
 
     /* Update general status */
     this.setState({

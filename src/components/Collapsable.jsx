@@ -2,12 +2,14 @@ import React, { Component, PropTypes } from 'react';
 
 export default class Collapsable extends Component {
   static propTypes = {
-    title: PropTypes.string,
+    data: PropTypes.shape({
+      title: PropTypes.string,
+      slug: PropTypes.string,
+    }).isRequired,
     disabled: PropTypes.bool,
   };
   
   static defaultProps = {
-    title: '',
     disabled: false,
   };
 
@@ -40,14 +42,14 @@ export default class Collapsable extends Component {
   }
 
   render() {
-    const { title, data, disabled, children } = this.props;
+    const { data, disabled, children } = this.props;
     
     const isOpen = (data && typeof data.isOpen !== 'undefined') ? data.isOpen : this.state.isOpen;
 
     return (
       <section className={`Collapsable ${isOpen || disabled ? 'is-open' : ''} ${disabled ? 'is-disabled' : ''}`}>
         <div className="Collapsable-head" onClick={this.handleToggle}>
-          <h2 className="Collapsable-title">{title}</h2>
+          <h2 className="Collapsable-title">{data.title}</h2>
           {!disabled &&
             <span className="Collapsable-icon" />
           }

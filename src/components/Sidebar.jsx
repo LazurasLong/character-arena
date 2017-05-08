@@ -18,6 +18,8 @@ class Sidebar extends Component {
       handleSelectLanguage,
     } = this.props;
 
+    const that = this;
+
     return (
       <aside className={`Sidebar ${isOpen ? 'is-open' : ''}`}>
         
@@ -63,46 +65,28 @@ class Sidebar extends Component {
           />
           <br />
 
-          {/* Item level */}
-          <Collapsable
-            title="Item level"
-            slug="itemLevel"
-            data={sections.itemLevel}
-            ref={(ref) => { this.itemLevel = ref; }}
-            handleToggleCollapsable={handleToggleCollapsable}
-          />
+          {/* Loop through different sections */}
+          {Object.keys(sections).map((key) => {
+            const section = sections[key];
 
-          {/* Main attributes */}
-          <Collapsable
-            title="Attributes"
-            slug="attributes"
-            data={sections.attributes}
-            ref={(ref) => { this.attributes = ref; }}
-            handleToggleCollapsable={handleToggleCollapsable}
-          />
+            /* If there are no elements, return null */
+            if (!section.elements) {
+              return;
+            }
 
-          {/* Secondary attributes */}
-          <Collapsable
-            title="Enhacements"
-            slug="enhacements"
-            data={sections.enhacements}
-            ref={(ref) => { this.enhacements = ref; }}
-            handleToggleCollapsable={handleToggleCollapsable}
-          />
-
-          {/* Deffense */}
-          <Collapsable
-            title="Deffense"
-            slug="deffense"
-            data={sections.deffense}
-            ref={(ref) => { this.deffense = ref; }}
-            handleToggleCollapsable={handleToggleCollapsable}
-          />
+            /* Return collapsable section */
+            return (
+              <Collapsable
+                key={`sidebar-${section.slug}`}
+                data={section}
+                ref={(ref) => { that[section.slug] = ref; }}
+                handleToggleCollapsable={handleToggleCollapsable}
+              />
+            );
+          })}
 
           {/* Talents */}
           <Collapsable
-            title="Talents"
-            slug="talents"
             data={sections.talents}
             ref={(ref) => { this.talents = ref; }}
             handleToggleCollapsable={handleToggleCollapsable}
