@@ -34,11 +34,10 @@ class CharacterFinder extends Component {
         
         {/* Filters */}
         <Collapsable
-          title="New character"
-          slug="filters"
           data={collapsableData}
           ref={reference}
           handleToggleCollapsable={handleToggleCollapsable}
+          disabled
         >
           <div className="Character-filters">
             {/* Dropdown with realms */}

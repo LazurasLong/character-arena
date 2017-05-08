@@ -9,13 +9,10 @@ import Collapsable from '../components/Collapsable.jsx';
 
 import CharacterActions from '../components/CharacterActions.jsx';
 import CharacterHeader from '../components/CharacterHeader.jsx';
-import CharacterAttrsItems from '../components/CharacterAttrsItems.jsx';
-import CharacterAttrsMain from '../components/CharacterAttrsMain.jsx';
-import CharacterAttrsSecondaries from '../components/CharacterAttrsSecondaries.jsx';
-import CharacterAttrsDeffense from '../components/CharacterAttrsDeffense.jsx';
+import CharacterAttributesGroup from '../components/CharacterAttributesGroup.jsx';
 import CharacterTalents from '../components/CharacterTalents.jsx';
 
-export default class CharacterFrame extends Component {
+export default class Character extends Component {
   static propTypes = {
     /* Required props */
     sections: PropTypes.object.isRequired,
@@ -68,6 +65,8 @@ export default class CharacterFrame extends Component {
       comparedTo,
     } = this.props;
 
+    const that = this;
+
     return (
       <div className={`Character ${character.race ? `is-${character.race.side}` : ''}`}>
         {/* Loading character */}
@@ -97,72 +96,57 @@ export default class CharacterFrame extends Component {
               language={language}
             />
 
-            {/* Item level */}
-            <Collapsable
-              title="Item level"
-              slug="itemLevel"
-              data={sections.itemLevel}
-              ref={(ref) => { this.itemLevel = ref; }}
-              handleToggleCollapsable={handleToggleCollapsable}
-            >
-              <CharacterAttrsItems
-                items={character.items}
-                comparedTo={comparedTo && comparedTo.items}
-                hideLabels={!!comparedTo}
-              />
-            </Collapsable>
+            {/* Loop through different sections */}
+            {Object.keys(sections).map((key) => {
+              const section = sections[key];
 
-            {/* Main attributes */}
-            <Collapsable
-              title="Attributes"
-              slug="attributes"
-              data={sections.attributes}
-              ref={(ref) => { this.attributes = ref; }}
-              handleToggleCollapsable={handleToggleCollapsable}
-            >
-              <CharacterAttrsMain
-                stats={character.stats}
-                comparedTo={comparedTo && comparedTo.stats}
-                hideLabels={!!comparedTo}
-              />
-            </Collapsable>
+              /* If there are no elements, return null */
+              if (!section.elements) {
+                return;
+              }
 
-            {/* Secondary attributes */}
-            <Collapsable
-              title="Enhacements"
-              slug="enhacements"
-              data={sections.enhacements}
-              ref={(ref) => { this.enhacements = ref; }}
-              handleToggleCollapsable={handleToggleCollapsable}
-            >
-              <CharacterAttrsSecondaries
-                spec={character.talents[0].spec}
-                stats={character.stats}
-                comparedTo={comparedTo && comparedTo.stats}
-                comparedToSpec={comparedTo && comparedTo.talents[0].spec}
-                hideLabels={!!comparedTo}
-              />
-            </Collapsable>
+              let characterData = {};
+              let comparedToData = {};
+              switch (key) {
+                case 'itemLevel':
+                  characterData = character.items;
+                  comparedToData = comparedTo && comparedTo.items;
+                  break;
+                
+                case 'attributes':
+                case 'enhacements':
+                case 'deffense':
+                default:
+                  characterData = character.stats;
+                  comparedToData = comparedTo && comparedTo.stats;
+                  break;
+              }
 
-            {/* Deffense */}
-            <Collapsable
-              title="Deffense"
-              slug="deffense"
-              data={sections.deffense}
-              ref={(ref) => { this.deffense = ref; }}
-              handleToggleCollapsable={handleToggleCollapsable}
-            >
-              <CharacterAttrsDeffense
-                stats={character.stats}
-                comparedTo={comparedTo && comparedTo.stats}
-                hideLabels={!!comparedTo}
-              />
-            </Collapsable>
+              characterData.role = character.talents[0].spec.role;
+              if (comparedToData) {
+                comparedToData.role = comparedTo.talents[0].spec.role;
+              }
+
+              /* Return collapsable section */
+              return (
+                <Collapsable
+                  key={`section-${section.slug}`}
+                  data={section}
+                  ref={(ref) => { that[section.slug] = ref; }}
+                  handleToggleCollapsable={handleToggleCollapsable}
+                >
+                  <CharacterAttributesGroup
+                    elements={section.elements}
+                    data={characterData}
+                    comparedTo={comparedToData}
+                    hideLabels={typeof comparedToData !== 'undefined'}
+                  />
+                </Collapsable>
+              );
+            })}
 
             {/* Talents */}
             <Collapsable
-              title="Talents"
-              slug="talents"
               data={sections.talents}
               ref={(ref) => { this.talents = ref; }}
               handleToggleCollapsable={handleToggleCollapsable}

@@ -84,6 +84,12 @@
     }
   }
 
+  &.is-disabled {
+    .Collapsable-head {
+      cursor: default;
+    }
+  }
+
   .is-alliance & {
     border-color: $color-alliance;
   }

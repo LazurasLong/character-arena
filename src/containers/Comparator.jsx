@@ -17,6 +17,7 @@ import { HOME } from '../constants/appRoutes.js';
 import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
+import Error from '../components/inputs/Error.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import Header from '../components/Header.jsx';
 import Builder from '../components/Builder.jsx';
@@ -93,30 +94,55 @@ class Comparator extends Component {
         filters: {
           isOpen: true,
           slug: 'filters',
+          title: 'New character',
         },
         itemLevel: {
           isOpen: false,
           slug: 'itemLevel',
-          elements: ['averageItemLevel', 'averageItemLevelEquipped'],
+          title: 'Item Level',
+          elements: [
+            {name: 'Average', slug: 'averageItemLevel'},
+            {name: 'Equipped', slug: 'averageItemLevelEquipped'},
+          ],
         },
         attributes: {
           isOpen: true,
           slug: 'attributes',
-          elements: ['str', 'agi', 'int', 'sta'],
+          title: 'Attributes',
+          elements: [
+            {name: 'Strength', slug: 'str'},
+            {name: 'Agility', slug: 'agi'},
+            {name: 'Intelect', slug: 'int'},
+            {name: 'Stamina', slug: 'sta'},
+          ],
         },
         enhacements: {
           isOpen: true,
           slug: 'enhacements',
-          elements: ['crit', 'haste', 'mastery', 'versatility', 'mana5'],
+          title: 'Enhacements',
+          elements: [
+            {name: 'Critical', slug: 'crit'},
+            {name: 'Haste', slug: 'haste'},
+            {name: 'Mastery', slug: 'mastery'},
+            {name: 'Versatility', slug: 'versatility'},
+            {name: 'Mana Regen', slug: 'mana5'},
+          ],
         },
         deffense: {
           isOpen: false,
           slug: 'deffense',
-          elements: ['armor', 'dodge', 'parry', 'block'],
+          title: 'Deffense',
+          elements: [
+            {name: 'Armor', slug: 'armor'},
+            {name: 'Dodge', slug: 'dodge'},
+            {name: 'Parry', slug: 'parry'},
+            {name: 'Block', slug: 'block'},
+          ],
         },
         talents: {
           isOpen: true,
           slug: 'talents',
+          title: 'Talents',
         },
       },
     };
@@ -243,7 +269,7 @@ class Comparator extends Component {
   }
 
   handleToggleCollapsable({ element }) {
-    const { props: { slug } } = element;
+    const { props: { data: { slug } } } = element;
 
     /* Update general status */
     this.setState({
@@ -269,8 +295,6 @@ class Comparator extends Component {
       realm && realm !== '' && realm !== ' ' &&
       characterName && characterName !== '' && characterName !== ' '
     ) {
-      console.log(`realm: <<${realm}>>`);
-      console.log(`characterName: <<${characterTrimmed}>>`);
       Promise.all([dispatch(fetchCharacter({ region, language, realm, characterName: characterTrimmed }))])
         .then(this.handleDataChange);
     }
@@ -314,7 +338,21 @@ class Comparator extends Component {
       sections,
     } = this.state;
 
+    const isServiceLoading = (classes.isFetching || races.isFetching || realms.isFetching || talents.isFetching);
     const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error);
+
+    let dataFailing;
+    if (isServiceUnavailable) {
+      if (classes.error) {
+        dataFailing = classes;
+      } else if (races.error) {
+        dataFailing = races;
+      } else if (realms.error) {
+        dataFailing = realms;
+      } else if (talents.error) {
+        dataFailing = talents;
+      }
+    }
 
     return (
       <div className="App" style={{ backgroundImage: `url(${imageResolver('../images/background.jpg')})` }}>
@@ -338,9 +376,8 @@ class Comparator extends Component {
         {/* App content */}
         <div className="Comparator">
           <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
-
             {/* App builder */}
-            {isServiceUnavailable &&
+            {isServiceLoading || isServiceUnavailable &&
               <Builder
                 realms={realms}
                 races={races}
@@ -350,7 +387,7 @@ class Comparator extends Component {
             }
 
             {/* Comparator */}
-            {!isServiceUnavailable &&
+            {!isServiceLoading && !isServiceUnavailable &&
               <div>
                 {/* New character */}
                 <CharacterFinder
