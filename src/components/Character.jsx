@@ -10,10 +10,6 @@ import Collapsable from '../components/Collapsable.jsx';
 import CharacterActions from '../components/CharacterActions.jsx';
 import CharacterHeader from '../components/CharacterHeader.jsx';
 import CharacterAttrs from '../components/CharacterAttrs.jsx';
-import CharacterAttrsItems from '../components/CharacterAttrsItems.jsx';
-import CharacterAttrsMain from '../components/CharacterAttrsMain.jsx';
-import CharacterAttrsSecondaries from '../components/CharacterAttrsSecondaries.jsx';
-import CharacterAttrsDeffense from '../components/CharacterAttrsDeffense.jsx';
 import CharacterTalents from '../components/CharacterTalents.jsx';
 
 export default class Character extends Component {
