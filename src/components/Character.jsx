@@ -9,7 +9,7 @@ import Collapsable from '../components/Collapsable.jsx';
 
 import CharacterActions from '../components/CharacterActions.jsx';
 import CharacterHeader from '../components/CharacterHeader.jsx';
-import CharacterAttrs from '../components/CharacterAttrs.jsx';
+import CharacterAttributesGroup from '../components/CharacterAttributesGroup.jsx';
 import CharacterTalents from '../components/CharacterTalents.jsx';
 
 export default class Character extends Component {
@@ -105,8 +105,8 @@ export default class Character extends Component {
                 return;
               }
 
-              let characterData;
-              let comparedToData;
+              let characterData = {};
+              let comparedToData = {};
               switch (key) {
                 case 'itemLevel':
                   characterData = character.items;
@@ -122,6 +122,11 @@ export default class Character extends Component {
                   break;
               }
 
+              characterData.role = character.talents[0].spec.role;
+              if (comparedToData) {
+                comparedToData.role = comparedTo.talents[0].spec.role;
+              }
+
               /* Return collapsable section */
               return (
                 <Collapsable
@@ -130,11 +135,11 @@ export default class Character extends Component {
                   ref={(ref) => { that[section.slug] = ref; }}
                   handleToggleCollapsable={handleToggleCollapsable}
                 >
-                  <CharacterAttrs
+                  <CharacterAttributesGroup
                     elements={section.elements}
                     data={characterData}
                     comparedTo={comparedToData}
-                    hideLabels={!!comparedTo}
+                    hideLabels={typeof comparedToData !== 'undefined'}
                   />
                 </Collapsable>
               );

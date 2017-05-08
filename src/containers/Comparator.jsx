@@ -295,8 +295,6 @@ class Comparator extends Component {
       realm && realm !== '' && realm !== ' ' &&
       characterName && characterName !== '' && characterName !== ' '
     ) {
-      console.log(`realm: <<${realm}>>`);
-      console.log(`characterName: <<${characterTrimmed}>>`);
       Promise.all([dispatch(fetchCharacter({ region, language, realm, characterName: characterTrimmed }))])
         .then(this.handleDataChange);
     }
