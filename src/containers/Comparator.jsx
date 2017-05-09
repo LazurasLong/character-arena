@@ -55,10 +55,62 @@ class Comparator extends Component {
 
   static displayName = 'Comparator';
 
+  static fetchData(dispatch, params = {}) {
+    const {
+      region,
+      language,
+    } = params;
+
+    const dataToFetch = [];
+    dataToFetch.push(dispatch(fetchRaces({ region, language })));
+    dataToFetch.push(dispatch(fetchClasses({ region, language })));
+    dataToFetch.push(dispatch(fetchTalents({ region, language })));
+    dataToFetch.push(dispatch(fetchRealms({ region, language })));
+
+    // Get basic data
+    return Promise.all(dataToFetch)
+      .then(() => {
+        const {
+          characters
+        } = params;
+
+        // If there are characters on the URL
+        if (characters) {
+
+          const charactersData = [];
+
+          // Go through each character
+          characters.split(',').forEach(char => {
+            const data = char.split('-');
+            if (data && data[0] && data[1]) {
+
+              const character = {
+                region,
+                language,
+                realm: char.split('-')[0],
+                characterName: char.split('-')[1],
+              };
+
+              // Add it to 'data that needs to be fetched'
+              charactersData.push(dispatch(fetchCharacter(character)));
+            }
+          });
+
+          return Promise.all(charactersData)
+            .then(() => {
+              return Promise.resolve();
+            });
+        }
+      })
+      .catch((errors) => {
+        console.log(errors);
+        return Promise.reject();
+      });
+  }
+
   constructor(props) {
     super(props);
 
-    this.fetchInitialData = this.fetchInitialData.bind(this);
     this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
     this.handleSelectRegion = this.handleSelectRegion.bind(this);
     this.handleSelectLanguage = this.handleSelectLanguage.bind(this);
@@ -151,7 +203,15 @@ class Comparator extends Component {
   componentWillMount() {
     const {
       params,
+      dispatch,
     } = this.props;
+
+    const {
+      options: {
+        region,
+        language,
+      },
+    } = this.state;
 
     if ((!params.region || !params.language) && !params.characters) {
       const {
@@ -164,60 +224,17 @@ class Comparator extends Component {
       this.context.router.push(composePathname({ region, language }));
     }
 
-    this.fetchInitialData();
+    // this.fetchData(dispatch, {
+    //   ...params,
+    //   region,
+    //   language,
+    // });
   }
 
   fetchInitialData() {
     const {
       dispatch,
     } = this.props;
-
-    const {
-      options: {
-        region,
-        language,
-      },
-    } = this.state;
-
-    const dataToFetch = [];
-    dataToFetch.push(dispatch(fetchRaces({ region, language })));
-    dataToFetch.push(dispatch(fetchClasses({ region, language })));
-    dataToFetch.push(dispatch(fetchTalents({ region, language })));
-    dataToFetch.push(dispatch(fetchRealms({ region, language })));
-
-    // Get basic data
-    Promise.all(dataToFetch)
-      .then(() => {
-        const {
-          params: { characters },
-        } = this.props;
-
-        // If there are characters on the URL
-        if (characters) {
-
-          const charactersData = [];
-
-          // Go through each character
-          characters.split(',').forEach(char => {
-            const data = char.split('-');
-            if (data && data[0] && data[1]) {
-
-              const character = {
-                region,
-                language,
-                realm: char.split('-')[0],
-                characterName: char.split('-')[1],
-              };
-
-              // Add it to 'data that needs to be fetched'
-              charactersData.push(dispatch(fetchCharacter(character)));
-            }
-          });
-
-          Promise.all(charactersData);
-        }
-      })
-      .catch((errors) => { console.log(errors); });
   }
 
   handleToggleSidebar() {
@@ -243,7 +260,6 @@ class Comparator extends Component {
       },
     }, () => {
       this.handleDataChange();
-      this.fetchInitialData();
     });
   }
 
@@ -264,7 +280,6 @@ class Comparator extends Component {
       },
     }, () => {
       this.handleDataChange();
-      this.fetchInitialData();
     });
   }
 
@@ -319,6 +334,11 @@ class Comparator extends Component {
     const { options: { region, language } } = this.state;
 
     this.context.router.push(composePathname({ region, language, collection }));
+    // this.fetchData(dispatch, {
+    //   ...params,
+    //   region,
+    //   language,
+    // });
   }
 
   render() {

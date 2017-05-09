@@ -24,9 +24,12 @@ import { CALL_API } from '../middlewares/api';
 
 import { composeUrl } from '../utils/calcs.js';
 
+const defaultRegion = 'us';
+const defaultLanguage = 'en';
+
 const fetchRaces = ({
-  region,
-  language,
+  region = defaultRegion,
+  language = defaultLanguage,
 }) => {
   return {
     [CALL_API]: {
@@ -45,8 +48,8 @@ const fetchRaces = ({
 };
 
 const fetchClasses = ({
-  region,
-  language,
+  region = defaultRegion,
+  language = defaultLanguage,
 }) => {
   return {
     [CALL_API]: {
@@ -65,8 +68,8 @@ const fetchClasses = ({
 };
 
 const fetchRealms = ({
-  region,
-  language,
+  region = defaultRegion,
+  language = defaultLanguage,
 }) => {
   return {
     [CALL_API]: {
@@ -85,8 +88,8 @@ const fetchRealms = ({
 };
 
 const fetchTalents = ({
-  region,
-  language,
+  region = defaultRegion,
+  language = defaultLanguage,
 }) => {
   return {
     [CALL_API]: {
