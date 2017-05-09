@@ -17,13 +17,12 @@ import { HOME } from '../constants/appRoutes.js';
 import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
-import Error from '../components/inputs/Error.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import Header from '../components/Header.jsx';
 import Builder from '../components/Builder.jsx';
-import Footer from '../components/Footer.jsx';
-import Character from '../components/Character.jsx';
 import CharacterFinder from '../components/CharacterFinder.jsx';
+import Character from '../components/Character.jsx';
+import Footer from '../components/Footer.jsx';
 
 class Comparator extends Component {
   static propTypes = {
@@ -67,12 +66,9 @@ class Comparator extends Component {
     resourcesData.push(dispatch(fetchTalents({ region, language })));
     resourcesData.push(dispatch(fetchRealms({ region, language })));
 
-    console.log('Fetching resources', resourcesData);
-
     // Get basic data
     return Promise.all(resourcesData)
       .then((response) => {
-        console.log('resources has been fetch');
         const {
           characters
         } = params;
@@ -99,25 +95,12 @@ class Comparator extends Component {
             }
           });
 
-          console.log('Fetching characters', charactersData);
-
           return Promise.all(charactersData)
-            .then(() => {
-
-              console.log('characters have been fetch');
-
-              return Promise.resolve();
-            })
-            .catch((errors) => {
-              console.log('Error while fetching characters', errors);
-              return Promise.reject();
-            });
+            .then(() => Promise.resolve())
+            .catch(errors => Promise.reject(errors));
         }
       })
-      .catch((errors) => {
-        console.log('Error while fetching resources', errors);
-        return Promise.reject();
-      });
+      .catch(errors => Promise.reject(errors));
   }
 
   constructor(props) {
@@ -236,11 +219,7 @@ class Comparator extends Component {
       this.context.router.push(composePathname({ region, language }));
     }
 
-    // this.fetchData(dispatch, {
-    //   ...params,
-    //   region,
-    //   language,
-    // });
+    Comparator.fetchData(dispatch, params);
   }
 
   fetchInitialData() {
@@ -370,8 +349,12 @@ class Comparator extends Component {
       sections,
     } = this.state;
 
-    const isServiceLoading = (classes.isFetching || races.isFetching || realms.isFetching || talents.isFetching);
-    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error);
+    const isServiceLoading = (classes.isFetching || !classes.collection.length || races.isFetching || !races.collection.length || realms.isFetching || !realms.collection.length || talents.isFetching)
+      ? true
+      : false;
+    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error)
+      ? true
+      : false;
 
     let dataFailing;
     if (isServiceUnavailable) {
@@ -409,7 +392,7 @@ class Comparator extends Component {
         <div className="Comparator">
           <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
             {/* App builder */}
-            {isServiceLoading || isServiceUnavailable &&
+            {(isServiceLoading || isServiceUnavailable) &&
               <Builder
                 realms={realms}
                 races={races}
@@ -419,7 +402,7 @@ class Comparator extends Component {
             }
 
             {/* Comparator */}
-            {!isServiceLoading && !isServiceUnavailable &&
+            {(!isServiceLoading && !isServiceUnavailable) &&
               <div>
                 {/* New character */}
                 <CharacterFinder

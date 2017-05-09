@@ -33,7 +33,10 @@ export default function (config) {
         const component = components[components.length - 1];
 
         // Dispatch necessary actions to build initial state
-        const fetchData = component.fetchData || new Promise;
+        const fetchData = () => Promise.resolve();
+        // const fetchData = component.fetchData
+        //   ? component.fetchData
+        //   : () => Promise.resolve();
 
         fetchData(store.dispatch, parameters)
           .then(() => {

@@ -25,7 +25,6 @@ class Client {
 
     this.client.interceptors.request.use(handleRequest);
     this.client.interceptors.response.use(handleResponseSuccess, handleResponseError);
-
   }
 
   get(url, parameters) {
