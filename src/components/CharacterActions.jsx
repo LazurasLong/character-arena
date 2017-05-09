@@ -23,7 +23,7 @@ const CharacterActions = ({
           xmlnsXlink="http://www.w3.org/2000/xlink"
           viewBox="0 0 64 64"
         >
-          <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#objective`} />
+          <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#favorite`} />
         </svg>
       </button>
     }
@@ -40,7 +40,7 @@ const CharacterActions = ({
         xmlnsXlink="http://www.w3.org/2000/xlink"
         viewBox="0 0 64 64"
       >
-        <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#close`} />
+        <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#clock`} />
       </svg>
     </button>
 
