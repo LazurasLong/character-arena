@@ -112,6 +112,7 @@ class Comparator extends Component {
     this.handleToggleCollapsable = this.handleToggleCollapsable.bind(this);
     this.handleFetchCharacter = this.handleFetchCharacter.bind(this);
     this.handleSwitchCharacter = this.handleSwitchCharacter.bind(this);
+    this.handleRefreshCharacter = this.handleRefreshCharacter.bind(this);
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
 
@@ -313,6 +314,18 @@ class Comparator extends Component {
       .then(this.handleDataChange);
   }
 
+  handleRefreshCharacter({ character }) {
+    const { dispatch } = this.props;
+    const { options: { region, language } } = this.state;
+
+    dispatch(fetchCharacter({
+      region,
+      language,
+      realm: character.realm,
+      characterName: character.name,
+    }, true));
+  }
+
   handleRemoveCharacter({ character }) {
     const { dispatch } = this.props;
 
@@ -456,6 +469,7 @@ class Comparator extends Component {
                       language={options.language}
                       handleToggleCollapsable={this.handleToggleCollapsable}
                       handleSwitchCharacter={this.handleSwitchCharacter}
+                      handleRefreshCharacter={this.handleRefreshCharacter}
                       handleRemoveCharacter={this.handleRemoveCharacter}
 
                       character={selectedCharacter}

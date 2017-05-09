@@ -24,16 +24,16 @@ const fetchCharacter = ({
   realm = defaultRealm,
   characterName = defaultCharacterName,
   fields = defaultFields,
-}) => {
+}, avoidCache) => {
   return {
     [CALL_API]: {
-      endpoint: composeUrl({
+      endpoint: `${composeUrl({
         url: CHARACTER,
         region,
         language,
         character: { realm, characterName },
         fields,
-      }),
+      })}${avoidCache ? `&t=${ new Date().getTime() }` : ''}`,
       types: [
         FETCH_CHARACTER_REQUEST,
         FETCH_CHARACTER_SUCCESS,
