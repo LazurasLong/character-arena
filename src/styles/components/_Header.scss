@@ -1,8 +1,8 @@
 /**  @define Header */
 
 .Header {
-  &,
   &-bar {
+    position: fixed;
     top: 0;
     left: 0;
     float: left;
@@ -11,17 +11,13 @@
     display: inline-block;
     width: 100%;
     height: $header-mobile-height;
+    padding: 5px;
 
     font-family: $title-font-stack;
     font-size: 16px;
     font-weight: 700;
 
     background-color: $header-background;
-  }
-
-  &-bar {
-    position: fixed;
-    padding: 5px;
   }
 
   &-logo,
@@ -62,14 +58,10 @@
 
 @media screen and (min-width: breakpoint('landscape-tablet')) {
   .Header {
-    &,
     &-bar{
-      height: $header-desktop-height;
-    }
-
-    &-bar {
       left: $sidebar-width;
       width: calc(100% - #{$sidebar-width});
+      height: $header-desktop-height;
     }
 
     &-logo,
