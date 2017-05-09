@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import Error from '../../components/inputs/Error.jsx';
+import Icon from '../Icon.jsx';
+import Error from './Error.jsx';
 
 const Select = ({
   name,
@@ -38,6 +39,7 @@ const Select = ({
     {error &&
       <Error error={{data: error}} />
     }
+    <Icon className="Select-arrow" icon="leftarrow" />
   </label>
 );
 
