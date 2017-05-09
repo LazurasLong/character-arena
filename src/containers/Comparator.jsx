@@ -17,13 +17,12 @@ import { HOME } from '../constants/appRoutes.js';
 import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
-import Error from '../components/inputs/Error.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import Header from '../components/Header.jsx';
 import Builder from '../components/Builder.jsx';
-import Footer from '../components/Footer.jsx';
-import Character from '../components/Character.jsx';
 import CharacterFinder from '../components/CharacterFinder.jsx';
+import Character from '../components/Character.jsx';
+import Footer from '../components/Footer.jsx';
 
 class Comparator extends Component {
   static propTypes = {
@@ -55,10 +54,58 @@ class Comparator extends Component {
 
   static displayName = 'Comparator';
 
+  static fetchData(dispatch, params = {}) {
+    const {
+      region,
+      language,
+    } = params;
+
+    const resourcesData = [];
+    resourcesData.push(dispatch(fetchRaces({ region, language })));
+    resourcesData.push(dispatch(fetchClasses({ region, language })));
+    resourcesData.push(dispatch(fetchTalents({ region, language })));
+    resourcesData.push(dispatch(fetchRealms({ region, language })));
+
+    // Get basic data
+    return Promise.all(resourcesData)
+      .then((response) => {
+        const {
+          characters
+        } = params;
+
+        // If there are characters on the URL
+        if (characters) {
+
+          const charactersData = [];
+
+          // Go through each character
+          characters.split(',').forEach(char => {
+            const data = char.split('-');
+            if (data && data[0] && data[1]) {
+
+              const character = {
+                region,
+                language,
+                realm: char.split('-')[0],
+                characterName: char.split('-')[1],
+              };
+
+              // Add it to 'data that needs to be fetched'
+              charactersData.push(dispatch(fetchCharacter(character)));
+            }
+          });
+
+          return Promise.all(charactersData)
+            .then(() => Promise.resolve())
+            .catch(errors => Promise.reject(errors));
+        }
+      })
+      .catch(errors => Promise.reject(errors));
+  }
+
   constructor(props) {
     super(props);
 
-    this.fetchInitialData = this.fetchInitialData.bind(this);
     this.handleToggleSidebar = this.handleToggleSidebar.bind(this);
     this.handleSelectRegion = this.handleSelectRegion.bind(this);
     this.handleSelectLanguage = this.handleSelectLanguage.bind(this);
@@ -151,7 +198,15 @@ class Comparator extends Component {
   componentWillMount() {
     const {
       params,
+      dispatch,
     } = this.props;
+
+    const {
+      options: {
+        region,
+        language,
+      },
+    } = this.state;
 
     if ((!params.region || !params.language) && !params.characters) {
       const {
@@ -164,60 +219,13 @@ class Comparator extends Component {
       this.context.router.push(composePathname({ region, language }));
     }
 
-    this.fetchInitialData();
+    Comparator.fetchData(dispatch, params);
   }
 
   fetchInitialData() {
     const {
       dispatch,
     } = this.props;
-
-    const {
-      options: {
-        region,
-        language,
-      },
-    } = this.state;
-
-    const dataToFetch = [];
-    dataToFetch.push(dispatch(fetchRaces({ region, language })));
-    dataToFetch.push(dispatch(fetchClasses({ region, language })));
-    dataToFetch.push(dispatch(fetchTalents({ region, language })));
-    dataToFetch.push(dispatch(fetchRealms({ region, language })));
-
-    // Get basic data
-    Promise.all(dataToFetch)
-      .then(() => {
-        const {
-          params: { characters },
-        } = this.props;
-
-        // If there are characters on the URL
-        if (characters) {
-
-          const charactersData = [];
-
-          // Go through each character
-          characters.split(',').forEach(char => {
-            const data = char.split('-');
-            if (data && data[0] && data[1]) {
-
-              const character = {
-                region,
-                language,
-                realm: char.split('-')[0],
-                characterName: char.split('-')[1],
-              };
-
-              // Add it to 'data that needs to be fetched'
-              charactersData.push(dispatch(fetchCharacter(character)));
-            }
-          });
-
-          Promise.all(charactersData);
-        }
-      })
-      .catch((errors) => { console.log(errors); });
   }
 
   handleToggleSidebar() {
@@ -243,7 +251,6 @@ class Comparator extends Component {
       },
     }, () => {
       this.handleDataChange();
-      this.fetchInitialData();
     });
   }
 
@@ -264,7 +271,6 @@ class Comparator extends Component {
       },
     }, () => {
       this.handleDataChange();
-      this.fetchInitialData();
     });
   }
 
@@ -319,6 +325,11 @@ class Comparator extends Component {
     const { options: { region, language } } = this.state;
 
     this.context.router.push(composePathname({ region, language, collection }));
+    // this.fetchData(dispatch, {
+    //   ...params,
+    //   region,
+    //   language,
+    // });
   }
 
   render() {
@@ -338,8 +349,12 @@ class Comparator extends Component {
       sections,
     } = this.state;
 
-    const isServiceLoading = (classes.isFetching || races.isFetching || realms.isFetching || talents.isFetching);
-    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error);
+    const isServiceLoading = (classes.isFetching || !classes.collection.length || races.isFetching || !races.collection.length || realms.isFetching || !realms.collection.length || talents.isFetching)
+      ? true
+      : false;
+    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error)
+      ? true
+      : false;
 
     let dataFailing;
     if (isServiceUnavailable) {
@@ -377,7 +392,7 @@ class Comparator extends Component {
         <div className="Comparator">
           <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
             {/* App builder */}
-            {isServiceLoading || isServiceUnavailable &&
+            {(isServiceLoading || isServiceUnavailable) &&
               <Builder
                 realms={realms}
                 races={races}
@@ -387,7 +402,7 @@ class Comparator extends Component {
             }
 
             {/* Comparator */}
-            {!isServiceLoading && !isServiceUnavailable &&
+            {(!isServiceLoading && !isServiceUnavailable) &&
               <div>
                 {/* New character */}
                 <CharacterFinder

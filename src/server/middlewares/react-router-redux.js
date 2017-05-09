@@ -34,6 +34,10 @@ export default function (config) {
 
         // Dispatch necessary actions to build initial state
         const fetchData = () => Promise.resolve();
+        // const fetchData = component.fetchData
+        //   ? component.fetchData
+        //   : () => Promise.resolve();
+
         fetchData(store.dispatch, parameters)
           .then(() => {
             const html = ReactDOMServer.renderToString(

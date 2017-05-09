@@ -15,7 +15,7 @@ const Builder = ({
   }
 
   /* Success */
-  if (!data.error && !data.isFetching) {
+  if (!data.error && !data.isFetching && data.collection.length && data.collection.length > 0) {
     return <span className="Builder-item is-success">&#x2611; {label}</span>;
   }
 

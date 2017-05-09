@@ -9,36 +9,29 @@ const Select = ({
   required,
   handleChange,
   value
-}) => {
-
-  if (!options.length) {
-    return <Loading />
-  }
-
-  return (
-    <label className="Select">
-      <span className="Select-label">{placeholder}</span>
-      <select
-        className="Select-field"
-        required={required}
-        ref={reference}
-        defaultValue={value}
-        onChange={handleChange}
-      >
-        {options.map(opt => {
-          return (
-            <option
-              value={opt.slug}
-              key={opt.slug}
-            >
-              {opt.name} {opt.timezone ? `(${opt.timezone})` : ''}
-            </option>
-          );
-        })}
-      </select>
-    </label>
-  );
-};
+}) => (
+  <label className="Select">
+    <span className="Select-label">{placeholder}</span>
+    <select
+      className="Select-field"
+      required={required}
+      ref={reference}
+      defaultValue={value}
+      onChange={handleChange}
+    >
+      {options.map(opt => {
+        return (
+          <option
+            value={opt.slug}
+            key={opt.slug}
+          >
+            {opt.name} {opt.timezone ? `(${opt.timezone})` : ''}
+          </option>
+        );
+      })}
+    </select>
+  </label>
+);
 
 Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({

@@ -12,8 +12,7 @@ const Builder = ({
 
   /* All info has been loaded */
   const className = `Character Builder ${(
-    true
-    && !realms.isFetching && !realms.error && realms.collection.length > 0
+    !realms.isFetching && !realms.error && realms.collection.length > 0
     && !races.isFetching && !races.error && races.collection.length > 0
     && !classes.isFetching && !classes.error && classes.collection.length > 0
     && !talents.isFetching && !talents.error

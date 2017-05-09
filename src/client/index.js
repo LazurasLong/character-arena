@@ -29,7 +29,8 @@ import api from '../middlewares/api';
 
 import reducers from '../reducers';
 
-const store = configureStore();
+const { initialState } = __INITIAL_DATA__;
+const store = configureStore(initialState);
 const rootElement = document.getElementById(SLUG);
 
 if (!ENV || ENV !== 'dev') {
