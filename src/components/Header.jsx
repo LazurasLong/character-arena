@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
-
 import imageResolver from '../utils/image-resolver.js';
+
+import Icon from '../components/Icon.jsx';
 
 import { TITLE } from '../constants/app.js';
 
@@ -10,14 +11,7 @@ const Header = ({
   <header className="Header">
     <div className="Header-bar">
       <button className="Button Button--invisible Button--icon Header-menu" onClick={handleToggleSidebar}>
-        <svg
-          className="Button-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/2000/xlink"
-          viewBox="0 0 64 64"
-        >
-          <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#menu`} />
-        </svg>
+        <Icon className="Button-icon" icon="menu" />
       </button>
       <img
         alt="App logo"

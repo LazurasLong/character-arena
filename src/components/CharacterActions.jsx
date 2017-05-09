@@ -1,6 +1,6 @@
 import React from 'react';
 
-import imageResolver from '../utils/image-resolver.js';
+import Icon from '../components/Icon.jsx';
 
 const CharacterActions = ({
   character,
@@ -17,14 +17,7 @@ const CharacterActions = ({
         className="Button Button--icon Button--invisible"
         onClick={() => { handleSwitchCharacter({ character }); }}
       >
-        <svg
-          className="Button-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/2000/xlink"
-          viewBox="0 0 64 64"
-        >
-          <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#favorite`} />
-        </svg>
+        <Icon className="Button-icon" icon="favorite" />
       </button>
     }
 
@@ -34,14 +27,7 @@ const CharacterActions = ({
       className="Button Button--icon Button--invisible"
       onClick={() => { handleRefreshCharacter({ character }); }}
     >
-      <svg
-        className="Button-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/2000/xlink"
-        viewBox="0 0 64 64"
-      >
-        <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#clock`} />
-      </svg>
+      <Icon className="Button-icon" icon="clock" />
     </button>
 
     {/* Remove character */}
@@ -50,14 +36,7 @@ const CharacterActions = ({
       className="Button Button--icon Button--invisible"
       onClick={() => { handleRemoveCharacter({ character }); }}
     >
-      <svg
-        className="Button-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/2000/xlink"
-        viewBox="0 0 64 64"
-      >
-        <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#close`} />
-      </svg>
+      <Icon className="Button-icon" icon="close" />
     </button>
   </div>
 );

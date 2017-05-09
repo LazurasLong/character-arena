@@ -3,7 +3,6 @@
 .Select {
   position: relative;
 
-
   color: #fff;
   font-family: $text-font-stack;
   font-size: 14px;
@@ -30,5 +29,26 @@
     font-weight: 700;
 
     background: $base-color;
+  }
+
+  &.is-invalid &-field {
+    border-color: $color-error;
+  }
+
+  &-arrow {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+
+    width: 18px;
+    height: 18px;
+
+    border: none;
+    transition: transform $animation-duration;
+    transform: rotate(-90deg);
+  }
+
+  &-field:active + &-arrow {
+    transform: rotate(90deg);
   }
 }

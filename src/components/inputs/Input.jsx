@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
 
+import Error from '../../components/inputs/Error.jsx';
+
 const Input = ({
   type,
+  name,
+  reference,
   placeholder,
   required,
-  reference,
+  error,
 }) => (
   <label
-    className="Input"
+    className={`Input ${error ? 'is-invalid' : ''}`}
   >
     <span className="Input-label">{placeholder}</span>
     <input
@@ -16,20 +20,29 @@ const Input = ({
       required={required}
       ref={reference}
     />
+    {error &&
+      <Error error={{data: error}} />
+    }
   </label>
 );
 
 Input.propTypes = {
   type: PropTypes.string,
+  name: PropTypes.string,
+  reference: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
-  reference: PropTypes.func,
+  error: PropTypes.shape({
+    valid: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired,
+  }),
 };
 Input.defaultProps = {
   type: 'text',
+  name: '',
+  reference: () => {},
   placeholder: '',
   required: false,
-  reference: () => {},
 };
 Input.displayName = 'Input';
 

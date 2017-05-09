@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import imageResolver from '../utils/image-resolver.js';
 
 import { REGIONS } from '../constants/app.js';
 
+import Icon from '../components/Icon.jsx';
 import Select from '../components/inputs/Select.jsx';
 import Collapsable from '../components/Collapsable.jsx';
 
@@ -31,14 +31,7 @@ class Sidebar extends Component {
             className="Button Button--icon Button--invisible Sidebar-close"
             onClick={handleToggleSidebar}
           >
-          <svg
-            className="Button-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/2000/xlink"
-            viewBox="0 0 64 64"
-          >
-            <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#close`} />
-          </svg>
+            <Icon className="Button-icon" icon="close" />
           </button>
 
           {/* Sidebar title */}

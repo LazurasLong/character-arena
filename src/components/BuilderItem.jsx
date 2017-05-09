@@ -1,5 +1,4 @@
 import React from 'react';
-import imageResolver from '../utils/image-resolver.js';
 
 import BuilderItem from '../components/BuilderItem.jsx';
 

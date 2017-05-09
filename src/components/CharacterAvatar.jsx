@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import imageResolver from '../utils/image-resolver.js';
+import Icon from '../components/Icon.jsx';
 
 import { AVATAR_URL } from '../constants/apiRoutes.js';
 import { BLIZZARD_ICONS } from '../constants/app.js';
@@ -20,14 +20,7 @@ const CharacterAvatar = ({
       }
     </div>
     {faction.length > 0 &&
-      <svg
-        className={`CharacterAvatar-faction CharacterAvatar--${faction}`}
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/2000/xlink"
-        viewBox="0 0 64 64"
-      >
-        <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#${faction}`} />
-      </svg>
+      <Icon className={`CharacterAvatar-faction CharacterAvatar--${faction}`} icon={faction} />
     }
   </div>
 );
