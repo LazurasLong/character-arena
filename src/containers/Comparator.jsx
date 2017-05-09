@@ -61,15 +61,18 @@ class Comparator extends Component {
       language,
     } = params;
 
-    const dataToFetch = [];
-    dataToFetch.push(dispatch(fetchRaces({ region, language })));
-    dataToFetch.push(dispatch(fetchClasses({ region, language })));
-    dataToFetch.push(dispatch(fetchTalents({ region, language })));
-    dataToFetch.push(dispatch(fetchRealms({ region, language })));
+    const resourcesData = [];
+    resourcesData.push(dispatch(fetchRaces({ region, language })));
+    resourcesData.push(dispatch(fetchClasses({ region, language })));
+    resourcesData.push(dispatch(fetchTalents({ region, language })));
+    resourcesData.push(dispatch(fetchRealms({ region, language })));
+
+    console.log('Fetching resources', resourcesData);
 
     // Get basic data
-    return Promise.all(dataToFetch)
-      .then(() => {
+    return Promise.all(resourcesData)
+      .then((response) => {
+        console.log('resources has been fetch');
         const {
           characters
         } = params;
@@ -96,14 +99,23 @@ class Comparator extends Component {
             }
           });
 
+          console.log('Fetching characters', charactersData);
+
           return Promise.all(charactersData)
             .then(() => {
+
+              console.log('characters have been fetch');
+
               return Promise.resolve();
+            })
+            .catch((errors) => {
+              console.log('Error while fetching characters', errors);
+              return Promise.reject();
             });
         }
       })
       .catch((errors) => {
-        console.log(errors);
+        console.log('Error while fetching resources', errors);
         return Promise.reject();
       });
   }
