@@ -5,6 +5,7 @@ import imageResolver from '../utils/image-resolver.js';
 const CharacterActions = ({
   character,
   handleSwitchCharacter,
+  handleRefreshCharacter,
   handleRemoveCharacter,
   isMain,
 }) => (
@@ -26,6 +27,22 @@ const CharacterActions = ({
         </svg>
       </button>
     }
+
+    {/* Refresh character */}
+    <button
+      title="Refresh character data"
+      className="Button Button--icon Button--invisible"
+      onClick={() => { handleRefreshCharacter({ character }); }}
+    >
+      <svg
+        className="Button-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/2000/xlink"
+        viewBox="0 0 64 64"
+      >
+        <use xlinkHref={`${imageResolver('../images/blizzard-icons.svg')}#close`} />
+      </svg>
+    </button>
 
     {/* Remove character */}
     <button
