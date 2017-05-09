@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import ReactSidebar from 'react-sidebar';
 import imageResolver from '../utils/image-resolver.js';
 import {
   getCharacterRace,
@@ -134,6 +135,10 @@ class Comparator extends Component {
 
     this.state = {
       isSidebarOpen: false,
+      swipe: {
+        start: false,
+        current: false,
+      },
       options: {
         region: region,
         language: language,
@@ -221,12 +226,6 @@ class Comparator extends Component {
     }
 
     Comparator.fetchData(dispatch, params);
-  }
-
-  fetchInitialData() {
-    const {
-      dispatch,
-    } = this.props;
   }
 
   handleToggleSidebar() {
@@ -382,111 +381,120 @@ class Comparator extends Component {
       }
     }
 
+    {/* App Sidebar */}
+    const SidebarContent = <Sidebar
+      options={options}
+      sections={sections}
+      isOpen={isSidebarOpen}
+      handleToggleSidebar={this.handleToggleSidebar}
+      handleSelectRegion={this.handleSelectRegion}
+      handleSelectLanguage={this.handleSelectLanguage}
+      options={options}
+      ref={(ref) => { this.sidebar = ref; }}
+      handleToggleCollapsable={this.handleToggleCollapsable}
+    />;
+
     return (
-      <div className="App" style={{ backgroundImage: `url(${imageResolver('../images/background.jpg')})` }}>
+      <ReactSidebar
+        className="App"
+        sidebar={SidebarContent}
+        open={this.state.isSidebarOpen}
+        onSetOpen={this.handleToggleSidebar}
+        styles={{
+          sidebar: {zIndex: 200},
+        }}
+      >
+        <div className="App" style={{backgroundImage: `url(${imageResolver('../images/background.jpg')})`}}>
+          {/* App Header */}
+          <Header handleToggleSidebar={this.handleToggleSidebar} />
 
-        {/* App Header */}
-        <Header handleToggleSidebar={this.handleToggleSidebar} />
-
-        {/* App Sidebar */}
-        <Sidebar
-          options={options}
-          sections={sections}
-          isOpen={isSidebarOpen}
-          handleToggleSidebar={this.handleToggleSidebar}
-          handleSelectRegion={this.handleSelectRegion}
-          handleSelectLanguage={this.handleSelectLanguage}
-          options={options}
-          ref={(ref) => { this.sidebar = ref; }}
-          handleToggleCollapsable={this.handleToggleCollapsable}
-        />
-
-        {/* App content */}
-        <div className="Comparator">
-          <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
-            {/* App builder */}
-            {(isServiceLoading || isServiceUnavailable) &&
-              <Builder
-                realms={realms}
-                races={races}
-                classes={classes}
-                talents={talents}
-              />
-            }
-
-            {/* Comparator */}
-            {(!isServiceLoading && !isServiceUnavailable) &&
-              <div>
-                {/* New character */}
-                <CharacterFinder
-                  collapsableData={sections.filters}
-                  reference={(ref) => { this.filters = ref; }}
-                  availableRealms={realms.collection}
-                  handleToggleCollapsable={this.handleToggleCollapsable}
-                  handleFetchCharacter={this.handleFetchCharacter}
-                  error={characters.error}
+          {/* App content */}
+          <div className="Comparator">
+            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
+              {/* App builder */}
+              {(isServiceLoading || isServiceUnavailable) &&
+                <Builder
+                  realms={realms}
+                  races={races}
+                  classes={classes}
+                  talents={talents}
                 />
+              }
 
-                {/* Fetched Characters */}
-                {characters.collection.map((character, index) => {
+              {/* Comparator */}
+              {(!isServiceLoading && !isServiceUnavailable) &&
+                <div>
+                  {/* New character */}
+                  <CharacterFinder
+                    collapsableData={sections.filters}
+                    reference={(ref) => { this.filters = ref; }}
+                    availableRealms={realms.collection}
+                    handleToggleCollapsable={this.handleToggleCollapsable}
+                    handleFetchCharacter={this.handleFetchCharacter}
+                    error={characters.error}
+                  />
 
-                  // Get character data
-                  const selectedCharacter = {...character};
-                  let comparedTo;
-                  if (!selectedCharacter.isFetching && !selectedCharacter.error) {
-                    selectedCharacter.race = getCharacterRace({
-                      raceId: selectedCharacter.race,
-                      races: races.collection
-                    });
-                    selectedCharacter.class = getCharacterClass({
-                      classId: selectedCharacter.class,
-                      classes: classes.collection
-                    });
-                    selectedCharacter.availableTalents = getAvailableTalents({
-                      classId: selectedCharacter.class && selectedCharacter.class.id
-                        ? selectedCharacter.class.id
-                        : selectedCharacter.class,
-                      talents: talents.collection
-                    });
+                  {/* Fetched Characters */}
+                  {characters.collection.map((character, index) => {
 
-                    /* ComparedTo data */
-                    /* If this is not first character */
-                    if (index !== 0 && characters.collection[0] && !characters.collection[0].isFetching) {
+                    // Get character data
+                    const selectedCharacter = {...character};
+                    let comparedTo;
+                    if (!selectedCharacter.isFetching && !selectedCharacter.error) {
+                      selectedCharacter.race = getCharacterRace({
+                        raceId: selectedCharacter.race,
+                        races: races.collection
+                      });
+                      selectedCharacter.class = getCharacterClass({
+                        classId: selectedCharacter.class,
+                        classes: classes.collection
+                      });
+                      selectedCharacter.availableTalents = getAvailableTalents({
+                        classId: selectedCharacter.class && selectedCharacter.class.id
+                          ? selectedCharacter.class.id
+                          : selectedCharacter.class,
+                        talents: talents.collection
+                      });
 
-                      // Set the comparedTo character
-                      comparedTo = {...characters.collection[0]};
-                      comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
-                      comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
-                      comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
+                      /* ComparedTo data */
+                      /* If this is not first character */
+                      if (index !== 0 && characters.collection[0] && !characters.collection[0].isFetching) {
+
+                        // Set the comparedTo character
+                        comparedTo = {...characters.collection[0]};
+                        comparedTo.race = getCharacterRace({ raceId: comparedTo.race, races: races.collection });
+                        comparedTo.class = getCharacterClass({ classId: comparedTo.class, classes: classes.collection });
+                        comparedTo.availableTalents = getAvailableTalents({ classId: comparedTo.class.id || comparedTo.class, talents: talents.collection });
+                      }
                     }
-                  }
 
-                  return (
-                    <Character
-                      key={`character-${index}`}
-                      sections={sections}
-                      region={options.region}
-                      language={options.language}
-                      handleToggleCollapsable={this.handleToggleCollapsable}
-                      handleSwitchCharacter={this.handleSwitchCharacter}
-                      handleRefreshCharacter={this.handleRefreshCharacter}
-                      handleRemoveCharacter={this.handleRemoveCharacter}
+                    return (
+                      <Character
+                        key={`character-${index}`}
+                        sections={sections}
+                        region={options.region}
+                        language={options.language}
+                        handleToggleCollapsable={this.handleToggleCollapsable}
+                        handleSwitchCharacter={this.handleSwitchCharacter}
+                        handleRefreshCharacter={this.handleRefreshCharacter}
+                        handleRemoveCharacter={this.handleRemoveCharacter}
 
-                      character={selectedCharacter}
+                        character={selectedCharacter}
 
-                      comparedTo={comparedTo}
-                      ref={(ref) => { this[`characterFrame${index}`] = ref; }}
-                    />
-                  );
-                })}
-              </div>
-            }
+                        comparedTo={comparedTo}
+                        ref={(ref) => { this[`characterFrame${index}`] = ref; }}
+                      />
+                    );
+                  })}
+                </div>
+              }
+            </div>
           </div>
-        </div>
 
-        {/* App footer */}
-        <Footer options={options}/>
-      </div>
+          {/* App footer */}
+          <Footer options={options}/>
+        </div>
+      </ReactSidebar>
     );
   }
 };

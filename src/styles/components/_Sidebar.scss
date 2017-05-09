@@ -1,19 +1,12 @@
 /** @define Sidebar */
 
 .Sidebar {
-  position: fixed;
   overflow: hidden;
-  top: 0;
-  left: -$sidebar-width;
-  z-index: order('sidebar');
 
   display: inline-block;
-  width: 100%;
   height: 100%;
-  max-width: $sidebar-width;
 
   background-color: $base-background;
-  transition: left $animation-duration;
 
   &-head {
     position: relative;
@@ -65,35 +58,11 @@
     line-height: 22px;
     vertical-align: middle;
   }
-
-  &:before {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    display: none;
-    width: 100%;
-    height: 100%;
-
-    background: $backdrop-background;
-    content: "";
-  }
-
-  &.is-open {
-    left: 0;
-
-    &:before {
-      display: block;
-    }
-  }
 }
 
 @media screen and (min-width: breakpoint('landscape-tablet')) {
   .Sidebar {
-    left: 0;
-
     width: $sidebar-width;
-    height: 100%;
 
     &-head {
       padding: 0;
@@ -112,9 +81,15 @@
     &-body {
       height: calc(100% - #{$header-desktop-height});
     }
-
-    &:before {
-      display: none !important;
-    }
   }
+
+  /* Hack for react-sidebar */
+  /* stylelint-disable */
+  #character-arena > :first-child > :first-child {
+    transform: translate(0) !important;
+  } 
 }
+
+#character-arena > :first-child > * {
+  overflow: hidden !important;
+} 
