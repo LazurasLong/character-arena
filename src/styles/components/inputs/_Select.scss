@@ -31,4 +31,8 @@
 
     background: $base-color;
   }
+
+  &.is-invalid &-field {
+    border-color: $color-error;
+  }
 }

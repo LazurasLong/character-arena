@@ -1,18 +1,23 @@
 import React, { PropTypes } from 'react';
 
-import { Loading } from '../Loading.jsx';
+import Error from '../../components/inputs/Error.jsx';
 
 const Select = ({
+  name,
+  reference,
   options,
   placeholder,
-  reference,
-  required,
   handleChange,
-  value
+  value,
+  required,
+  error,
 }) => (
-  <label className="Select">
+  <label
+    className={`Select ${error ? 'is-invalid' : ''}`}
+  >
     <span className="Select-label">{placeholder}</span>
     <select
+      name={name}
       className="Select-field"
       required={required}
       ref={reference}
@@ -30,6 +35,9 @@ const Select = ({
         );
       })}
     </select>
+    {error &&
+      <Error error={{data: error}} />
+    }
   </label>
 );
 
@@ -39,17 +47,22 @@ Select.propTypes = {
     slug: PropTypes.string.isRequired,
     timezone: PropTypes.string,
   })),
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
   reference: PropTypes.func,
+  placeholder: PropTypes.string,
   handleChange: PropTypes.func,
+  required: PropTypes.bool,
+  error: PropTypes.shape({
+    valid: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired,
+  }),
 };
 Select.defaultProps = {
   options: [],
-  placeholder: '',
-  required: false,
+  name: '',
   reference: () => {},
+  placeholder: '',
   handleChange: () => {},
+  required: false,
 };
 Select.displayName = 'Select';
 

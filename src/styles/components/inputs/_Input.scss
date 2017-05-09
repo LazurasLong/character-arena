@@ -26,4 +26,8 @@
     background: rgba(0,0,0,.5);
     border: solid 1px #504137;
   }
+
+  &.is-invalid &-field {
+    border-color: $color-error;
+  }
 }
