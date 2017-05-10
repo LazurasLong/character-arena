@@ -404,14 +404,15 @@ class Comparator extends Component {
           sidebar: {zIndex: 200},
         }}
       >
-        <div className="App" style={{backgroundImage: `url(${imageResolver('../images/background.jpg')})`}}>
+        <div className="App">
           {/* App Header */}
           <Header handleToggleSidebar={this.handleToggleSidebar} />
 
           {/* App content */}
           <div className="Comparator">
-            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
+            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 20)) + 5)}}>
               {/* App builder */}
+
               {(isServiceLoading || isServiceUnavailable) &&
                 <Builder
                   realms={realms}

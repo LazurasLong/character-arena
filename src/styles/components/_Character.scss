@@ -5,16 +5,10 @@
   float: left;
 
   display: inline-block;
-  // width: calc(50% - 10px);
-  // max-width: 300px;
   width: 300px;
-  padding: 10px;
   margin: 5px;
 
-  text-align: center;
-
-  background-color: rgba($base-background, .7);
-  border-radius: 5px;
+  text-align: left;
 
   &-title {
     font-size: 20px;
@@ -22,8 +16,7 @@
   }
 
   &-filters {
-    padding: 0 10px;
-    margin-top: 10px;
+    padding: 20px 0;
     
     text-align: left;
 
@@ -32,17 +25,28 @@
     }
   }
 
+  &-placeholder {
+    width: $avatar-size;
+    height: $avatar-size;
+  }
+
   &-header {
-    & > * {
-      margin-bottom: 5px;
-    }
+    margin-bottom: 20px;
+  }
+
+  &-name {
+    font-family: $title-font-stack;
+    font-size: 14px;
+    font-weight: 700;
+    vertical-align: top;
   }
 
   $icon-size: 20px;
   &-links {
-    display: block;
-    width: 100%;
+    display: inline-block;
     height: $icon-size;
+    margin: 0 5px;
+
     line-height: $icon-size;
   }
 
@@ -60,18 +64,9 @@
     fill: currentColor;
   }
 
-  &-placeholder {
-    width: $avatar-size;
-    height: $avatar-size;
-  }
-
-  &-name {
-    font-family: $title-font-stack;
-    font-weight: 700;
-  }
-
   &-spec {
     display: block;
+
     line-height: 16px;
 
     &.is-equal {
@@ -97,7 +92,18 @@
 
 @media screen and (min-width: breakpoint('tablet')) {
   .Character {
-    // width: calc(50% - 40px);
-    padding: 20px;
+    &-name {
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (min-width: breakpoint('landscape-tablet')) {
+  .Character {
+    margin: 10px;
+
+    &-name {
+      font-size: 20px;
+    }
   }
 }
