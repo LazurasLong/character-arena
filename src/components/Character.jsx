@@ -110,14 +110,19 @@ export default class Character extends Component {
               let characterData = {};
               let comparedToData = {};
               switch (key) {
-                case 'itemLevel':
-                  characterData = character.items;
-                  comparedToData = comparedTo && comparedTo.items;
+                case 'attributes':
+                  characterData = {
+                    ...character.items,
+                    ...character.stats,
+                  };
+                  comparedToData = comparedTo
+                    ? {
+                      ...comparedTo.items,
+                      ...comparedTo.stats,
+                    }
+                    : undefined;
                   break;
                 
-                case 'attributes':
-                case 'enhacements':
-                case 'deffense':
                 default:
                   characterData = character.stats;
                   comparedToData = comparedTo && comparedTo.stats;
@@ -140,6 +145,7 @@ export default class Character extends Component {
                   <CharacterAttributesGroup
                     elements={section.elements}
                     data={characterData}
+                    spec={character.talents[0].spec.backgroundImage}
                     comparedTo={comparedToData}
                     hideLabels={typeof comparedToData !== 'undefined'}
                   />

@@ -4,7 +4,7 @@ import imageResolver from '../utils/image-resolver.js';
 import CharacterAvatar from '../components/CharacterAvatar.jsx';
 
 const LoadingCharacter = () => (
-  <div className="Character-header">
+  <div className="Character-header is-loading">
     <img
       alt="Loading character placeholder"
       className="Character-placeholder"

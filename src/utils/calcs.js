@@ -34,6 +34,70 @@ export const getAvailableTalents = ({
   return selectedTalents;
 };
 
+export const getSpecResource = ({
+  powerType,
+  role,
+  resource,
+  spec,
+}) => {
+  /* Strength */
+  if (
+    // Warrior
+    (powerType === 'rage')
+    // DK
+    || (powerType === 'runic-power')
+    // Pala tank
+    || (spec === 'bg-paladin-protection')
+    // Pala dps
+    || (spec === 'bg-paladin-retribution')
+  ) {
+    if (resource === 'str') {
+      return true;
+    }
+    return false;
+  
+  /* Agility */
+  } else if (
+    // Rogue, monks
+    (powerType === 'energy')
+    // Hunter
+    || (powerType === 'focus')
+    // DH dps
+    || (powerType === 'fury')
+    // DH tank
+    || (powerType === 'pain')
+    // Feral
+    || (spec === 'bg-druid-cat')
+    // Feral
+    || (spec === 'bg-druid-guardian')
+    // Shaman enhancement
+    || (spec === 'bg-shaman-enhancement')
+  ) {
+    if (resource === 'agi') {
+      return true;
+    }
+    return false;
+  
+  /* Intelect */
+  } else if (
+    // Healers
+    (role === 'HEALER')
+    // Mage, Priest, Warlock
+    || (powerType === 'mana')
+    // Shadow priest
+    || (powerType === 'insanity')
+    // Elemental shaman
+    || (powerType === 'maelstrom')
+  ) {
+    if (resource === 'int') {
+      return true;
+    }
+    return false;
+  }
+
+  return false;
+}
+
 /*
   ATTRIBUTES RELATED
 */
@@ -193,3 +257,35 @@ export const setCookie = ({ name, value }) => {
 
   document.cookie = `${name}=${value}; expires=${expires}`;
 }
+
+/*
+  DATE AND NUMBERS RELATED
+*/
+// Get relative time
+export const getRelativeTime = timestamp => {
+    var now = new Date().getTime();
+
+    // Get timeAgo time
+    var timeAgo = now - timestamp;
+
+    // Calc values
+    var years = parseInt(timeAgo / 1000 / 60 / 60 / 24 / 30 / 12);
+    var months = parseInt(timeAgo / 1000 / 60 / 60 / 24 / 30) - (years * 12);
+    var days = parseInt(timeAgo / 1000 / 60 / 60 / 24) - (years * 12 * 30) - (months * 30);
+    var hours = parseInt(timeAgo / 1000 / 60 / 60) - (years * 12 * 30 * 24) - (months * 30 * 24) - (days * 24);
+    var mins = parseInt(timeAgo / 1000 / 60) - (years * 12 * 30 * 24 * 60) - (months * 30 * 24 * 60) - (days * 24 * 60) - (hours * 60);
+
+    // Build the array
+    var timming = [];
+    if (years) timming.push(`${years} years`);
+    if (months) timming.push(`${months} months`);
+    if (days) timming.push(`${days} days`);
+    if (hours) timming.push(`${hours} hours`);
+    if (mins) timming.push(`${mins} mins`);
+
+    // Return formatted string
+    return timming.join(', ');
+};
+
+// Format a number with millions and thousand separators
+export const formatIntegers = number => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

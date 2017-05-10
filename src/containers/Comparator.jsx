@@ -149,24 +149,95 @@ class Comparator extends Component {
           slug: 'filters',
           title: 'New character',
         },
-        itemLevel: {
-          isOpen: false,
-          slug: 'itemLevel',
-          title: 'Item Level',
-          elements: [
-            {name: 'Average', slug: 'averageItemLevel'},
-            {name: 'Equipped', slug: 'averageItemLevelEquipped'},
-          ],
-        },
         attributes: {
           isOpen: true,
           slug: 'attributes',
           title: 'Attributes',
           elements: [
-            {name: 'Strength', slug: 'str'},
-            {name: 'Agility', slug: 'agi'},
-            {name: 'Intelect', slug: 'int'},
-            {name: 'Stamina', slug: 'sta'},
+            {
+              name: 'Item Level',
+              slug: 'averageItemLevelEquipped',
+              icon: 'swords',
+            },
+            {
+              name: 'Health',
+              slug: 'health',
+            },
+            {
+              name: 'Energy',
+              slug: 'energy',
+              isPower: true,
+            },
+            {
+              name: 'Focus',
+              slug: 'focus',
+              isPower: true,
+            },
+            {
+              name: 'Fury',
+              slug: 'fury',
+              isPower: true,
+            },
+            {
+              name: 'Insanity',
+              slug: 'insanity',
+              isPower: true,
+            },
+            {
+              name: 'Maelstrom',
+              slug: 'maelstrom',
+              isPower: true,
+            },
+            {
+              name: 'Mana',
+              slug: 'mana',
+              isPower: true,
+            },
+            {
+              name: 'Pain',
+              slug: 'pain',
+              isPower: true,
+            },
+            {
+              name: 'Rage',
+              slug: 'rage',
+              isPower: true,
+            },
+            {
+              name: 'Runic Power',
+              slug: 'runic-power',
+              isPower: true,
+            },
+          ],
+        },
+        stats: {
+          isOpen: true,
+          slug: 'stats',
+          title: 'Stats',
+          elements: [
+            {
+              name: 'Strength',
+              slug: 'str',
+              icon: 'strength',
+              isSpecBased: true,
+            },
+            {
+              name: 'Agility',
+              slug: 'agi',
+              icon: 'agility',
+              isSpecBased: true,
+            },
+            {
+              name: 'Intelect',
+              slug: 'int',
+              icon: 'intelect',
+              isSpecBased: true,
+            },
+            {
+              name: 'Stamina',
+              slug: 'sta',
+              icon: 'stamina',
+            },
           ],
         },
         enhacements: {
@@ -174,22 +245,23 @@ class Comparator extends Component {
           slug: 'enhacements',
           title: 'Enhacements',
           elements: [
-            {name: 'Critical', slug: 'crit'},
-            {name: 'Haste', slug: 'haste'},
-            {name: 'Mastery', slug: 'mastery'},
-            {name: 'Versatility', slug: 'versatility'},
-            {name: 'Mana Regen', slug: 'mana5'},
-          ],
-        },
-        deffense: {
-          isOpen: false,
-          slug: 'deffense',
-          title: 'Deffense',
-          elements: [
-            {name: 'Armor', slug: 'armor'},
-            {name: 'Dodge', slug: 'dodge'},
-            {name: 'Parry', slug: 'parry'},
-            {name: 'Block', slug: 'block'},
+            {
+              name: 'Critical',
+              slug: 'crit',
+              icon: 'critical-strike',
+            },
+            {
+              name: 'Haste',
+              slug: 'haste',
+            },
+            {
+              name: 'Mastery',
+              slug: 'mastery',
+            },
+            {
+              name: 'Versatility',
+              slug: 'versatility',
+            },
           ],
         },
         talents: {
@@ -404,14 +476,15 @@ class Comparator extends Component {
           sidebar: {zIndex: 200},
         }}
       >
-        <div className="App" style={{backgroundImage: `url(${imageResolver('../images/background.jpg')})`}}>
+        <div className="App">
           {/* App Header */}
           <Header handleToggleSidebar={this.handleToggleSidebar} />
 
           {/* App content */}
           <div className="Comparator">
-            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 10)) + 5)}}>
+            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 20)) + 5)}}>
               {/* App builder */}
+
               {(isServiceLoading || isServiceUnavailable) &&
                 <Builder
                   realms={realms}

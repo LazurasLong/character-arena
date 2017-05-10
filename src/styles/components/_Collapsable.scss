@@ -1,24 +1,19 @@
 /** @define Collapsable */
 
 .Collapsable {
-  background: $base-background;
-  border: 1px dotted rgba($base-border, .4);
-  border-bottom: none;
-
-  &:nth-last-of-type(1) {
-    border-bottom: 1px dotted rgba($base-border, .4);
-  }
+  margin-bottom: 40px;
+  font-weight: 700;
+  text-transform: uppercase;
 
   &-head {
     position: relative;
     width: 100%;
-    padding: 20px 10px;
+    padding: 20px 0;
 
     color: $white;
-    font-size: 14px;
+    font-size: 13px;
     text-align: left;
 
-    background-color: $btn-background;
     cursor: pointer;
   }
 
@@ -29,16 +24,35 @@
   }
 
   &-body {
+    position: relative;
     overflow: hidden;
     max-height: 0;
+    padding: 0 20px;
 
+    font-size: 11px;
+
+    background-color: $base-background;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 1px solid $content-border;
     transition: max-height $animation-duration;
+
+    &::before {
+      position: absolute;
+
+      width: 100%;
+      height: 100%;
+      margin-left: -20px;
+
+      background: rgba(0, 0, 0, 0.5);
+      content: '';
+    }
   }
 
   &-icon {
     position: absolute;
     top: 20px;
-    right: 10px;
+    right: 0;
 
     display: block;
     width: 16px;
@@ -89,12 +103,28 @@
       cursor: default;
     }
   }
+}
 
-  .is-alliance & {
-    border-color: $color-alliance;
+@media screen and (min-width: breakpoint('tablet')) {
+  .Collapsable {
+    &-head {
+      font-size: 14px;
+    }
+
+    &-body {
+      font-size: 12px;
+    }
   }
+}
 
-  .is-horde & {
-    border-color: $color-horde;
+@media screen and (min-width: breakpoint('landscape-tablet')) {
+  .Collapsable {
+    &-head {
+      font-size: 18px;
+    }
+
+    &-head {
+      font-size: 14px;
+    }
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import imageResolver from '../utils/image-resolver.js';
 
 export default class Collapsable extends Component {
   static propTypes = {
@@ -54,8 +55,9 @@ export default class Collapsable extends Component {
             <span className="Collapsable-icon" />
           }
         </div>
-
-        <div className="Collapsable-body">{children}</div>
+        <div className="Collapsable-body" style={{backgroundImage: `url(${imageResolver('../images/background-leather.jpg')})`}}>
+          {children}
+        </div>
       </section>
     );
   }
