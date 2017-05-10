@@ -195,7 +195,7 @@ export const setCookie = ({ name, value }) => {
 }
 
 /*
-  DATE RELATED
+  DATE AND NUMBERS RELATED
 */
 // Get relative time
 export const getRelativeTime = timestamp => {
@@ -222,3 +222,6 @@ export const getRelativeTime = timestamp => {
     // Return formatted string
     return timming.join(', ');
 };
+
+// Format a number with millions and thousand separators
+export const formatIntegers = number => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

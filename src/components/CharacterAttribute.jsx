@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { formatIntegers } from '../utils/calcs.js';
 
 const CharacterAttribute = ({
   label,
@@ -18,7 +19,7 @@ const CharacterAttribute = ({
     {/* Show difference */}
     {typeof difference !== 'undefined' &&
       <span className={`CharacterAttributes-value Comparator-difference ${(difference > 0) ? 'Comparator--greater' : 'Comparator--lower'}`}>
-        { (difference > 0) ? `+${difference}` : difference}{isPercentage ? '%' : ''}
+        { (difference > 0) ? `+${formatIntegers(difference)}` : formatIntegers(difference)}{isPercentage ? '%' : ''}
         {typeof percentageDifference !== 'undefined' &&
           <span>
             <br />
@@ -30,7 +31,7 @@ const CharacterAttribute = ({
 
     {/* Show values */}
     <span className="CharacterAttributes-value">
-      {`${parseInt(value, 10)}${isPercentage ? '%' : ''}`}
+      {`${formatIntegers(parseInt(value, 10))}${isPercentage ? '%' : ''}`}
       {typeof percentageValue !== 'undefined' &&
         <span>
           <br />
