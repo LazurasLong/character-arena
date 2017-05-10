@@ -10,7 +10,7 @@ const CharacterAttributesGroup = ({
   comparedTo,
   hideLabels,
 }) => (
-  <div className={`CharacterAttributes ${hideLabels && 'CharacterAttributes--right'}`}>
+  <div className={`CharacterAttributes ${hideLabels ? 'CharacterAttributes--right' : ''}`}>
 
     {/* Loop through each attribute */}
     {elements.map(elem => {
@@ -90,6 +90,8 @@ const CharacterAttributesGroup = ({
         <CharacterAttribute
           key={`attr-${elem.slug}`}
           label={elem.name}
+          slug={elem.slug}
+          icon={elem.icon}
           value={value}
           difference={difference}
           percentageValue={percentageValue}

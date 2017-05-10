@@ -20,18 +20,17 @@
   }
 
   &--greater {
-    color: $green;
+    color: $green !important;
   }
 
   &--lower {
-    color: $red;
+    color: $red !important;
   }
 
   &-wrapper {
     position: relative;
     float: left;
 
-    display: inline-block;
     min-width: 100%;
   }
 

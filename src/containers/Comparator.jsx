@@ -154,17 +154,60 @@ class Comparator extends Component {
           slug: 'attributes',
           title: 'Attributes',
           elements: [
-            {name: 'Item Level', slug: 'averageItemLevelEquipped'},
-            {name: 'Health', slug: 'health'},
-            {name: 'Energy', slug: 'energy', isPower: true},
-            {name: 'Focus', slug: 'focus', isPower: true},
-            {name: 'Fury', slug: 'fury', isPower: true},
-            {name: 'Insanity', slug: 'insanity', isPower: true},
-            {name: 'Maelstrom', slug: 'maelstrom', isPower: true},
-            {name: 'Mana', slug: 'mana', isPower: true},
-            {name: 'Pain', slug: 'pain', isPower: true},
-            {name: 'Rage', slug: 'rage', isPower: true},
-            {name: 'Runic Power', slug: 'runic-power', isPower: true},
+            {
+              name: 'Item Level',
+              slug: 'averageItemLevelEquipped',
+              icon: 'swords',
+            },
+            {
+              name: 'Health',
+              slug: 'health',
+            },
+            {
+              name: 'Energy',
+              slug: 'energy',
+              isPower: true,
+            },
+            {
+              name: 'Focus',
+              slug: 'focus',
+              isPower: true,
+            },
+            {
+              name: 'Fury',
+              slug: 'fury',
+              isPower: true,
+            },
+            {
+              name: 'Insanity',
+              slug: 'insanity',
+              isPower: true,
+            },
+            {
+              name: 'Maelstrom',
+              slug: 'maelstrom',
+              isPower: true,
+            },
+            {
+              name: 'Mana',
+              slug: 'mana',
+              isPower: true,
+            },
+            {
+              name: 'Pain',
+              slug: 'pain',
+              isPower: true,
+            },
+            {
+              name: 'Rage',
+              slug: 'rage',
+              isPower: true,
+            },
+            {
+              name: 'Runic Power',
+              slug: 'runic-power',
+              isPower: true,
+            },
           ],
         },
         stats: {
@@ -172,10 +215,29 @@ class Comparator extends Component {
           slug: 'stats',
           title: 'Stats',
           elements: [
-            {name: 'Strength', slug: 'str', isSpecBased: true},
-            {name: 'Agility', slug: 'agi', isSpecBased: true},
-            {name: 'Intelect', slug: 'int', isSpecBased: true},
-            {name: 'Stamina', slug: 'sta'},
+            {
+              name: 'Strength',
+              slug: 'str',
+              icon: 'strength',
+              isSpecBased: true,
+            },
+            {
+              name: 'Agility',
+              slug: 'agi',
+              icon: 'agility',
+              isSpecBased: true,
+            },
+            {
+              name: 'Intelect',
+              slug: 'int',
+              icon: 'intelect',
+              isSpecBased: true,
+            },
+            {
+              name: 'Stamina',
+              slug: 'sta',
+              icon: 'stamina',
+            },
           ],
         },
         enhacements: {
@@ -183,10 +245,23 @@ class Comparator extends Component {
           slug: 'enhacements',
           title: 'Enhacements',
           elements: [
-            {name: 'Critical', slug: 'crit'},
-            {name: 'Haste', slug: 'haste'},
-            {name: 'Mastery', slug: 'mastery'},
-            {name: 'Versatility', slug: 'versatility'},
+            {
+              name: 'Critical',
+              slug: 'crit',
+              icon: 'critical-strike',
+            },
+            {
+              name: 'Haste',
+              slug: 'haste',
+            },
+            {
+              name: 'Mastery',
+              slug: 'mastery',
+            },
+            {
+              name: 'Versatility',
+              slug: 'versatility',
+            },
           ],
         },
         talents: {

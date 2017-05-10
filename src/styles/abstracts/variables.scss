@@ -10,12 +10,18 @@ $red: red;
 $green: green;
 $gold: #f8b700;
 
+// Statuses
 $color-error: #9f1600;
 $color-success: $green;
 
+/*
+  GAME RELATED
+*/
+// Factions
 $color-alliance: rgba(0, 40, 130, 1);
 $color-horde: rgba(133, 0, 0, 1);
 
+// Classes
 $color-mage: #68ccef;
 $color-priest: #f0ebe0;
 $color-warlock: #9382c9;
@@ -29,6 +35,33 @@ $color-dk: #c41e3b;
 $color-paladin: #f48cba;
 $color-warrior: #c69b6d;
 
+// Attributes
+$color-health: #27cc4e;
+$color-energy: #cb9501;
+$color-focus: #d45719;
+$color-fury: #8400ff;
+$color-insanity: #60f;
+$color-maelstrom: #008fff;
+$color-mana: #1c8aff;
+$color-pain: #d45719;
+$color-rage: #ab0000;
+$color-runic-power: #00bcde;
+
+// Stats
+$color-str: #f33232;
+$color-agi: #ffd955;
+$color-int: #d26cd1;
+$color-sta: #ff8b2d;
+
+// Enhancements
+$color-crit: #e01c1c;
+$color-haste: #0ed59b;
+$color-mastery: #9256ff;
+$color-versatility: #bfbfbf;
+
+/*
+  PAGE RELATED
+*/
 $base-color: $gold;
 $base-background: #1C110D;
 $base-border: #c77e19;
