@@ -51,10 +51,13 @@
     width: $icon-size;
     height: 100%;
     margin: 0 5px;
+
+    color: $btn-color;
   }
 
   &-linkIcon {
     width: 100%;
+    fill: currentColor;
   }
 
   &-placeholder {

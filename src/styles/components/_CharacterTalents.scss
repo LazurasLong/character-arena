@@ -1,20 +1,12 @@
 /** @define CharacterTalents */
 .CharacterTalents {
+  margin: 10px 0;
 
   &-tier {
     position: relative;
     display: block;
 
     width: 100%;
-  }
-
-  &-talentIcon {
-    width: $talent-height;
-    height: $talent-height;
-    padding: 2px;
-
-    border-radius: 2px;
-    border: 2px solid transparent;
   }
 
   &-column {
@@ -47,5 +39,9 @@
         border-color: transparent;
       }
     }
+  }
+
+  &-talentIcon {
+    height: 100%;
   }
 }
