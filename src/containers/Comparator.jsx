@@ -172,9 +172,9 @@ class Comparator extends Component {
           slug: 'stats',
           title: 'Stats',
           elements: [
-            {name: 'Strength', slug: 'str'},
-            {name: 'Agility', slug: 'agi'},
-            {name: 'Intelect', slug: 'int'},
+            {name: 'Strength', slug: 'str', isSpecBased: true},
+            {name: 'Agility', slug: 'agi', isSpecBased: true},
+            {name: 'Intelect', slug: 'int', isSpecBased: true},
             {name: 'Stamina', slug: 'sta'},
           ],
         },
@@ -187,7 +187,6 @@ class Comparator extends Component {
             {name: 'Haste', slug: 'haste'},
             {name: 'Mastery', slug: 'mastery'},
             {name: 'Versatility', slug: 'versatility'},
-            {name: 'Mana Regen', slug: 'mana5'},
           ],
         },
         talents: {

@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
-import { compare } from '../utils/calcs.js';
+import { compare, getSpecResource } from '../utils/calcs.js';
 
 import CharacterAttribute from '../components/CharacterAttribute.jsx';
 
 const CharacterAttributesGroup = ({
   elements,
   data,
+  spec,
   comparedTo,
   hideLabels,
 }) => (
@@ -44,6 +45,21 @@ const CharacterAttributesGroup = ({
 
         value = data[customKey];
         difference = compare({ base: data, comparedTo, key: customKey });
+
+      /* Spec resources */
+      } else if (elem.isSpecBased) {
+        /* Early return for other resources */
+        if (!getSpecResource({
+          powerType: data.powerType,
+          role: data.role,
+          resource: elem.slug,
+          spec,
+        })) {
+          return;
+        }
+
+        value = data[elem.slug];
+        difference = compare({ base: data, comparedTo, key: elem.slug });
 
       /* Default values*/
       } else {
@@ -92,6 +108,7 @@ CharacterAttributesGroup.propTypes = {
     slug: PropTypes.string.isRequired,
   })).isRequired,
   data: PropTypes.object.isRequired,
+  spec: PropTypes.string.isRequired,
   comparedTo: PropTypes.object,
   hideLabels: PropTypes.bool,
 };

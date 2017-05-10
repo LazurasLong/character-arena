@@ -34,6 +34,70 @@ export const getAvailableTalents = ({
   return selectedTalents;
 };
 
+export const getSpecResource = ({
+  powerType,
+  role,
+  resource,
+  spec,
+}) => {
+  /* Strength */
+  if (
+    // Warrior
+    (powerType === 'rage')
+    // DK
+    || (powerType === 'runic-power')
+    // Pala tank
+    || (spec === 'bg-paladin-protection')
+    // Pala dps
+    || (spec === 'bg-paladin-retribution')
+  ) {
+    if (resource === 'str') {
+      return true;
+    }
+    return false;
+  
+  /* Agility */
+  } else if (
+    // Rogue, monks
+    (powerType === 'energy')
+    // Hunter
+    || (powerType === 'focus')
+    // DH dps
+    || (powerType === 'fury')
+    // DH tank
+    || (powerType === 'pain')
+    // Feral
+    || (spec === 'bg-druid-cat')
+    // Feral
+    || (spec === 'bg-druid-guardian')
+    // Shaman enhancement
+    || (spec === 'bg-shaman-enhancement')
+  ) {
+    if (resource === 'agi') {
+      return true;
+    }
+    return false;
+  
+  /* Intelect */
+  } else if (
+    // Healers
+    (role === 'HEALER')
+    // Mage, Priest, Warlock
+    || (powerType === 'mana')
+    // Shadow priest
+    || (powerType === 'insanity')
+    // Elemental shaman
+    || (powerType === 'maelstrom')
+  ) {
+    if (resource === 'int') {
+      return true;
+    }
+    return false;
+  }
+
+  return false;
+}
+
 /*
   ATTRIBUTES RELATED
 */
