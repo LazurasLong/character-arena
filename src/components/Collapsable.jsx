@@ -55,7 +55,7 @@ export default class Collapsable extends Component {
             <span className="Collapsable-icon" />
           }
         </div>
-        <div className="Collapsable-body" style={{backgroundImage: `url(${imageResolver('../images/background.jpg')})`}}>
+        <div className="Collapsable-body" style={{backgroundImage: `url(${imageResolver('../images/background-leather.jpg')})`}}>
           {children}
         </div>
       </section>

@@ -4,7 +4,7 @@ import { getSlug, fillUrlData, getRelativeTime } from '../utils/calcs.js';
 import { WOWPROGRESS_CHAR, WOWPROGRESS_ICON, WORLDOFWARCRAFT_ARMORY } from '../constants/app.js';
 
 import Icon from '../components/Icon.jsx';
-import CharacterAvatar from '../components/CharacterAvatar.jsx';
+import CharacterAppearance from '../components/CharacterAppearance.jsx';
 import CharacterSpec from '../components/CharacterSpec.jsx';
 
 const CharacterHeader = ({
@@ -15,7 +15,7 @@ const CharacterHeader = ({
 }) => (
   <div className="Character-header">
     {/* Character avatar */}
-    <CharacterAvatar
+    <CharacterAppearance
       picture={character.thumbnail}
       faction={character.race.side}
     />
