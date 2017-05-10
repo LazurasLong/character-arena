@@ -149,21 +149,12 @@ export default {
         },
 
         // External icons
-        // Using talent icons instead
-        // {
-        //   urlPattern: composeUrlPattern(SPEC_ICONS),
-        //   handler: 'fastest',
-        // },
         {
           urlPattern: composeUrlPattern(TALENT_ICON),
           handler: 'fastest',
         },
         {
           urlPattern: composeUrlPattern(WOWPROGRESS_ICON),
-          handler: 'fastest',
-        },
-        {
-          urlPattern: composeUrlPattern(WORLDOFWARCRAFT_ICON),
           handler: 'fastest',
         },
 

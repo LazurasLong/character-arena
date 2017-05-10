@@ -13,54 +13,52 @@ export const REGIONS = [
     slug: 'us',
     name: 'America',
     languages: [
-      { slug: 'en', name: 'English (US)' },
-      { slug: 'es', name: 'Español (AL)' },
-      { slug: 'pt', name: 'Português (AL)' },
+      { slug: 'en', regionLanguage: 'us', name: 'English (US)' },
+      { slug: 'es', regionLanguage: 'mx', name: 'Español (AL)' },
+      { slug: 'pt', regionLanguage: 'br', name: 'Português (AL)' },
     ]
   },
   {
     slug: 'eu',
     name: 'Europe',
     languages: [
-      { slug: 'de', name: 'Deutsch' },
-      { slug: 'en', name: 'English (EU)' },
-      { slug: 'es', name: 'Español (EU)' },
-      { slug: 'fr', name: 'Français' },
-      { slug: 'it', name: 'Italiano' },
-      { slug: 'pt', name: 'Português (EU)' },
-      { slug: 'ru', name: 'Русский' },
+      { slug: 'de', regionLanguage: 'de', name: 'Deutsch' },
+      { slug: 'en', regionLanguage: 'gb', name: 'English (EU)' },
+      { slug: 'es', regionLanguage: 'es', name: 'Español (EU)' },
+      { slug: 'fr', regionLanguage: 'fr', name: 'Français' },
+      { slug: 'it', regionLanguage: 'it', name: 'Italiano' },
+      { slug: 'pt', regionLanguage: 'pt', name: 'Português (EU)' },
+      { slug: 'ru', regionLanguage: 'ru', name: 'Русский' },
     ]
   },
   {
     slug: 'kr',
     name: 'Korea',
     languages: [
-      { slug: 'ko', name: '한국어' },
+      { slug: 'ko', regionLanguage: 'kr', name: '한국어' },
     ]
   },
   {
     slug: 'tw',
     name: 'Taiwan',
     languages: [
-      { slug: 'zh', name: '繁體中文' },
+      { slug: 'zh', regionLanguage: 'cn', name: '繁體中文' },
     ]
   },
 ];
 
 // Icons
 export const BLIZZARD_ICONS = "/images/blizzard-icons.svg#";
-// export const SPEC_ICONS = 'http://media.blizzard.com/wow/icons/36/:iconName.jpg';
-// export const TALENT_ICON = 'https://media.blizzard.com/wow/icons/18/:iconName.jpg';       // Old
-export const TALENT_ICON = 'https://blzmedia-a.akamaihd.net/wow/icons/56/:iconName.jpg';    // New
+export const TALENT_ICON = 'https://blzmedia-a.akamaihd.net/wow/icons/56/:iconName.jpg';
+
 // Links
 export const IMPERDIBLESOFT = 'http://www.imperdiblesoft.com';
 export const WOWPROGRESS = 'https://www.wowprogress.com';
 export const WOWPROGRESS_ICON = `${WOWPROGRESS}/favicon.ico`;
 export const WOWPROGRESS_CHAR = `${WOWPROGRESS}/character/:region/:realm/:characterName`;
 
-export const WORLDOFWARCRAFT = 'https://www.worldofwarcraft.com/:region-:language';
-export const WORLDOFWARCRAFT_ICON = 'https://us.battle.net/wow/static/images/meta/favicon.ico';
-export const WORLDOFWARCRAFT_ARMORY = 'http://:region.battle.net/wow/:language/character/:realm/:characterName/simple';
+export const WORLDOFWARCRAFT = 'https://www.worldofwarcraft.com/:language-:regionLanguage';
+export const WORLDOFWARCRAFT_ARMORY = `${WORLDOFWARCRAFT}/character/:realm/:characterName`;
 export const LEADERBOARDS_PVE = `${WORLDOFWARCRAFT}/game/pve/leaderboards`;
 export const LEADERBOARDS_PVP = `${WORLDOFWARCRAFT}/game/pvp/leaderboards/3v3`;
 

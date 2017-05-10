@@ -1,8 +1,9 @@
 import React from 'react';
 import { getSlug, fillUrlData } from '../utils/calcs.js';
 
-import { WOWPROGRESS_CHAR, WOWPROGRESS_ICON, WORLDOFWARCRAFT_ARMORY, WORLDOFWARCRAFT_ICON } from '../constants/app.js';
+import { WOWPROGRESS_CHAR, WOWPROGRESS_ICON, WORLDOFWARCRAFT_ARMORY } from '../constants/app.js';
 
+import Icon from '../components/Icon.jsx';
 import CharacterAvatar from '../components/CharacterAvatar.jsx';
 import CharacterClass from '../components/CharacterClass.jsx';
 import CharacterSpec from '../components/CharacterSpec.jsx';
@@ -37,9 +38,9 @@ const CharacterHeader = ({
     />
 
     {/* External links */}
-    <div className="Character-spec">
+    <div className="Character-links">
       <a
-        className="Character-specIcon"
+        className="Character-link"
         title="View on World of Warcraft armory"
         target="_blank"
         rel="noopener noreferrer"
@@ -47,22 +48,22 @@ const CharacterHeader = ({
           url: WORLDOFWARCRAFT_ARMORY,
           region: region,
           language: language,
-          realm: character.realm,
-          characterName: character.name,
+          realm: getSlug(character.realm),
+          characterName: getSlug(character.name),
         })
-      }><img alt="Link to World of Warcraft Armory" src={WORLDOFWARCRAFT_ICON} /></a>
+      }><Icon className="Character-linkIcon" icon="wow" /></a>
       <a
-        className="Character-specIcon"
+        className="Character-link"
         title="View on WowProgress"
         target="_blank"
         rel="noopener noreferrer"
         href={fillUrlData({
           url: WOWPROGRESS_CHAR,
           region: region,
-          realm: character.realm,
+          realm: getSlug(character.realm, true),
           characterName: character.name,
         })
-      }><img alt="Link to WoWProgress.com" src={WOWPROGRESS_ICON} /></a>
+      }><img alt="Link to WoWProgress.com" className="Character-linkIcon" src={WOWPROGRESS_ICON} /></a>
     </div>
   </div>
 );

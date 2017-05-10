@@ -69,17 +69,6 @@ class CharacterFinder extends Component {
           error: 'Character name is required',
         },
       };
-
-    /* Invalid character name */
-    } else if (/\ /g.test(characterName.value)) {
-      validation = {
-        ...validation,
-        valid: false,
-        characterName: {
-          valid: false,
-          error: 'Invalid character name',
-        },
-      };
     }
 
     /* Save validation */
