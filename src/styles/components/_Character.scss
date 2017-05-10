@@ -25,12 +25,19 @@
     }
   }
 
+  &-header {
+    margin-bottom: 20px;
+
+    &.is-loading {
+      // CharacterActions height
+      margin-top: 47px;
+      text-align: center;
+    }
+  }
+
   &-placeholder {
     width: $avatar-size;
     height: $avatar-size;
-  }
-
-  &-header {
     margin-bottom: 20px;
   }
 
@@ -38,7 +45,6 @@
     font-family: $title-font-stack;
     font-size: 14px;
     font-weight: 700;
-    vertical-align: top;
   }
 
   $icon-size: 20px;
@@ -48,6 +54,7 @@
     margin: 0 5px;
 
     line-height: $icon-size;
+    vertical-align: text-bottom;
   }
 
   &-link {
@@ -87,6 +94,15 @@
     height: 20px;
     line-height: 20px;
     vertical-align: text-bottom;
+  }
+
+  &-lastUpdate {
+    font-size: 14px;
+  }
+
+  &-lastUpdateLabel {
+    margin-right: 10px;
+    color: $btn-color-disabled;
   }
 }
 

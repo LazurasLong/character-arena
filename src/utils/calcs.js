@@ -193,3 +193,32 @@ export const setCookie = ({ name, value }) => {
 
   document.cookie = `${name}=${value}; expires=${expires}`;
 }
+
+/*
+  DATE RELATED
+*/
+// Get relative time
+export const getRelativeTime = timestamp => {
+    var now = new Date().getTime();
+
+    // Get timeAgo time
+    var timeAgo = now - timestamp;
+
+    // Calc values
+    var years = parseInt(timeAgo / 1000 / 60 / 60 / 24 / 30 / 12);
+    var months = parseInt(timeAgo / 1000 / 60 / 60 / 24 / 30) - (years * 12);
+    var days = parseInt(timeAgo / 1000 / 60 / 60 / 24) - (years * 12 * 30) - (months * 30);
+    var hours = parseInt(timeAgo / 1000 / 60 / 60) - (years * 12 * 30 * 24) - (months * 30 * 24) - (days * 24);
+    var mins = parseInt(timeAgo / 1000 / 60) - (years * 12 * 30 * 24 * 60) - (months * 30 * 24 * 60) - (days * 24 * 60) - (hours * 60);
+
+    // Build the array
+    var timming = [];
+    if (years) timming.push(`${years} years`);
+    if (months) timming.push(`${months} months`);
+    if (days) timming.push(`${days} days`);
+    if (hours) timming.push(`${hours} hours`);
+    if (mins) timming.push(`${mins} mins`);
+
+    // Return formatted string
+    return timming.join(', ');
+};

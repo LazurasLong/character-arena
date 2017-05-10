@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSlug, fillUrlData } from '../utils/calcs.js';
+import { getSlug, fillUrlData, getRelativeTime } from '../utils/calcs.js';
 
 import { WOWPROGRESS_CHAR, WOWPROGRESS_ICON, WORLDOFWARCRAFT_ARMORY } from '../constants/app.js';
 
@@ -37,7 +37,9 @@ const CharacterHeader = ({
           realm: getSlug(character.realm),
           characterName: getSlug(character.name),
         })
-      }><Icon className="Character-linkIcon" icon="wow" /></a>
+      }>
+        <Icon className="Character-linkIcon" icon="wow" />
+      </a>
       <a
         className="Character-link"
         title="View on WowProgress"
@@ -49,7 +51,9 @@ const CharacterHeader = ({
           realm: getSlug(character.realm, true),
           characterName: character.name,
         })
-      }><img alt="Link to WoWProgress.com" className="Character-linkIcon" src={WOWPROGRESS_ICON} /></a>
+      }>
+        <img alt="Link to WoWProgress.com" className="Character-linkIcon" src={WOWPROGRESS_ICON} />
+      </a>
     </div>
 
     {/* Character class and spec */}
@@ -60,6 +64,12 @@ const CharacterHeader = ({
       spec={character.talents[0] && character.talents[0].spec}
       comparedTo={comparedTo && comparedTo.talents && comparedTo.talents[0] && comparedTo.talents[0].spec}
     />
+
+    {/* Last updated */}
+    <p className="Character-lastUpdate">
+      <span className="Character-lastUpdateLabel">Last update</span>
+      {getRelativeTime(character.lastModified)}
+    </p>
   </div>
 );
 

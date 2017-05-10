@@ -29,7 +29,7 @@ const CharacterSpec = ({
 
 CharacterSpec.propTypes = {
   className: PropTypes.string,
-  level: PropTypes.string.isRequired,
+  level: PropTypes.number.isRequired,
   characterClass: PropTypes.shape({
     name: PropTypes.string.isRequired
   }).isRequired,
