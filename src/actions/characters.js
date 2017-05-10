@@ -16,7 +16,7 @@ import { composeUrl } from '../utils/calcs.js';
 
 const defaultRealm = '';
 const defaultCharacterName = '';
-const defaultFields = ['appearance', 'items','stats', 'talents'];
+const defaultFields = ['items','stats', 'talents'];
 
 const fetchCharacter = ({
   region,

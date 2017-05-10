@@ -149,19 +149,28 @@ class Comparator extends Component {
           slug: 'filters',
           title: 'New character',
         },
-        itemLevel: {
-          isOpen: false,
-          slug: 'itemLevel',
-          title: 'Item Level',
-          elements: [
-            {name: 'Average', slug: 'averageItemLevel'},
-            {name: 'Equipped', slug: 'averageItemLevelEquipped'},
-          ],
-        },
         attributes: {
           isOpen: true,
           slug: 'attributes',
           title: 'Attributes',
+          elements: [
+            {name: 'Item Level', slug: 'averageItemLevelEquipped'},
+            {name: 'Health', slug: 'health'},
+            {name: 'Energy', slug: 'energy', isPower: true},
+            {name: 'Focus', slug: 'focus', isPower: true},
+            {name: 'Fury', slug: 'fury', isPower: true},
+            {name: 'Insanity', slug: 'insanity', isPower: true},
+            {name: 'Maelstrom', slug: 'maelstrom', isPower: true},
+            {name: 'Mana', slug: 'mana', isPower: true},
+            {name: 'Pain', slug: 'pain', isPower: true},
+            {name: 'Rage', slug: 'rage', isPower: true},
+            {name: 'Runic Power', slug: 'runic-power', isPower: true},
+          ],
+        },
+        stats: {
+          isOpen: true,
+          slug: 'stats',
+          title: 'Stats',
           elements: [
             {name: 'Strength', slug: 'str'},
             {name: 'Agility', slug: 'agi'},
@@ -179,17 +188,6 @@ class Comparator extends Component {
             {name: 'Mastery', slug: 'mastery'},
             {name: 'Versatility', slug: 'versatility'},
             {name: 'Mana Regen', slug: 'mana5'},
-          ],
-        },
-        deffense: {
-          isOpen: false,
-          slug: 'deffense',
-          title: 'Deffense',
-          elements: [
-            {name: 'Armor', slug: 'armor'},
-            {name: 'Dodge', slug: 'dodge'},
-            {name: 'Parry', slug: 'parry'},
-            {name: 'Block', slug: 'block'},
           ],
         },
         talents: {

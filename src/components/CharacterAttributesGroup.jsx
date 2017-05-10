@@ -13,7 +13,7 @@ const CharacterAttributesGroup = ({
 
     {/* Loop through each attribute */}
     {elements.map(elem => {
-      {/* Calc total and percentual values and differences */}
+      /* Calc total and percentual values and differences */
       const isVersatility = (elem.slug === 'versatility');
 
       let customKey,
@@ -23,7 +23,7 @@ const CharacterAttributesGroup = ({
         value,
         difference;
 
-      {/* Versatility has different values */}
+      /* Versatility has different values */
       if (isVersatility) {
         customKey = `${elem.slug}${ data.role === 'HEALING' ? 'Healing' : 'Damage' }DoneBonus`;
 
@@ -33,9 +33,21 @@ const CharacterAttributesGroup = ({
         value = data[elem.slug];
         difference = compare({ base: data, comparedTo, key: elem.slug });
 
-      {/* Default values*/}
+      /* Powers */
+      } else if (elem.isPower) {
+        /* Early return for other powers */
+        if (elem.slug !== data.powerType) {
+          return;
+        }
+
+        customKey = 'power';
+
+        value = data[customKey];
+        difference = compare({ base: data, comparedTo, key: customKey });
+
+      /* Default values*/
       } else {
-        {/* Detect if there is a percentage value */}
+        /* Detect if there is a percentage value */
         ratingExists = (typeof data[`${elem.slug}Rating`] !== 'undefined');
 
         percentageValue = ratingExists
