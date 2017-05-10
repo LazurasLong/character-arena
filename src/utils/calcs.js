@@ -1,4 +1,5 @@
 import { HOME } from '../constants/appRoutes.js';
+import { REGIONS } from '../constants/app.js';
 
 /*
   CHARACTER RELATED
@@ -59,11 +60,36 @@ export const compare = ({
   URL RELATED
 */
 // Given a name, it'll return a url-friendly slug
-export const getSlug = name => name
-  .replace(' ', '')
-  .replace("'", '')
-  .replace("-", '')
+export const getSlug = (name, useDashes) => name
+  .replace(/\ /g, '')
+  .replace(/'/g, `${useDashes ? '-' : ''}`)
+  .replace(/-/g, `${useDashes ? '-' : ''}`)
   .toLowerCase();
+
+// Given a word, normalize it (lowercase, accents, spaces, etc)
+export const normalize = word => {
+  const aes = /[àÀáÁâÂãÃäÄÅå]/g;
+  const ees = /[èÈéÉêÊëË]/g;
+  const ies = /[ìÌíÍîÎïÏ]/g;
+  const oes = /[òÒóÓôÔõÕöÖØø]/g;
+  const ues = /[ùÙúÚûÛüÜ]/g;
+  
+  return getSlug(word)
+    .replace(aes, 'a')
+    .replace(ees, 'e')
+    .replace(ies, 'i')
+    .replace(oes, 'o')
+    .replace(ues, 'u');
+};
+
+const getRegionLanguage = ({
+  region,
+  language,
+}) => {
+  return REGIONS.find(r => r.slug === region)
+    && REGIONS.find(r => r.slug === region).languages.find(l => l.slug === language)
+    && REGIONS.find(r => r.slug === region).languages.find(l => l.slug === language).regionLanguage;
+};
 
 export const fillUrlData = ({
   url,
@@ -72,10 +98,14 @@ export const fillUrlData = ({
   realm,
   characterName,
   iconName,
+  regionLanguage,
 }) => {
+  const regLang = regionLanguage || getRegionLanguage({ region, language });
+
   return url
-    .replace(/:region/g, region)
+    .replace(/:regionLanguage/g, regLang || region)
     .replace(/:language/g, language)
+    .replace(/:region/g, region)
     .replace(/:realm/g, realm)
     .replace(/:characterName/g, characterName)
     .replace(/:iconName/g, iconName);
@@ -88,6 +118,7 @@ export const composeUrl = ({
   fields,
   region,
   language,
+  regionLanguage,
 }) => {
   const constructedURL = fields
     ? `${url}?locale=:language_:region&fields=${fields.map(f => `${f}`)}`
@@ -95,21 +126,25 @@ export const composeUrl = ({
 
   return fillUrlData({
     url: constructedURL,
-    region,
+    regionLanguage,
     language,
+    region,
     realm: character && character.realm,
     characterName: character && character.characterName,
   });
 };
 
+// Given a collection of characters, compose a valid pathname for the App
 export const composePathname = ({
   region,
   language,
+  regionLanguage,
   collection
 }) => {
   let pathname = HOME
-    .replace(':region', region)
+    .replace(':regionLanguage', regionLanguage)
     .replace(':language', language)
+    .replace(':region', region)
     .replace('(', '')
     .replace(')', '')
     .concat('/');
@@ -123,11 +158,13 @@ export const composePathname = ({
   return pathname;
 };
 
+// Given a URL pattern, create a regexp
 export const composeUrlPattern = (url) => {
   const pattern = fillUrlData({
     url: url,
-    region: '(.*)',
+    regionLanguage: '(.*)',
     language: '(.*)',
+    region: '(.*)',
     realm: '(.*)',
     characterName: '(.*)',
     iconName: '(.*)',

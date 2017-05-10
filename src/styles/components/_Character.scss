@@ -38,6 +38,28 @@
     }
   }
 
+  $icon-size: 20px;
+  &-links {
+    display: block;
+    width: 100%;
+    height: $icon-size;
+    line-height: $icon-size;
+  }
+
+  &-link {
+    display: inline-block;
+    width: $icon-size;
+    height: 100%;
+    margin: 0 5px;
+
+    color: $btn-color;
+  }
+
+  &-linkIcon {
+    width: 100%;
+    fill: currentColor;
+  }
+
   &-placeholder {
     width: $avatar-size;
     height: $avatar-size;
