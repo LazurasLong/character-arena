@@ -36,14 +36,22 @@ const CharacterAttributesGroup = ({
 
       /* Powers */
       } else if (elem.isPower) {
-        /* Early return for other powers */
-        if (elem.slug !== data.powerType) {
+        /* Early return for other powers, or powers differents than comparedTo */
+        if (
+          (!comparedTo && elem.slug !== data.powerType)
+          || (comparedTo && comparedTo.powerType && elem.slug !== comparedTo.powerType)
+        ) {
           return;
         }
 
-        customKey = 'power';
+        /* Using different powerTypes */
+        if (comparedTo && data.powerType !== comparedTo.powerType) {
+          value = 0;
 
-        value = data[customKey];
+        /* Using the same powerType */
+        } else {
+          value = data['power'];
+        }
         difference = compare({ base: data, comparedTo, key: customKey });
 
       /* Spec resources */
