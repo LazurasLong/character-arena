@@ -8,6 +8,8 @@ const CharacterActions = ({
   handleRefreshCharacter,
   handleRemoveCharacter,
   isMain,
+  isFirst,
+  isLast,
 }) => (
   <div className="CharacterActions">
     {/* Switch character */}
@@ -18,6 +20,26 @@ const CharacterActions = ({
         onClick={() => { handleSwitchCharacter({ character }); }}
       >
         <Icon className="Button-icon" icon="favorite" />
+      </button>
+    }
+
+    {/* Move left */}
+    {!isMain && !isFirst &&
+      <button
+        title="Move this character to left"
+        className="Button Button--icon Button--invisible"
+      >
+        <Icon className="Button-icon" icon="leftarrow" />
+      </button>
+    }
+
+    {/* Move right */}
+    {!isMain && !isLast &&
+      <button
+        title="Move this character to right"
+        className="Button Button--icon Button--invisible"
+      >
+        <Icon className="Button-icon" icon="rightarrow" />
       </button>
     }
 

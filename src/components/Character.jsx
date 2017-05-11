@@ -19,6 +19,8 @@ export default class Character extends Component {
     region: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     handleToggleCollapsable: PropTypes.func.isRequired,
+    isFirst: PropTypes.bool.isRequired,
+    isLast: PropTypes.bool.isRequired,
 
     /* Optional props */
     handleSwitchCharacter: PropTypes.func,
@@ -64,6 +66,8 @@ export default class Character extends Component {
 
       character,
       comparedTo,
+      isFirst,
+      isLast,
     } = this.props;
 
     const that = this;
@@ -89,6 +93,8 @@ export default class Character extends Component {
               handleRefreshCharacter={handleRefreshCharacter}
               handleRemoveCharacter={handleRemoveCharacter}
               isMain={!comparedTo}
+              isFirst={isFirst}
+              isLast={isLast}
             />
 
             <CharacterHeader

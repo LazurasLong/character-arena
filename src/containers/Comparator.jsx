@@ -552,6 +552,8 @@ class Comparator extends Component {
                         handleRemoveCharacter={this.handleRemoveCharacter}
 
                         character={selectedCharacter}
+                        isFirst={index === 1}
+                        isLast={index === (characters.collection.length - 1)}
 
                         comparedTo={comparedTo}
                         ref={(ref) => { this[`characterFrame${index}`] = ref; }}
