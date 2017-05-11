@@ -8,7 +8,6 @@
     float: left;
     z-index: order('header');
 
-    display: inline-block;
     width: 100%;
     height: $header-mobile-height;
     padding: 5px;
@@ -18,6 +17,10 @@
     font-weight: 700;
 
     background-color: $header-background;
+  }
+
+  &-info {
+    float: left;
   }
 
   &-logo,
@@ -53,6 +56,12 @@
 
     line-height: #{$header-mobile-height - 10px};
     vertical-align: middle;
+  }
+
+  &-share {
+    float: right;
+
+    text-align: right;
   }
 }
 

@@ -1,0 +1,117 @@
+/** @define Share */
+
+$icon-mobile-height: 32px;
+$icon-desktop-height: 48px;
+
+.Share {
+  height: #{$header-mobile-height - 10px};
+  padding-top: #{($header-mobile-height - 10px - $icon-mobile-height) / 2};
+
+  &-button {
+    height: $icon-mobile-height;
+    width: $icon-mobile-height;
+    padding: 5px;
+  }
+
+  &-buttonIcon {
+    height: 100%;
+    width: 100%;
+  }
+
+  &-modal {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    z-index: order('modal');
+
+    width: 100%;
+    height: 100%;
+
+    color: $link-color;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+
+    background: $backdrop-background;
+    transition: top $animation-duration;
+
+    &.is-open {
+      top: 0;
+    }
+  }
+
+  &-modalBody {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: block;
+    width: 90%;
+    height: auto;
+    padding: 30px;
+
+    background-color: $modal-background;
+    border: 1px solid $content-border;
+    transform: translate(-50%, -50%);
+  }
+
+  &-modalClose {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    width: 38px;
+    height: 38px;
+    padding: 10px;
+  }
+
+  &-modalTitle {
+    margin-bottom: 20px;
+
+    color: $white;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 23px;
+  }
+}
+
+@media screen and (min-width: breakpoint('tablet')) {
+  .Share {
+    &-modal {
+      font-size: 12px;
+      line-height: 18px;
+    }
+  
+    &-modalBody {
+      width: 60%;
+    }
+
+    &-modalTitle {
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+}
+
+@media screen and (min-width: breakpoint('landscape-tablet')) {
+  .Share {
+    height: #{$header-desktop-height - 10px};
+    padding-top: #{($header-desktop-height - 10px - $icon-desktop-height) / 2};
+
+    &-button {
+      width: $icon-desktop-height;
+      height: $icon-desktop-height;
+    }
+
+    &-modal {
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    &-modalTitle {
+      font-size: 20px;
+      line-height: 31px;
+    }
+  }
+}
