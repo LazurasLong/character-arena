@@ -22,6 +22,12 @@ export default class Share extends Component {
     };
   }
 
+  componentWillUpdate() {
+    if (typeof window !== 'undefined' && this.shareUrl) {
+      this.shareUrl.value = decodeURI(window.location.href);
+    }
+  }
+
   render() {
     const {
       className,
@@ -68,7 +74,7 @@ export default class Share extends Component {
             {/* URL to share */}
             <Input
               className="Share-modalUrl"
-              value={typeof window !== 'undefined' ? decodeURI(window.location.href) : undefined}
+              reference={(ref) => { this.shareUrl = ref; }}
             />
           </div>
         </div>

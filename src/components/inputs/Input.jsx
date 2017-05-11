@@ -7,7 +7,6 @@ const Input = ({
   name,
   reference,
   placeholder,
-  value,
   required,
   error,
 }) => (
@@ -18,7 +17,6 @@ const Input = ({
     <input
       className="Input-field"
       type={type}
-      value={value}
       required={required}
       ref={reference}
     />
@@ -45,7 +43,6 @@ Input.defaultProps = {
   name: '',
   reference: () => {},
   placeholder: '',
-  value: '',
   required: false,
 };
 Input.displayName = 'Input';
