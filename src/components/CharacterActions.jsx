@@ -5,6 +5,7 @@ import Icon from '../components/Icon.jsx';
 const CharacterActions = ({
   character,
   handleSwitchCharacter,
+  handleMoveCharacter,
   handleRefreshCharacter,
   handleRemoveCharacter,
   isMain,
@@ -28,6 +29,7 @@ const CharacterActions = ({
       <button
         title="Move this character to left"
         className="Button Button--icon Button--invisible"
+        onClick={() => { handleMoveCharacter({ character, movement: -1 })}}
       >
         <Icon className="Button-icon" icon="leftarrow" />
       </button>
@@ -38,6 +40,7 @@ const CharacterActions = ({
       <button
         title="Move this character to right"
         className="Button Button--icon Button--invisible"
+        onClick={() => { handleMoveCharacter({ character, movement: 1 })}}
       >
         <Icon className="Button-icon" icon="rightarrow" />
       </button>

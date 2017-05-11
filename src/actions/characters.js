@@ -3,6 +3,7 @@ import {
   FETCH_CHARACTER_SUCCESS,
   FETCH_CHARACTER_ERROR,
   SWITCH_CHARACTER,
+  MOVE_CHARACTER,
   REMOVE_CHARACTER,
 } from '../constants/actionTypes.js';
 
@@ -60,6 +61,20 @@ const switchCharacter = ({
   };
 };
 
+const moveCharacter = ({
+  realm,
+  name,
+}, movement) => {
+  return {
+    type: MOVE_CHARACTER,
+    extra: {
+      realm,
+      name,
+      movement,
+    },
+  };
+};
+
 const removeCharacter = ({
   realm,
   name,
@@ -76,5 +91,6 @@ const removeCharacter = ({
 export {
   fetchCharacter,
   switchCharacter,
+  moveCharacter,
   removeCharacter,
 };

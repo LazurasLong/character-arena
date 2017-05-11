@@ -15,7 +15,7 @@ import {
 import { REGIONS } from '../constants/app.js';
 import { HOME } from '../constants/appRoutes.js';
 
-import { fetchCharacter, switchCharacter, removeCharacter } from '../actions/characters.js';
+import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters.js';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
 
 import Sidebar from '../components/Sidebar.jsx';
@@ -113,6 +113,7 @@ class Comparator extends Component {
     this.handleToggleCollapsable = this.handleToggleCollapsable.bind(this);
     this.handleFetchCharacter = this.handleFetchCharacter.bind(this);
     this.handleSwitchCharacter = this.handleSwitchCharacter.bind(this);
+    this.handleMoveCharacter = this.handleMoveCharacter.bind(this);
     this.handleRefreshCharacter = this.handleRefreshCharacter.bind(this);
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
@@ -385,6 +386,13 @@ class Comparator extends Component {
       .then(this.handleDataChange);
   }
 
+  handleMoveCharacter({ character, movement }) {
+    const { dispatch } = this.props;
+
+    Promise.all([dispatch(moveCharacter(character, movement))])
+      .then(this.handleDataChange);
+  }
+
   handleRefreshCharacter({ character }) {
     const { dispatch } = this.props;
     const { options: { region, language } } = this.state;
@@ -548,6 +556,7 @@ class Comparator extends Component {
                         language={options.language}
                         handleToggleCollapsable={this.handleToggleCollapsable}
                         handleSwitchCharacter={this.handleSwitchCharacter}
+                        handleMoveCharacter={this.handleMoveCharacter}
                         handleRefreshCharacter={this.handleRefreshCharacter}
                         handleRemoveCharacter={this.handleRemoveCharacter}
 
