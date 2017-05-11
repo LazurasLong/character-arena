@@ -3,6 +3,7 @@ import {
   FETCH_CHARACTER_SUCCESS,
   FETCH_CHARACTER_ERROR,
   SWITCH_CHARACTER,
+  MOVE_CHARACTER,
   REMOVE_CHARACTER,
 } from '../constants/actionTypes.js';
 
@@ -84,6 +85,26 @@ export default (state = initialState, action) => {
           state.collection.find(char => isTheSameCharacter(char, action.extra)),
           ...state.collection.slice(0, isInCollection(state.collection, action.extra)),
           ...state.collection.slice(isInCollection(state.collection, action.extra) + 1),
+        ],
+      }
+
+    case MOVE_CHARACTER:
+      // Create a new collection
+      const newCollection = [...state.collection];
+
+      // Get selected character's position
+      const selectedCharacterIndex = state.collection.findIndex(char => isTheSameCharacter(char, action.extra));
+
+      // Move selected character to selected position
+      newCollection[selectedCharacterIndex + action.extra.movement] = state.collection[selectedCharacterIndex];
+
+      // Move character located in selected position to previous selected character's position
+      newCollection[selectedCharacterIndex] = state.collection[selectedCharacterIndex + action.extra.movement];
+
+      return {
+        ...state,
+        collection: [
+          ...newCollection,
         ],
       }
 

@@ -19,11 +19,14 @@ export default class Character extends Component {
     region: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     handleToggleCollapsable: PropTypes.func.isRequired,
+    isFirst: PropTypes.bool.isRequired,
+    isLast: PropTypes.bool.isRequired,
 
     /* Optional props */
-    handleSwitchCharacter: PropTypes.func,
-    handleRefreshCharacter: PropTypes.func,
-    handleRemoveCharacter: PropTypes.func,
+    handleSwitchCharacter: PropTypes.func.isRequired,
+    handleMoveCharacter: PropTypes.func.isRequired,
+    handleRefreshCharacter: PropTypes.func.isRequired,
+    handleRemoveCharacter: PropTypes.func.isRequired,
 
     /* Maybe-Undefined props */
     character: PropTypes.shape({
@@ -59,11 +62,14 @@ export default class Character extends Component {
       handleToggleCollapsable,
 
       handleSwitchCharacter,
+      handleMoveCharacter,
       handleRefreshCharacter,
       handleRemoveCharacter,
 
       character,
       comparedTo,
+      isFirst,
+      isLast,
     } = this.props;
 
     const that = this;
@@ -86,9 +92,12 @@ export default class Character extends Component {
             <CharacterActions
               character={character}
               handleSwitchCharacter={handleSwitchCharacter}
+              handleMoveCharacter={handleMoveCharacter}
               handleRefreshCharacter={handleRefreshCharacter}
               handleRemoveCharacter={handleRemoveCharacter}
               isMain={!comparedTo}
+              isFirst={isFirst}
+              isLast={isLast}
             />
 
             <CharacterHeader

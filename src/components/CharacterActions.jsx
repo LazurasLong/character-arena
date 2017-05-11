@@ -5,9 +5,12 @@ import Icon from '../components/Icon.jsx';
 const CharacterActions = ({
   character,
   handleSwitchCharacter,
+  handleMoveCharacter,
   handleRefreshCharacter,
   handleRemoveCharacter,
   isMain,
+  isFirst,
+  isLast,
 }) => (
   <div className="CharacterActions">
     {/* Switch character */}
@@ -18,6 +21,28 @@ const CharacterActions = ({
         onClick={() => { handleSwitchCharacter({ character }); }}
       >
         <Icon className="Button-icon" icon="favorite" />
+      </button>
+    }
+
+    {/* Move left */}
+    {!isMain && !isFirst &&
+      <button
+        title="Move this character to left"
+        className="Button Button--icon Button--invisible"
+        onClick={() => { handleMoveCharacter({ character, movement: -1 })}}
+      >
+        <Icon className="Button-icon" icon="leftarrow" />
+      </button>
+    }
+
+    {/* Move right */}
+    {!isMain && !isLast &&
+      <button
+        title="Move this character to right"
+        className="Button Button--icon Button--invisible"
+        onClick={() => { handleMoveCharacter({ character, movement: 1 })}}
+      >
+        <Icon className="Button-icon" icon="rightarrow" />
       </button>
     }
 
