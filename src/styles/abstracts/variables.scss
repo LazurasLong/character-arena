@@ -97,6 +97,9 @@ $sidebar-width: 300px;
 $sidebar-background: #211510;
 $backdrop-background: rgba(0, 0, 0, .4);
 
+// Modal
+$modal-background: #181818;
+
 // Comparator
 $content-background: #13040A;
 $content-border: #444444;
@@ -110,16 +113,16 @@ $footer-desktop-height: 130px;
 
 $zIndexApp: (
   // Notifications
-  'notification': 300,
+  'notification': 400,
 
   // Modals
-  'modal': 200,
+  'modal': 300,
 
   // Sidebars
   'sidebar': 200,
 
   // Header
-  'header': 100,
+  'header': 200,
 
   // Others
   'content': 0,

@@ -7,6 +7,7 @@ const Input = ({
   name,
   reference,
   placeholder,
+  value,
   required,
   error,
 }) => (
@@ -17,6 +18,7 @@ const Input = ({
     <input
       className="Input-field"
       type={type}
+      value={value}
       required={required}
       ref={reference}
     />
@@ -31,6 +33,7 @@ Input.propTypes = {
   name: PropTypes.string,
   reference: PropTypes.func,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
   required: PropTypes.bool,
   error: PropTypes.shape({
     valid: PropTypes.bool.isRequired,
@@ -42,6 +45,7 @@ Input.defaultProps = {
   name: '',
   reference: () => {},
   placeholder: '',
+  value: '',
   required: false,
 };
 Input.displayName = 'Input';
