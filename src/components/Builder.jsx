@@ -2,6 +2,7 @@ import React from 'react';
 import imageResolver from '../utils/image-resolver.js';
 
 import BuilderItem from '../components/BuilderItem.jsx';
+import Collapsable from '../components/Collapsable.jsx';
 
 const Builder = ({
   realms,
@@ -21,39 +22,42 @@ const Builder = ({
   return (
     <div className={className}>
       <div className="Builder-wrapper">
-        <h2 className="Builder-title">Building the arena</h2>
-        <img
-          alt="App logo"
-          className="Builder-logo"
-          src={imageResolver('../images/favicons/android-chrome-192x192.png')}
-        />
-
-        <div className="Builder-info">
-          <BuilderItem
-            data={realms}
-            label="Sending messages to all kingdoms"
-            onError="Some kingdoms could not attend the call. Please, try again later."
+        <div className="Character-header is-loading">
+          <img
+            alt="App logo"
+            className="Character-placeholder"
+            src={imageResolver('../images/favicons/android-chrome-192x192.png')}
           />
-          <br />
-          <BuilderItem
-            data={races}
-            label="Listing the races of all participants"
-            onError="Some of the most powerful races could not participate on this arena. Please, try again later."
-          />
-          <br />
-          <BuilderItem
-            data={classes}
-            label="Sending all classes to their class halls"
-            onError="Some class halls are not in conditions to host their guests. Please, try again later."
-          />
-          <br />
-          <BuilderItem
-            data={talents}
-            label="Teaching skills and rules to participants"
-            onError="Some participants don't have neccessary skills to participate on this arena. Please, try again later."
-          />
-          <br />
+          <p className="Character-name">Building the arena</p>
         </div>
+
+        <Collapsable data={{}} disabled>
+          <div className="Builder-info">
+            <BuilderItem
+              data={realms}
+              label="Sending messages to all kingdoms"
+              onError="Some kingdoms could not attend the call. Please, try again later."
+            />
+            <br />
+            <BuilderItem
+              data={races}
+              label="Listing the races of all participants"
+              onError="Some of the most powerful races could not participate on this arena. Please, try again later."
+            />
+            <br />
+            <BuilderItem
+              data={classes}
+              label="Sending all classes to their class halls"
+              onError="Some class halls are not in conditions to host their guests. Please, try again later."
+            />
+            <br />
+            <BuilderItem
+              data={talents}
+              label="Teaching skills and rules to participants"
+              onError="Some participants don't have neccessary skills to participate on this arena. Please, try again later."
+            />
+          </div>
+        </Collapsable>
       </div>
     </div>
   );

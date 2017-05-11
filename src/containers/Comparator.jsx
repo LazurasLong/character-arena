@@ -484,7 +484,6 @@ class Comparator extends Component {
           <div className="Comparator">
             <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 20)) + 5)}}>
               {/* App builder */}
-
               {(isServiceLoading || isServiceUnavailable) &&
                 <Builder
                   realms={realms}

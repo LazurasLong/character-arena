@@ -6,8 +6,6 @@
 
   text-align: center !important;
 
-  background-color: $base-background;
-
   &-title {
     margin-bottom: 20px;
     font-size: 24px;
@@ -19,10 +17,16 @@
     margin-bottom: 30px;
   }
 
+  &-info {
+    margin: 10px 0;
+
+    text-align: left;
+  }
+
   &-item {
     display: inline-block;
     width: auto;
-    padding: 5px 10px;
+    padding: 10px 0;
 
     text-align: left;
 
@@ -37,9 +41,9 @@
     }
   }
 
-  &.is-complete {
-    display: none;
-  }
+  // &.is-complete {
+  //   display: none;
+  // }
 }
 
 @media screen and (min-width: breakpoint('tablet')) {
