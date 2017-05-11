@@ -18,16 +18,35 @@ const CharacterTalents = ({
   const talentsGrid = [];
   availableTalents.talents.forEach(tier => {
 
+    // For each tier (row), go through each column
     const availableTier = [];
+
+    // For each column
     tier.forEach(column => {
+      const suitableTalents = [];
+
+      // Each column have different options
       column.forEach(talent => {
+
+        // If current option has no spec, or spec is equal to current spec
         if (!talent.spec || talent.spec.backgroundImage === spec.backgroundImage) {
-          const index = availableTier.findIndex(tal => tal.column === talent.column);
-          if (index < 0) {
-            availableTier[talent.column] = talent;
-          }
+
+          // Add it to suitableTalents
+          suitableTalents.push(talent);
         }
       });
+
+      // Once we checked all suitableTalents, choose the best one
+      // If there is only 1 suitableTalents, use it
+      if (suitableTalents.length === 1) {
+        const talent = suitableTalents[0];
+        availableTier[talent.column] = talent;
+
+      // If there are several suitableTalents, use the one with a spec defined
+      } else {
+        const talent = suitableTalents.find(tal => tal.spec);
+        availableTier[talent.column] = talent;
+      }
     });
     talentsGrid.push(availableTier);
   });

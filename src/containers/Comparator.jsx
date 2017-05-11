@@ -228,9 +228,9 @@ class Comparator extends Component {
               isSpecBased: true,
             },
             {
-              name: 'Intelect',
+              name: 'Intellect',
               slug: 'int',
-              icon: 'intelect',
+              icon: 'intellect',
               isSpecBased: true,
             },
             {
