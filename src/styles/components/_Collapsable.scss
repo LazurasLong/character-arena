@@ -47,6 +47,11 @@
       background: rgba(0, 0, 0, 0.5);
       content: '';
     }
+
+    // stylelint-disable-next-line plugin/selector-bem-pattern
+    & > * {
+      position: relative;
+    }
   }
 
   &-icon {
