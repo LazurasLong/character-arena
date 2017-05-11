@@ -145,7 +145,10 @@ export default class Character extends Component {
                   <CharacterAttributesGroup
                     elements={section.elements}
                     data={characterData}
-                    spec={character.talents[0].spec.backgroundImage}
+                    spec={comparedTo
+                      ? comparedTo.talents[0].spec.backgroundImage
+                      : character.talents[0].spec.backgroundImage
+                    }
                     comparedTo={comparedToData}
                     hideLabels={typeof comparedToData !== 'undefined'}
                   />

@@ -56,13 +56,21 @@ const CharacterAttributesGroup = ({
 
       /* Spec resources */
       } else if (elem.isSpecBased) {
-        /* Early return for other resources */
-        if (!getSpecResource({
-          powerType: data.powerType,
-          role: data.role,
-          resource: elem.slug,
-          spec,
-        })) {
+        /* Early return for other resources, or resources differents than comparedTo */
+        if (
+          (!comparedTo && !getSpecResource({
+            powerType: data.powerType,
+            role: data.role,
+            resource: elem.slug,
+            spec,
+          }))
+          || (comparedTo && !getSpecResource({
+            powerType: comparedTo.powerType,
+            role: comparedTo.role,
+            resource: elem.slug,
+            spec,
+          }))
+        ) {
           return;
         }
 
