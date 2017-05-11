@@ -78,7 +78,7 @@ export const getSpecResource = ({
     }
     return false;
   
-  /* Intelect */
+  /* Intellect */
   } else if (
     // Healers
     (role === 'HEALER')
