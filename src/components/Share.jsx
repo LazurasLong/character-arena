@@ -6,25 +6,25 @@ const Share = ({ className }) => {
   return (
     <div className={`Share ${className}`}>
       {/* Facebook */}
-      <button
+      {/*<button
         className="Button Button--invisible Button--icon Share-button"
       >
         <Icon className="Button-icon Share-buttonIcon" icon="social-facebook" />
-      </button>
+      </button>*/}
 
       {/* Twitter */}
-      <button
+      {/*<button
         className="Button Button--invisible Button--icon Share-button"
       >
         <Icon className="Button-icon Share-buttonIcon" icon="social-twitter" />
-      </button>
+      </button>*/}
 
       {/* Whatsapp TODO: Not included on blizzard icons */}
-      <button
+      {/*<button
         className="Button Button--invisible Button--icon Share-button"
       >
         <Icon className="Button-icon Share-buttonIcon" icon="social-whatsapp" />
-      </button>
+      </button>*/}
 
       {/* Share */}
       <button
