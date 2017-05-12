@@ -3,16 +3,15 @@ import React, { PropTypes } from 'react';
 import CharacterTalentsIcon from '../components/CharacterTalentsIcon.jsx';
 
 const CharacterTalents = ({
-  spec,
-  availableTalents,
   usedTalents,
+  availableTalents,
   comparedTo,
 }) => {
-  if (!spec.name) {
+  if (!usedTalents || !usedTalents.spec.name) {
     return <div>No spec</div>;
   }
 
-  const shouldCompare = (comparedTo && comparedTo.spec.backgroundImage === usedTalents.spec.backgroundImage);
+  const shouldCompare = (comparedTo && comparedTo.spec && comparedTo.spec.backgroundImage === usedTalents.spec.backgroundImage);
 
   // Parse class talents
   const talentsGrid = [];
@@ -29,7 +28,7 @@ const CharacterTalents = ({
       column.forEach(talent => {
 
         // If current option has no spec, or spec is equal to current spec
-        if (!talent.spec || talent.spec.backgroundImage === spec.backgroundImage) {
+        if (!talent.spec || talent.spec.backgroundImage === usedTalents.spec.backgroundImage) {
 
           // Add it to suitableTalents
           suitableTalents.push(talent);

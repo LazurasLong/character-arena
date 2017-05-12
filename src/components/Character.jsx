@@ -74,6 +74,9 @@ export default class Character extends Component {
 
     const that = this;
 
+    const selectedTalents = character.talents && character.talents.find(talents => talents.selected === true);
+    const comparedToUsedTalents = comparedTo && comparedTo.talents && comparedTo.talents.find(talents => talents.selected === true);
+
     return (
       <div className={`Character ${character.race ? `is-${character.race.side}` : ''}`}>
         {/* Loading character */}
@@ -105,6 +108,8 @@ export default class Character extends Component {
               comparedTo={comparedTo}
               region={region}
               language={language}
+              selectedTalents={selectedTalents}
+              comparedToTalents={comparedToUsedTalents}
             />
 
             {/* Loop through different sections */}
@@ -172,10 +177,9 @@ export default class Character extends Component {
               handleToggleCollapsable={handleToggleCollapsable}
             >
               <CharacterTalents
-                spec={character.talents[0] && character.talents[0].spec}
+                usedTalents={selectedTalents}
                 availableTalents={character.availableTalents}
-                usedTalents={character.talents[0]}
-                comparedTo={comparedTo && comparedTo.talents[0]}
+                comparedTo={comparedToUsedTalents}
               />
             </Collapsable>
           </div>

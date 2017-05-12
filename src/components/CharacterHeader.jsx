@@ -12,6 +12,8 @@ const CharacterHeader = ({
   comparedTo,
   region,
   language,
+  selectedTalents,
+  comparedToTalents,
 }) => (
   <div className="Character-header">
     {/* Character avatar */}
@@ -61,8 +63,8 @@ const CharacterHeader = ({
       className="Character-spec"
       level={character.level}
       characterClass={character.class}
-      spec={character.talents[0] && character.talents[0].spec}
-      comparedTo={comparedTo && comparedTo.talents && comparedTo.talents[0] && comparedTo.talents[0].spec}
+      spec={selectedTalents && selectedTalents.spec}
+      comparedTo={comparedToTalents && comparedToTalents.spec}
     />
 
     {/* Last updated */}
