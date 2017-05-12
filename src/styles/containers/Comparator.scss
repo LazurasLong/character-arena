@@ -10,7 +10,7 @@
   width: 100%;
   min-height: 100%;
   padding: 10px 20px;
-  margin-bottom: #{-$footer-mobile-height - 5px};
+  // margin-bottom: #{-$footer-mobile-height - 5px};
 
   text-align: left;
 
@@ -31,17 +31,18 @@
     position: relative;
     float: left;
 
+    display: block;
     min-width: 100%;
   }
 
-  &:after {
-    position: relative;
-    float: left;
-    display: block;
-    width: 100%;
-    height: $footer-mobile-height;
-    content: "";
-  }
+  // &:after {
+  //   position: relative;
+  //   float: left;
+  //   display: block;
+  //   width: 100%;
+  //   height: $footer-mobile-height;
+  //   content: "";
+  // }
 }
 
 @media screen and (min-width: breakpoint('landscape-tablet')) {
@@ -49,10 +50,10 @@
     left: $sidebar-width;
     width: calc(100% - #{$sidebar-width});
     padding: 20px;
-    margin-bottom: -$footer-desktop-height;
+    // margin-bottom: -$footer-desktop-height;
 
-    &:after {
-      height: $footer-desktop-height;
-    }
+    // &:after {
+    //   height: $footer-desktop-height;
+    // }
   }
 }
