@@ -2,7 +2,7 @@
 
 .Builder {
   width: calc(100% - 10px) !important;
-  max-width: 450px;
+  max-width: 270px;
 
   text-align: center !important;
 
@@ -49,6 +49,7 @@
 @media screen and (min-width: breakpoint('tablet')) {
   .Builder {
     font-size: 16px;
+    max-width: 450px;
 
     &-title {
       font-size: 32px;
