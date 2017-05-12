@@ -22,52 +22,52 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "src/images/favicons/android-chrome-192x192_c772fdc86cd9d4bab25503bc1f6f0c73.png",
+      "src": "src/images/favicons/android-chrome-192x192_2dd65c1b878d9444fc5415efa80a4827.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/android-chrome-128x128_f99c7203c6692c553a727e8d11702877.png",
+      "src": "src/images/favicons/android-chrome-128x128_7fb7daaa38ddd81ecf50ab8d5b0fe61a.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/apple-touch-icon-180x180_71f841936ae2a0788579d29df136cab7.png",
+      "src": "src/images/favicons/apple-touch-icon-180x180_189fb257347168c3a3a2da2d1aa1461e.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/apple-touch-icon-167x167_3e805182838151874a911eb7e462f3ac.png",
+      "src": "src/images/favicons/apple-touch-icon-167x167_7d0965cc52aa88ad6d7fd8be3fa0bc64.png",
       "sizes": "167x167",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/apple-touch-icon-152x152_f76f4846722aab21952ff47904b6e169.png",
+      "src": "src/images/favicons/apple-touch-icon-152x152_9ab4ddd6cfbe2fd5c1c6d84324bfd998.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/apple-touch-icon-120x120_f24410acfb6204230e79964efd6c2e89.png",
+      "src": "src/images/favicons/apple-touch-icon-120x120_cfc014ed562556db14c3f764b11aabf7.png",
       "sizes": "120x120",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/favicon-96x96_ee9ba2939e1d967146f4181b3ec2146d.png",
+      "src": "src/images/favicons/favicon-96x96_d71373b96893e217ac329b2b59dc19f5.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/favicon-72x72_5299eb099c16862a076f62bee2503df0.png",
+      "src": "src/images/favicons/favicon-72x72_7971f8b4c7a74c5884a9de34a2c456b5.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/favicon-48x48_e33e5a35c03f183e86b497943a9f31a7.png",
+      "src": "src/images/favicons/favicon-48x48_28ec1bb0e2e233857651b6fb1ee1b206.png",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "src/images/favicons/favicon-36x36_148348ddb824108c4702183f5c2e041b.png",
+      "src": "src/images/favicons/favicon-36x36_30b9d44b5194336b50e679e0e5c965fe.png",
       "sizes": "36x36",
       "type": "image/png"
     }
