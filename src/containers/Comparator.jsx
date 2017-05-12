@@ -241,10 +241,10 @@ class Comparator extends Component {
             },
           ],
         },
-        enhacements: {
+        enhancements: {
           isOpen: true,
-          slug: 'enhacements',
-          title: 'Enhacements',
+          slug: 'enhancements',
+          title: 'Enhancements',
           elements: [
             {
               name: 'Critical',
