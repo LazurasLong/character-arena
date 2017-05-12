@@ -241,10 +241,10 @@ class Comparator extends Component {
             },
           ],
         },
-        enhacements: {
+        enhancements: {
           isOpen: true,
-          slug: 'enhacements',
-          title: 'Enhacements',
+          slug: 'enhancements',
+          title: 'Enhancements',
           elements: [
             {
               name: 'Critical',
@@ -490,7 +490,7 @@ class Comparator extends Component {
 
           {/* App content */}
           <div className="Comparator">
-            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (300 + 20)) + 5)}}>
+            <div className="Comparator-wrapper" style={{width: (((characters.collection.length + 1) * (270 + 10)) + 20)}}>
               {/* App builder */}
               {(isServiceLoading || isServiceUnavailable) &&
                 <Builder
