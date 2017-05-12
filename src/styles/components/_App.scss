@@ -2,11 +2,13 @@
   position: relative;
   float: left;
   overflow-y: auto;
-  top: $header-mobile-height;
+  // top: $header-mobile-height;
 
   display: block;
   width: 100%;
-  height: calc(100% - #{$header-mobile-height});
+  // height: calc(100% - #{$header-mobile-height});
+  height: 100%;
+  padding-top: $header-mobile-height;
 
   background-attachment: fixed;
   background-position: top center;
@@ -17,6 +19,7 @@
   .App {
     top: $header-desktop-height;
     height: calc(100% - #{$header-desktop-height});
+    padding: 0;
   }
 }
 
