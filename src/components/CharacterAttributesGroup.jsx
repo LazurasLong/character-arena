@@ -8,9 +8,9 @@ const CharacterAttributesGroup = ({
   data,
   spec,
   comparedTo,
-  hideLabels,
+  shouldCompare,
 }) => (
-  <div className={`CharacterAttributes ${hideLabels ? 'CharacterAttributes--right' : ''}`}>
+  <div className={`CharacterAttributes ${shouldCompare ? 'CharacterAttributes--right' : ''}`}>
 
     {/* Loop through each attribute */}
     {elements.map(elem => {
@@ -38,14 +38,14 @@ const CharacterAttributesGroup = ({
       } else if (elem.isPower) {
         /* Early return for other powers, or powers differents than comparedTo */
         if (
-          (!comparedTo && elem.slug !== data.powerType)
-          || (comparedTo && comparedTo.powerType && elem.slug !== comparedTo.powerType)
+          ((!shouldCompare || !comparedTo) && elem.slug !== data.powerType)
+          || (shouldCompare && comparedTo && comparedTo.powerType && elem.slug !== comparedTo.powerType)
         ) {
           return;
         }
 
         /* Using different powerTypes */
-        if (comparedTo && data.powerType !== comparedTo.powerType) {
+        if (shouldCompare && comparedTo && data.powerType !== comparedTo.powerType) {
           value = 0;
 
         /* Using the same powerType */
@@ -58,13 +58,13 @@ const CharacterAttributesGroup = ({
       } else if (elem.isSpecBased) {
         /* Early return for other resources, or resources differents than comparedTo */
         if (
-          (!comparedTo && !getSpecResource({
+          ((!shouldCompare || !comparedTo) && !getSpecResource({
             powerType: data.powerType,
             role: data.role,
             resource: elem.slug,
             spec,
           }))
-          || (comparedTo && !getSpecResource({
+          || (shouldCompare && comparedTo && !getSpecResource({
             powerType: comparedTo.powerType,
             role: comparedTo.role,
             resource: elem.slug,
@@ -73,6 +73,17 @@ const CharacterAttributesGroup = ({
         ) {
           return;
         }
+
+        console.log('shouldCompare', shouldCompare);
+        console.log('comparedTo', comparedTo);
+        console.log('specResource', getSpecResource({ powerType: data.powerType, role: data.role, resource: elem.slug, spec }));
+
+        console.log('First conditional', ((!shouldCompare || !comparedTo) && !getSpecResource({
+            powerType: data.powerType,
+            role: data.role,
+            resource: elem.slug,
+            spec,
+          })));
 
         value = data[elem.slug];
         difference = compare({ base: data, comparedTo, key: elem.slug });
@@ -109,10 +120,10 @@ const CharacterAttributesGroup = ({
           slug={elem.slug}
           icon={elem.icon}
           value={value}
-          difference={difference}
+          difference={shouldCompare ? difference : undefined}
           percentageValue={percentageValue}
-          percentageDifference={percentageDifference}
-          hideLabels={hideLabels}
+          percentageDifference={shouldCompare ? percentageDifference : undefined}
+          shouldCompare={shouldCompare}
           isPercentage={ratingExists || isVersatility}
         />
       );

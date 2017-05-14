@@ -157,12 +157,13 @@ const getRegionLanguage = ({
 
 export const fillUrlData = ({
   url,
-  region,
+  regionLanguage,
   language,
+  region,
   realm,
   characterName,
+  guild,
   iconName,
-  regionLanguage,
 }) => {
   const regLang = regionLanguage || getRegionLanguage({ region, language });
 
@@ -172,6 +173,7 @@ export const fillUrlData = ({
     .replace(/:region/g, region)
     .replace(/:realm/g, realm)
     .replace(/:characterName/g, characterName)
+    .replace(/:guild/g, guild)
     .replace(/:iconName/g, iconName);
 };
 

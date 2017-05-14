@@ -7,25 +7,14 @@ const CharacterSpec = ({
   level,
   characterClass,
   spec,
-  comparedTo,
-}) => {
-
-  const isCompared = (comparedTo && spec.backgroundImage && comparedTo.backgroundImage);
-  const isEqual = (isCompared && spec && spec.backgroundImage && spec.backgroundImage === comparedTo.backgroundImage);
-
-  let differentClassName = '';
-  if (isCompared) {
-    if (isEqual) differentClassName = 'is-equal';
-    else differentClassName = 'is-different';
-  }
-
-  return (
-    <span className={`Specialization ${className} ${differentClassName}`}>
-      {/*<CharacterSpecIcon icon={spec.icon} />*/}
-      <span className="Character-specName">{level} {characterClass.name} {spec.name}</span>
-    </span>
-  );
-};
+  shouldCompare,
+  isDifferentSpec,
+}) => (
+  <span className={`Specialization ${className} ${shouldCompare && !isDifferentSpec ? 'is-equal' : ''} ${shouldCompare && isDifferentSpec ? 'is-different' : ''}`}>
+    {/*<CharacterSpecIcon icon={spec.icon} />*/}
+    <span className="Character-specName">{level} {characterClass.name} {spec.name}</span>
+  </span>
+);
 
 CharacterSpec.propTypes = {
   className: PropTypes.string,
