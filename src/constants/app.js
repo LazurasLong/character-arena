@@ -56,9 +56,11 @@ export const IMPERDIBLESOFT = 'http://www.imperdiblesoft.com';
 export const WOWPROGRESS = 'https://www.wowprogress.com';
 export const WOWPROGRESS_ICON = `${WOWPROGRESS}/favicon.ico`;
 export const WOWPROGRESS_CHAR = `${WOWPROGRESS}/character/:region/:realm/:characterName`;
+export const WOWPROGRESS_GUILD = `${WOWPROGRESS}/guild/:region/:realm/:guild`;
 
 export const WORLDOFWARCRAFT = 'https://www.worldofwarcraft.com/:language-:regionLanguage';
 export const WORLDOFWARCRAFT_ARMORY = `${WORLDOFWARCRAFT}/character/:realm/:characterName`;
+export const WORLDOFWARCRAFT_GUILD = 'http://:region.battle.net/wow/:language/guild/:realm/:guild/';
 export const LEADERBOARDS_PVE = `${WORLDOFWARCRAFT}/game/pve/leaderboards`;
 export const LEADERBOARDS_PVP = `${WORLDOFWARCRAFT}/game/pvp/leaderboards/3v3`;
 
