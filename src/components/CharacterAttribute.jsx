@@ -11,12 +11,12 @@ const CharacterAttribute = ({
   difference,
   percentageValue,
   percentageDifference,
-  hideLabels,
+  shouldCompare,
   isPercentage,
 }) => (
   <div className={`CharacterAttributes-item color--${slug}`}>
     {/* Show labels */}
-    {!hideLabels &&
+    {!shouldCompare &&
       <span className="CharacterAttributes-label">
         <Icon className="CharacterAttributes-icon" icon={icon || slug} />
         <span>{label}</span>
@@ -59,11 +59,11 @@ CharacterAttribute.propTypes = {
   difference: PropTypes.number,
   percentageValue: PropTypes.number,
   percentageDifference: PropTypes.number,
-  hideLabels: PropTypes.bool,
+  shouldCompare: PropTypes.bool,
   isPercentage: PropTypes.bool,
 };
 CharacterAttribute.defaultProps = {
-  hideLabels: false,
+  shouldCompare: false,
   isPercentage: false,
 };
 CharacterAttribute.displayName = 'CharacterAttribute';

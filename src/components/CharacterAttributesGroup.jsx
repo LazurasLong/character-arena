@@ -8,9 +8,9 @@ const CharacterAttributesGroup = ({
   data,
   spec,
   comparedTo,
-  hideLabels,
+  shouldCompare,
 }) => (
-  <div className={`CharacterAttributes ${hideLabels ? 'CharacterAttributes--right' : ''}`}>
+  <div className={`CharacterAttributes ${shouldCompare ? 'CharacterAttributes--right' : ''}`}>
 
     {/* Loop through each attribute */}
     {elements.map(elem => {
@@ -109,10 +109,10 @@ const CharacterAttributesGroup = ({
           slug={elem.slug}
           icon={elem.icon}
           value={value}
-          difference={difference}
+          difference={shouldCompare ? difference : undefined}
           percentageValue={percentageValue}
-          percentageDifference={percentageDifference}
-          hideLabels={hideLabels}
+          percentageDifference={shouldCompare ? percentageDifference : undefined}
+          shouldCompare={shouldCompare}
           isPercentage={ratingExists || isVersatility}
         />
       );

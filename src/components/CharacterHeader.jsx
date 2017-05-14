@@ -14,6 +14,8 @@ const CharacterHeader = ({
   language,
   selectedTalents,
   comparedToTalents,
+  shouldCompare,
+  isDifferentSpec,
 }) => (
   <div className="Character-header">
     {/* Character avatar */}
@@ -64,7 +66,8 @@ const CharacterHeader = ({
       level={character.level}
       characterClass={character.class}
       spec={selectedTalents && selectedTalents.spec}
-      comparedTo={comparedToTalents && comparedToTalents.spec}
+      shouldCompare={shouldCompare}
+      isDifferentSpec={isDifferentSpec}
     />
 
     {/* Guild info */}

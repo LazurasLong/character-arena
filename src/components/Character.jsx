@@ -77,6 +77,9 @@ export default class Character extends Component {
     const selectedTalents = character.talents && character.talents.find(talents => talents.selected === true);
     const comparedToUsedTalents = comparedTo && comparedTo.talents && comparedTo.talents.find(talents => talents.selected === true);
 
+    const shouldCompare = (selectedTalents && selectedTalents.spec && selectedTalents.spec.backgroundImage && comparedToUsedTalents && comparedToUsedTalents.spec && comparedToUsedTalents.spec.backgroundImage);
+    const isDifferentSpec = (shouldCompare && selectedTalents.spec.backgroundImage !== comparedToUsedTalents.spec.backgroundImage);
+
     return (
       <div className={`Character ${character.race ? `is-${character.race.side}` : ''}`}>
         {/* Loading character */}
@@ -110,6 +113,8 @@ export default class Character extends Component {
               language={language}
               selectedTalents={selectedTalents}
               comparedToTalents={comparedToUsedTalents}
+              shouldCompare={shouldCompare}
+              isDifferentSpec={isDifferentSpec}
             />
 
             {/* Loop through different sections */}
@@ -164,7 +169,7 @@ export default class Character extends Component {
                       : character.talents[0].spec.backgroundImage
                     }
                     comparedTo={comparedToData}
-                    hideLabels={typeof comparedToData !== 'undefined'}
+                    shouldCompare={shouldCompare && !isDifferentSpec}
                   />
                 </Collapsable>
               );
@@ -180,6 +185,7 @@ export default class Character extends Component {
                 usedTalents={selectedTalents}
                 availableTalents={character.availableTalents}
                 comparedTo={comparedToUsedTalents}
+                shouldCompare={shouldCompare}
               />
             </Collapsable>
           </div>
