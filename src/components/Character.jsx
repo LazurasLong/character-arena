@@ -164,7 +164,7 @@ export default class Character extends Component {
                   <CharacterAttributesGroup
                     elements={section.elements}
                     data={characterData}
-                    spec={comparedTo
+                    spec={(shouldCompare === true && comparedTo)
                       ? comparedTo.talents[0].spec.backgroundImage
                       : character.talents[0].spec.backgroundImage
                     }
