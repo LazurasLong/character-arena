@@ -12,7 +12,7 @@ $icon-desktop-height: 48px;
     width: $icon-mobile-height;
     padding: 5px;
 
-    &::nth-last-of-type() {
+    &:last-of-type {
       margin-right: #{($header-mobile-height - 10px - $icon-mobile-height) / 2};
     }
   }
@@ -107,7 +107,7 @@ $icon-desktop-height: 48px;
       width: $icon-desktop-height;
       height: $icon-desktop-height;
 
-      &::nth-last-of-type() {
+      &:last-of-type {
         margin-right: #{($header-desktop-height - 10px - $icon-desktop-height) / 2};
       }
     }
