@@ -3,6 +3,10 @@ import React, { PropTypes, Component } from 'react';
 import Input from '../components/inputs/Input.jsx';
 import Icon from '../components/Icon.jsx';
 
+const shareWhatsapp = () => {
+  window.open("whatsapp://send?text="+ document.title +", "+ document.description +" - "+ location.href, "Share with Whatsapp");
+};
+
 export default class Share extends Component {
   static PropTypes = {
     className: PropTypes.string,
@@ -46,12 +50,16 @@ export default class Share extends Component {
         </button>*/}
 
         {/* Whatsapp TODO: Not included on blizzard icons */}
-        {/*<button className="Button Button--invisible Button--icon Share-button">
-          <Icon className="Button-icon Share-buttonIcon" icon="social-whatsapp" />
-        </button>*/}
+        <button className="Button Button--invisible Button--icon Share-button mobile"
+          title="Share on Whatsapp"
+          onClick={shareWhatsapp}
+        >
+          <Icon className="Button-icon Share-buttonIcon" icon="whatsapp" />
+        </button>
 
         {/* Share */}
         <button className="Button Button--invisible Button--icon Share-button"
+          title="Share this URL"
           onClick={() => { this.setState({ isModalOpen: true }) }}
         >
           <Icon className="Button-icon Share-buttonIcon" icon="external" />

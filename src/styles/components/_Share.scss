@@ -11,6 +11,10 @@ $icon-desktop-height: 48px;
     height: $icon-mobile-height;
     width: $icon-mobile-height;
     padding: 5px;
+
+    &::nth-last-of-type() {
+      margin-right: #{($header-mobile-height - 10px - $icon-mobile-height) / 2};
+    }
   }
 
   &-buttonIcon {
@@ -102,6 +106,10 @@ $icon-desktop-height: 48px;
     &-button {
       width: $icon-desktop-height;
       height: $icon-desktop-height;
+
+      &::nth-last-of-type() {
+        margin-right: #{($header-desktop-height - 10px - $icon-desktop-height) / 2};
+      }
     }
 
     &-modal {

@@ -38,8 +38,8 @@ const CharacterHeader = ({
           url: WORLDOFWARCRAFT_ARMORY,
           region: region,
           language: language,
-          realm: getSlug(character.realm),
-          characterName: getSlug(character.name),
+          realm: getSlug({name: character.realm}),
+          characterName: getSlug({name: character.name}),
         })
       }>
         <Icon className="Character-linkIcon" icon="wow" />
@@ -52,7 +52,7 @@ const CharacterHeader = ({
         href={fillUrlData({
           url: WOWPROGRESS_CHAR,
           region: region,
-          realm: getSlug(character.realm, true),
+          realm: getSlug({name: character.realm, useDashes: true}),
           characterName: character.name,
         })
       }>
@@ -84,8 +84,8 @@ const CharacterHeader = ({
               url: WORLDOFWARCRAFT_GUILD,
               region: region,
               language: language,
-              realm: getSlug(character.guild.realm),
-              guild: getSlug(character.guild.name),
+              realm: getSlug({name: character.guild.realm}),
+              guild: getSlug({name: character.guild.name, useLowDashes: true}, true),
             })
           }>
             <Icon className="Character-linkIcon" icon="wow" />
@@ -98,8 +98,8 @@ const CharacterHeader = ({
             href={fillUrlData({
               url: WOWPROGRESS_GUILD,
               region: region,
-              realm: getSlug(character.guild.realm, true),
-              guild: getSlug(character.guild.name),
+              realm: getSlug({name: character.guild.realm, useDashes: true}),
+              guild: getSlug({name: character.guild.name, usePluses: true}),
             })
           }>
             <img alt="Link to WoWProgress.com" className="Character-linkIcon" src={WOWPROGRESS_ICON} />

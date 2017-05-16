@@ -124,11 +124,46 @@ export const compare = ({
   URL RELATED
 */
 // Given a name, it'll return a url-friendly slug
-export const getSlug = (name, useDashes) => name
-  .replace(/\ /g, '')
-  .replace(/'/g, `${useDashes ? '-' : ''}`)
-  .replace(/-/g, `${useDashes ? '-' : ''}`)
-  .toLowerCase();
+export const getSlug = ({
+  name,
+  useDashes,
+  useLowDashes,
+  usePluses,
+  upperCase,
+}) => {
+  let slug = name;
+
+  if (!upperCase) {
+    slug = slug
+      .toLowerCase();
+  }
+
+  if (useDashes) {
+    slug = slug
+      .replace(/'/g, '-')
+      .replace(/-/g, '-');
+
+  } else if (useLowDashes) {
+    slug = slug
+      .replace(/\ /g, '_')
+      .replace(/'/g, '_')
+      .replace(/-/g, '_');
+
+  } else if (usePluses) {
+    slug = slug
+      .replace(/\ /g, '+');
+
+  } else {
+    slug = slug
+      .replace(/'/g, '')
+      .replace(/-/g, '');
+  }
+
+  slug = slug
+    .replace(/\ /g, '');
+
+  return slug;
+}
 
 // Given a word, normalize it (lowercase, accents, spaces, etc)
 export const normalize = word => {
@@ -138,7 +173,7 @@ export const normalize = word => {
   const oes = /[òÒóÓôÔõÕöÖØø]/g;
   const ues = /[ùÙúÚûÛüÜ]/g;
   
-  return getSlug(word)
+  return getSlug({name: word})
     .replace(aes, 'a')
     .replace(ees, 'e')
     .replace(ies, 'i')
