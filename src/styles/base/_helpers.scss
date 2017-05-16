@@ -35,3 +35,14 @@
 .color--haste { color: $color-haste; }
 .color--mastery { color: $color-mastery; }
 .color--versatility { color: $color-versatility; }
+
+// Devices
+.mobile {
+  display: inline-block;
+}
+
+@media screen and (min-width: breakpoint('tablet')) {
+  .mobile {
+    display: none;
+  }
+}

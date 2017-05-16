@@ -11,6 +11,7 @@ $icon-desktop-height: 48px;
     height: $icon-mobile-height;
     width: $icon-mobile-height;
     padding: 5px;
+    margin-right: #{($header-mobile-height - 10px - $icon-mobile-height) / 2};
   }
 
   &-buttonIcon {
