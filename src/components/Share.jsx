@@ -31,10 +31,17 @@ export default class Share extends Component {
     }
   }
 
+  handleFacebookShare() {
+    const url = encodeURIComponent( location.href );
+    const facebookKey = '764004133764546';
+
+    window.open(`https://www.facebook.com/dialog/share?app_id=${facebookKey}&href=${url}&display=popup&redirect_uri=${url}`, "Share on Facebook");
+  }
+
   handleWhatsappShare() {
     const { handleGetShareTitle } = this.props;
 
-    window.open(`whatsapp://send?text=${handleGetShareTitle()} - ${location.href}`, "Share with Whatsapp");
+    window.open(`whatsapp://send?text=${handleGetShareTitle()} - ${location.href}`, "Share on Whatsapp");
   };
 
   render() {
@@ -45,9 +52,12 @@ export default class Share extends Component {
     return (
       <div className={`Share ${className}`}>
         {/* Facebook */}
-        {/*<button className="Button Button--invisible Button--icon Share-button">
+        <button className="Button Button--invisible Button--icon Share-button"
+          title="Share on Facebook"
+          onClick={this.handleFacebookShare}
+        >
           <Icon className="Button-icon Share-buttonIcon" icon="social-facebook" />
-        </button>*/}
+        </button>
 
         {/* Twitter */}
         {/*<button className="Button Button--invisible Button--icon Share-button">
