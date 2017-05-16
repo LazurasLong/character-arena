@@ -3,9 +3,6 @@ import React, { PropTypes, Component } from 'react';
 import Input from '../components/inputs/Input.jsx';
 import Icon from '../components/Icon.jsx';
 
-const shareWhatsapp = () => {
-  window.open("whatsapp://send?text="+ document.title +", "+ document.description +" - "+ location.href, "Share with Whatsapp");
-};
 
 export default class Share extends Component {
   static PropTypes = {
@@ -21,6 +18,8 @@ export default class Share extends Component {
   constructor(props) {
     super(props);
 
+    this.handleWhatsappShare = this.handleWhatsappShare.bind(this);
+
     this.state = {
       isModalOpen: false,
     };
@@ -31,6 +30,12 @@ export default class Share extends Component {
       this.shareUrl.value = decodeURI(window.location.href);
     }
   }
+
+  handleWhatsappShare() {
+    const { handleGetShareTitle } = this.props;
+
+    window.open(`whatsapp://send?text=${handleGetShareTitle()} - ${location.href}`, "Share with Whatsapp");
+  };
 
   render() {
     const {
@@ -49,15 +54,15 @@ export default class Share extends Component {
           <Icon className="Button-icon Share-buttonIcon" icon="social-twitter" />
         </button>*/}
 
-        {/* Whatsapp TODO: Not included on blizzard icons */}
+        {/* Whatsapp */}
         <button className="Button Button--invisible Button--icon Share-button mobile"
           title="Share on Whatsapp"
-          onClick={shareWhatsapp}
+          onClick={this.handleWhatsappShare}
         >
           <Icon className="Button-icon Share-buttonIcon" icon="whatsapp" />
         </button>
 
-        {/* Share */}
+        {/* Generic Share */}
         <button className="Button Button--invisible Button--icon Share-button"
           title="Share this URL"
           onClick={() => { this.setState({ isModalOpen: true }) }}
