@@ -137,6 +137,10 @@ class CharacterFinder extends Component {
             {error &&
               <Error error={error} />
             }
+
+            <p className="Character-howTo">Here you can look for several characters and Character Arena will compare them for you!</p>
+            <p className="Character-howTo">Just select the realm, type the character's name and hit Search.</p>
+            <p className="Character-howTo">Repeat the proccess with all characters and they'll appear on the right.</p>
           </form>
         </Collapsable>
       </div>
