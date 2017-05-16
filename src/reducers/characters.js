@@ -10,7 +10,7 @@ import {
 import { getSlug } from '../utils/calcs.js'
 
 const isTheSameCharacter = (original, compared) => {
-  const result = (original.name.toLowerCase() === compared.name.toLowerCase() && getSlug(original.realm) === getSlug(compared.realm));
+  const result = (original.name.toLowerCase() === compared.name.toLowerCase() && getSlug({name: original.realm}) === getSlug({name: compared.realm}));
 
   return result;
 };

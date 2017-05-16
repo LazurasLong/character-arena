@@ -74,17 +74,6 @@ const CharacterAttributesGroup = ({
           return;
         }
 
-        console.log('shouldCompare', shouldCompare);
-        console.log('comparedTo', comparedTo);
-        console.log('specResource', getSpecResource({ powerType: data.powerType, role: data.role, resource: elem.slug, spec }));
-
-        console.log('First conditional', ((!shouldCompare || !comparedTo) && !getSpecResource({
-            powerType: data.powerType,
-            role: data.role,
-            resource: elem.slug,
-            spec,
-          })));
-
         value = data[elem.slug];
         difference = compare({ base: data, comparedTo, key: elem.slug });
 

@@ -7,7 +7,6 @@ import {
   getCharacterClass,
   getAvailableTalents,
   composePathname,
-  getSlug,
   getCookie,
   setCookie
 } from '../utils/calcs.js';
