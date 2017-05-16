@@ -8,6 +8,7 @@ import { TITLE } from '../constants/app.js';
 
 const Header = ({
   handleToggleSidebar,
+  handleGetShareTitle,
 }) => (
   <header className="Header">
     <div className="Header-bar">
@@ -22,13 +23,14 @@ const Header = ({
         />
         <span className="Header-label">{TITLE}</span>
       </div>
-      <Share className="Header-share" />
+      <Share className="Header-share" handleGetShareTitle={handleGetShareTitle} />
     </div>
   </header>
 );
 
 Header.propTypes = {
   handleToggleSidebar: PropTypes.func.isRequired,
+  handleGetShareTitle: PropTypes.func.isRequired,
 };
 Header.displayName = 'Header';
 

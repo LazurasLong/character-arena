@@ -115,6 +115,7 @@ class Comparator extends Component {
     this.handleMoveCharacter = this.handleMoveCharacter.bind(this);
     this.handleRefreshCharacter = this.handleRefreshCharacter.bind(this);
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
+    this.handleGetShareTitle = this.handleGetShareTitle.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
 
     const {
@@ -411,6 +412,27 @@ class Comparator extends Component {
       .then(this.handleDataChange);
   }
 
+  handleGetShareTitle() {
+    const {
+      characters: { collection },
+    } = this.props;
+
+    if (!collection.length) {
+      return document.title;
+    }
+
+    let title = '';
+    collection.forEach((char, index) => {
+      if (index === 0) {
+        title += char.name;
+      } else {
+        title += ` vs ${char.name}`;
+      }
+    });
+
+    return `${title} on ${document.title}`;
+  }
+
   handleDataChange() {
     const { characters: { collection }, location } = this.props;
     const { options: { region, language } } = this.state;
@@ -485,7 +507,7 @@ class Comparator extends Component {
       >
         <div className="App">
           {/* App Header */}
-          <Header handleToggleSidebar={this.handleToggleSidebar} />
+          <Header handleToggleSidebar={this.handleToggleSidebar} handleGetShareTitle={this.handleGetShareTitle} />
 
           {/* App content */}
           <div className="Comparator">
