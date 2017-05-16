@@ -10,7 +10,7 @@ const Icon = ({ className, icon }) => {
         xmlnsXlink="http://www.w3.org/2000/xlink"
         viewBox="0 0 90 90"
       >
-        <use xlinkHref={`${imageResolver('../images/whatsapp-logo.svg')}#`} />
+        <use xlinkHref={`${imageResolver('../images/whatsapp-logo.svg')}#${icon}`} />
       </svg>
     );
   }
