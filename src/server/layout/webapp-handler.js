@@ -1,6 +1,7 @@
 import imageResolver from '../../utils/image-resolver.js';
 
 import { TITLE, DESCRIPTION, COLOR , SITE_URL } from '../../constants/app.js';
+import { FACEBOOK_KEY } from '../../../.env.js';
 
 // This is intended to setup meta tags to support web applications
 const getMetas = () => {
@@ -27,8 +28,9 @@ const getMetas = () => {
     // },
 
     // Facebook stuff
+    { property:'fb:app_id', content: FACEBOOK_KEY },
     { property:'og:site_name', content: TITLE },
-    { property:'og:type', content: 'website' },
+    { property:'og:type', content: 'profile' },
     { property:'og:title', content: TITLE },
     { property:'og:url', content: SITE_URL },
     { property:'og:description', content: DESCRIPTION },

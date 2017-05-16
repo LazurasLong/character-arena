@@ -3,6 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import Input from '../components/inputs/Input.jsx';
 import Icon from '../components/Icon.jsx';
 
+import { FACEBOOK_KEY } from '../../.env.js';
 
 export default class Share extends Component {
   static PropTypes = {
@@ -33,9 +34,8 @@ export default class Share extends Component {
 
   handleFacebookShare() {
     const url = encodeURIComponent( location.href );
-    const facebookKey = '764004133764546';
 
-    window.open(`https://www.facebook.com/dialog/share?app_id=${facebookKey}&href=${url}&display=popup&redirect_uri=${url}`, "Share on Facebook");
+    window.open(`https://www.facebook.com/dialog/share?app_id=${FACEBOOK_KEY}&href=${url}&display=popup&redirect_uri=${url}`, "Share on Facebook");
   }
 
   handleWhatsappShare() {
