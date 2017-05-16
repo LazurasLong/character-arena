@@ -35,8 +35,8 @@ const getMetas = () => {
     { property:'og:url', content: SITE_URL },
     { property:'og:description', content: DESCRIPTION },
     { property:'og:image', content: `${SITE_URL}${imageResolver('../images/favicons/android-chrome-192x192.png')}` },
-    { property:'og:image:height', content: '192px' },
-    { property:'og:image:width', content: '192px' },
+    { property:'og:image:height', content: 192 },
+    { property:'og:image:width', content: 192 },
 
     // Twitter stuff
     { name:'twitter:creator', content: '@ImperdibleSoft' },
@@ -58,9 +58,9 @@ const getMetas = () => {
   const webAppMetasString = webAppMetas
     .map(meta => {
       const name = meta.name ? `name="${meta.name}"` : '';
-      const content = meta.content ? `content="${meta.content}"` : '';
       const property = meta.property ? `property="${meta.property}"` : '';
       const itemprop = meta.itemprop ? `itemprop="${meta.itemprop}"` : '';
+      const content = meta.content ? `content="${meta.content}"` : '';
 
       return `<meta ${name} ${content} ${property} ${itemprop}/>`;
     })
