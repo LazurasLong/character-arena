@@ -19,6 +19,8 @@ export default class Share extends Component {
   constructor(props) {
     super(props);
 
+    this.handleFacebookShare = this.handleFacebookShare.bind(this);
+    this.handleTwitterShare = this.handleTwitterShare.bind(this);
     this.handleWhatsappShare = this.handleWhatsappShare.bind(this);
 
     this.state = {
@@ -33,15 +35,23 @@ export default class Share extends Component {
   }
 
   handleFacebookShare() {
-    const url = encodeURIComponent( location.href );
+    const url = encodeURIComponent(location.href);
 
-    window.open(`https://www.facebook.com/dialog/share?app_id=${FACEBOOK_KEY}&href=${url}&display=popup&redirect_uri=${url}`, "Share on Facebook");
+    window.open(`https://www.facebook.com/dialog/share?app_id=${FACEBOOK_KEY}&href=${url}&display=popup&redirect_uri=${url}`, 'Share on Facebook');
+  }
+
+  handleTwitterShare() {
+    const { handleGetShareTitle } = this.props;
+    const url = encodeURIComponent(location.href);
+    
+    window.open(`http://twitter.com/share?text=${handleGetShareTitle()}&url=${url}&hashtags=CharacterArena`, 'Share on Twitter');
   }
 
   handleWhatsappShare() {
     const { handleGetShareTitle } = this.props;
+    const url = encodeURIComponent(location.href);
 
-    window.open(`whatsapp://send?text=${handleGetShareTitle()} - ${location.href}`, "Share on Whatsapp");
+    window.open(`whatsapp://send?text=${handleGetShareTitle()} - ${url}`, 'Share on Whatsapp');
   };
 
   render() {
@@ -60,9 +70,12 @@ export default class Share extends Component {
         </button>
 
         {/* Twitter */}
-        {/*<button className="Button Button--invisible Button--icon Share-button">
+        <button className="Button Button--invisible Button--icon Share-button"
+          title="Share on Twitter"
+          onClick={this.handleTwitterShare}
+        >
           <Icon className="Button-icon Share-buttonIcon" icon="social-twitter" />
-        </button>*/}
+        </button>
 
         {/* Whatsapp */}
         <button className="Button Button--invisible Button--icon Share-button mobile"
