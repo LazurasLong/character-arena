@@ -34,7 +34,9 @@ const getMetas = () => {
     { property:'og:title', content: TITLE },
     { property:'og:url', content: SITE_URL },
     { property:'og:description', content: DESCRIPTION },
-    { property:'og:image', content: `${SITE_URL}/assets/favicons/android-chrome-192x192.png` },
+    { property:'og:image', content: `${SITE_URL}${imageResolver('../images/favicons/android-chrome-192x192.png')}` },
+    { property:'og:image:height', content: '192px' },
+    { property:'og:image:width', content: '192px' },
 
     // Twitter stuff
     { name:'twitter:creator', content: '@ImperdibleSoft' },
@@ -42,14 +44,14 @@ const getMetas = () => {
     { name:'twitter:title', content: TITLE },
     { name:'twitter:description', content: DESCRIPTION },
     { name:'twitter:url', content: SITE_URL },
-    { name:'twitter:image', content: `${SITE_URL}/assets/favicons/android-chrome-192x192.png` },
+    { name:'twitter:image', content: `${SITE_URL}${imageResolver('../images/favicons/android-chrome-192x192.png')}` },
 
     // Google stuff
     { itemprop:'url', content: SITE_URL },
     { itemprop:'name', content: TITLE },
     { itemprop:'description', content: DESCRIPTION },
     { itemprop:'thumbnail', content: 'http://schema.org/ImageObject' },
-    { itemprop:'thumbnailUrl', content: `${SITE_URL}/assets/favicons/android-chrome-192x192.png` },
+    { itemprop:'thumbnailUrl', content: `${SITE_URL}${imageResolver('../images/favicons/android-chrome-192x192.png')}` },
   ];
 
   // Create valid strings
