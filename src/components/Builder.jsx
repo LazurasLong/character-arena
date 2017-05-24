@@ -9,6 +9,7 @@ const Builder = ({
   races,
   classes,
   talents,
+  itemTypes,
 }) => {
 
   /* All info has been loaded */
@@ -55,6 +56,11 @@ const Builder = ({
               data={talents}
               label="Teaching skills and rules to participants"
               onError="Some participants don't have neccessary skills to participate on this arena. Please, try again later."
+            />
+            <BuilderItem
+              data={itemTypes}
+              label="Gathering different weapons and armors"
+              onError="Some armors are broken and it's not safe to fight with them. Please, try again later."
             />
           </div>
         </Collapsable>

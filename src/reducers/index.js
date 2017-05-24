@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import characters from './characters.js';
 import resources from './resources.js';
+import characters from './characters.js';
+import items from './items.js';
 
 export default combineReducers({
-  characters,
   resources,
+  characters,
+  items,
 });

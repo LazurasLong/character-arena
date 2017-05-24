@@ -1,11 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import imageResolver from '../utils/image-resolver';
+import { getItemQualityName } from '../utils/calcs';
 
 import TalentsIcon from '../components/CharacterTalentsIcon';
 
 export default class CharacterItem extends Component {
   static propTypes = {
-    
+    handleShowItemDetail: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -19,6 +20,7 @@ export default class CharacterItem extends Component {
       element,
       item,
       comparedTo,
+      handleShowItemDetail,
     } = this.props;
 
     /* No item equipped */
@@ -31,32 +33,7 @@ export default class CharacterItem extends Component {
     }
 
     /* Calc item quality */
-    let quality = '';
-    switch(item.quality) {
-      case 7:
-        quality = 'reliq';
-        break;
-      case 6:
-        quality = 'artifact';
-        break;
-      case 5:
-        quality = 'legendary';
-        break;
-      case 4:
-        quality = 'epic';
-        break;
-      case 3:
-        quality = 'rare';
-        break;
-      case 2:
-        quality = 'uncommon';
-        break;
-      case 1:
-        quality = 'common';
-        break;
-      default:
-        quality = 'garbage';
-    };
+    const quality = getItemQualityName(item.quality);
 
     let difference;
     if (comparedTo) {
@@ -66,7 +43,10 @@ export default class CharacterItem extends Component {
 
     /* Render item */
     return (
-      <div className={`Item Item--${quality} ${comparedTo ? 'Item--difference' : ''} clearfix`}>
+      <div
+        className={`Item Item--${quality} ${comparedTo ? 'Item--difference' : ''} clearfix`}
+        onClick={() => { handleShowItemDetail({ item }) }}
+      >
         {/* Item icon */}
         <TalentsIcon
           className="Item-icon"

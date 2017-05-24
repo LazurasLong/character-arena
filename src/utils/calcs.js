@@ -120,6 +120,28 @@ export const compare = ({
   return undefined;
 };
 
+// Given a quality number, return the name
+export const getItemQualityName = (quality) => {
+  switch(quality) {
+    case 7:
+      return 'heirloom';
+    case 6:
+      return 'artifact';
+    case 5:
+      return 'legendary';
+    case 4:
+      return 'epic';
+    case 3:
+      return 'rare';
+    case 2:
+      return 'uncommon';
+    case 1:
+      return 'common';
+    default:
+      return 'garbage';
+  };
+}
+
 /*
   URL RELATED
 */
@@ -199,6 +221,7 @@ export const fillUrlData = ({
   characterName,
   guild,
   iconName,
+  itemId,
 }) => {
   const regLang = regionLanguage || getRegionLanguage({ region, language });
 
@@ -209,7 +232,8 @@ export const fillUrlData = ({
     .replace(/:realm/g, realm)
     .replace(/:characterName/g, characterName)
     .replace(/:guild/g, guild)
-    .replace(/:iconName/g, iconName);
+    .replace(/:iconName/g, iconName)
+    .replace(/:itemId/g, itemId);
 };
 
 // Given a URL and some data, will replace variables on the URL
@@ -220,6 +244,7 @@ export const composeUrl = ({
   region,
   language,
   regionLanguage,
+  itemId,
 }) => {
   const constructedURL = fields
     ? `${url}?locale=:language_:region&fields=${fields.map(f => `${f}`)}`
@@ -232,6 +257,7 @@ export const composeUrl = ({
     region,
     realm: character && character.realm,
     characterName: character && character.characterName,
+    itemId,
   });
 };
 

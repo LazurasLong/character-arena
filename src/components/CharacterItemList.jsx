@@ -5,11 +5,14 @@ import CharacterItem from '../components/CharacterItem.jsx';
 
 export default class CharacterItemList extends Component {
   static propTypes = {
-    
+    elements: PropTypes.array.isRequired,
+    items: PropTypes.object.isRequired,
+    comparedTo: PropTypes.object,
+    handleShowItemDetail: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-
+    comparedTo: {},
   };
 
   static displayName = 'CharacterItemList';
@@ -19,6 +22,7 @@ export default class CharacterItemList extends Component {
       elements,
       items,
       comparedTo,
+      handleShowItemDetail,
     } = this.props;
 
     return (
@@ -28,7 +32,8 @@ export default class CharacterItemList extends Component {
             key={`item-${elem}`}
             element={elem}
             item={items[elem]}
-            comparedTo={comparedTo && comparedTo[elem]}
+            comparedTo={comparedTo[elem]}
+            handleShowItemDetail={handleShowItemDetail}
           />
         ))}
       </div>

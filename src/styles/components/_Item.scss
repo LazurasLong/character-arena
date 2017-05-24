@@ -15,68 +15,62 @@
   text-shadow: $text-shadow;
   text-transform: none;
 
-  &--heirloom {
-    color: $color-heirloom;
+  &-icon {
+    position: relative;
+    float: left;
 
-    .Item-icon {
-      border-color: $color-heirloom;
-    }
+    width: $item-height;
+    height: $item-height;
+    margin-right: 10px;
+
+    border: 1px solid $white;
+    background-repeat: no-repeat;
   }
 
-  &--legendary {
-    color: $color-legendary;
+  &-info {
+    position: relative;
+    float: left;
 
-    .Item-icon {
-      border-color: $color-legendary;
-    }
+    width: calc(100% - #{$item-height} - 10px);
   }
 
-  &--artifact {
-    color: $color-artifact;
+  &-name,
+  &-context,
+  &-itemLevel,
+  &-itemBind,
+  &-socket,
+  &-material,
+  &-stats,
+  &-durability,
+  &-requiredLevel,
+  &-requiredSkill,
+  &-requiredSkillRank,
+  &-sellPrice {
+    display: block;
 
-    .Item-icon {
-      border-color: $color-artifact;
-    }
+    color: $white;
   }
 
-  &--epic {
-    color: $color-epic;
-
-    .Item-icon {
-      border-color: $color-epic;
-    }
+  &-name {
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  &--rare {
-    color: $color-rare;
-
-    .Item-icon {
-      border-color: $color-rare;
-    }
-  }
-
-  &--uncommon {
+  &-context {
     color: $color-uncommon;
-
-    .Item-icon {
-      border-color: $color-uncommon;
-    }
   }
 
-  &--garbage {
+  &-itemLevel {
     color: $color-garbage;
-
-    .Item-icon {
-      border-color: $color-garbage;
-    }
+    font-size: 12px;
+    line-height: 18px;
+    text-align: right;
   }
 
-  &--empty {
-    color: $color-empty;
-
-    .Item-icon {
-      border-color: $color-empty;
-    }
+  &-itemLevelDifference {
+    margin-right: 10px;
   }
 
   &--difference {
@@ -104,43 +98,123 @@
   &--mainHand .Item-icon { background-position: 0 -#{($item-height - 1) * 13}; }
   &--offHand .Item-icon { background-position: 0 -#{($item-height - 1) * 14}; }
 
-  &-icon {
-    position: relative;
-    float: left;
+  &--heirloom {
+    .Item-icon {
+      border-color: $color-heirloom;
+    }
 
-    width: $item-height;
-    height: $item-height;
-    margin-right: 10px;
-
-    border: 1px solid $white;
-    background-repeat: no-repeat;
+    .Item-name {
+      color: $color-heirloom;
+    }
   }
 
-  &-info {
-    position: relative;
-    float: left;
+  &--legendary {
+    .Item-icon {
+      border-color: $color-legendary;
+    }
 
-    width: calc(100% - #{$item-height} - 10px);
+    .Item-name {
+      color: $color-legendary;
+    }
   }
 
-  &-name {
-    overflow: hidden;
-    display: block;
-    width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  &--artifact {
+    .Item-icon {
+      border-color: $color-artifact;
+    }
+
+    .Item-name {
+      color: $color-artifact;
+    }
   }
 
-  &-itemLevel {
-    display: block;
+  &--epic {
+    .Item-icon {
+      border-color: $color-epic;
+    }
 
-    color: $color-garbage;
-    font-size: 12px;
-    line-height: 18px;
-    text-align: right;
+    .Item-name {
+      color: $color-epic;
+    }
   }
 
-  &-itemLevelDifference {
-    margin-right: 10px;
+  &--rare {
+    .Item-icon {
+      border-color: $color-rare;
+    }
+
+    .Item-name {
+      color: $color-rare;
+    }
+  }
+
+  &--uncommon {
+    .Item-icon {
+      border-color: $color-uncommon;
+    }
+
+    .Item-name {
+      color: $color-uncommon;
+    }
+  }
+
+  &--garbage {
+    .Item-icon {
+      border-color: $color-garbage;
+    }
+
+    .Item-name {
+      color: $color-garbage;
+    }
+  }
+
+  &--empty {
+    color: $color-empty;
+
+    .Item-icon {
+      border-color: $color-empty;
+    }
+  }
+
+  &--detail {
+    .Item {
+      &-icon {
+        margin-right: 10px;
+      }
+
+      &-info {
+        padding: 10px;
+        padding-top: 0;
+      }
+
+      &-name,
+      &-context,
+      &-itemLevel,
+      &-itemBind,
+      &-socket,
+      &-material,
+      &-stats,
+      &-durability,
+      &-requiredLevel,
+      &-requiredSkill,
+      &-requiredSkillRank,
+      &-sellPrice {
+        font-size: 13px;
+        line-height: 20px;
+      }
+
+      &-name {
+        font-size: 16px;
+      }
+
+      &-itemLevel {
+        color: $gold;
+        text-align: left;
+      }
+
+      &-stats {
+        margin-bottom: 10px;
+      }
+    }
   }
 }

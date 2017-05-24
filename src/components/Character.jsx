@@ -28,6 +28,7 @@ export default class Character extends Component {
     handleMoveCharacter: PropTypes.func.isRequired,
     handleRefreshCharacter: PropTypes.func.isRequired,
     handleRemoveCharacter: PropTypes.func.isRequired,
+    handleShowItemDetail: PropTypes.func.isRequired,
 
     /* Maybe-Undefined props */
     character: PropTypes.shape({
@@ -66,6 +67,7 @@ export default class Character extends Component {
       handleMoveCharacter,
       handleRefreshCharacter,
       handleRemoveCharacter,
+      handleShowItemDetail,
 
       character,
       comparedTo,
@@ -200,6 +202,7 @@ export default class Character extends Component {
                 elements={sections.items.elements}
                 items={character.items}
                 comparedTo={comparedTo && comparedTo.items}
+                handleShowItemDetail={handleShowItemDetail}
               />
             </Collapsable>
           </div>

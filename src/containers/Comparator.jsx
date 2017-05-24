@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ReactSidebar from 'react-sidebar';
-import imageResolver from '../utils/image-resolver.js';
+import imageResolver from '../utils/image-resolver';
 import {
   getCharacterRace,
   getCharacterClass,
@@ -9,20 +9,22 @@ import {
   composePathname,
   getCookie,
   setCookie
-} from '../utils/calcs.js';
+} from '../utils/calcs';
 
-import { REGIONS } from '../constants/app.js';
-import { HOME } from '../constants/appRoutes.js';
+import { REGIONS } from '../constants/app';
+import { HOME } from '../constants/appRoutes';
 
-import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters.js';
-import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
+import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters';
+import { fetchRaces, fetchClasses, fetchRealms,fetchTalents, fetchItemTypes } from '../actions/resources';
+import { fetchItem } from '../actions/items';
 
-import Sidebar from '../components/Sidebar.jsx';
-import Header from '../components/Header.jsx';
-import Builder from '../components/Builder.jsx';
-import CharacterFinder from '../components/CharacterFinder.jsx';
-import Character from '../components/Character.jsx';
-import Footer from '../components/Footer.jsx';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import Builder from '../components/Builder';
+import CharacterFinder from '../components/CharacterFinder';
+import Character from '../components/Character';
+import Footer from '../components/Footer';
+import ItemDetail from '../components/ItemDetail';
 
 class Comparator extends Component {
   static propTypes = {
@@ -65,6 +67,7 @@ class Comparator extends Component {
     resourcesData.push(dispatch(fetchClasses({ region, language })));
     resourcesData.push(dispatch(fetchTalents({ region, language })));
     resourcesData.push(dispatch(fetchRealms({ region, language })));
+    resourcesData.push(dispatch(fetchItemTypes({ region, language })));
 
     // Get basic data
     return Promise.all(resourcesData)
@@ -117,6 +120,7 @@ class Comparator extends Component {
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
     this.handleGetShareTitle = this.handleGetShareTitle.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
+    this.handleShowItemDetail = this.handleShowItemDetail.bind(this);
 
     const {
       params,
@@ -471,6 +475,13 @@ class Comparator extends Component {
     // });
   }
 
+  handleShowItemDetail({ item }) {
+    const { dispatch } = this.props;
+    const { options: { region, language } } = this.state;
+
+    dispatch(fetchItem({ item, region, language }));
+  }
+
   render() {
     const {
       resources: {
@@ -478,8 +489,10 @@ class Comparator extends Component {
         races,
         realms,
         talents,
+        itemTypes,
       },
       characters,
+      items,
     } = this.props;
 
     const {
@@ -488,10 +501,10 @@ class Comparator extends Component {
       sections,
     } = this.state;
 
-    const isServiceLoading = (classes.isFetching || !classes.collection.length || races.isFetching || !races.collection.length || realms.isFetching || !realms.collection.length || talents.isFetching)
+    const isServiceLoading = (classes.isFetching || !classes.collection.length || races.isFetching || !races.collection.length || realms.isFetching || !realms.collection.length || talents.isFetching || !itemTypes.collection.length || itemTypes.isFetching)
       ? true
       : false;
-    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error)
+    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error || itemTypes.error)
       ? true
       : false;
 
@@ -505,6 +518,8 @@ class Comparator extends Component {
         dataFailing = realms;
       } else if (talents.error) {
         dataFailing = talents;
+      } else if (itemTypes.error) {
+        dataFailing = itemTypes;
       }
     }
 
@@ -545,6 +560,7 @@ class Comparator extends Component {
                   races={races}
                   classes={classes}
                   talents={talents}
+                  itemTypes={itemTypes}
                 />
               }
 
@@ -606,6 +622,7 @@ class Comparator extends Component {
                         handleMoveCharacter={this.handleMoveCharacter}
                         handleRefreshCharacter={this.handleRefreshCharacter}
                         handleRemoveCharacter={this.handleRemoveCharacter}
+                        handleShowItemDetail={this.handleShowItemDetail}
 
                         character={selectedCharacter}
                         isFirst={index === 1}
@@ -623,6 +640,11 @@ class Comparator extends Component {
 
           {/* App footer */}
           <Footer options={options}/>
+
+          {/* Item Detail */}
+          <ItemDetail
+            items={items}
+          />
         </div>
       </ReactSidebar>
     );
@@ -631,8 +653,9 @@ class Comparator extends Component {
 
 function mapStateToProps(state) {
   return {
-    characters: state.characters,
     resources: state.resources,
+    characters: state.characters,
+    items: state.items,
   };
 };
 
