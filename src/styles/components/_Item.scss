@@ -1,0 +1,146 @@
+/** @define Item */
+
+.Item {
+  position: relative;
+  float: left;
+
+  width: 100%;
+  min-height: $item-height;
+  margin: 5px 0;
+
+  color: $white;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  text-shadow: $text-shadow;
+  text-transform: none;
+
+  &--heirloom {
+    color: $color-heirloom;
+
+    .Item-icon {
+      border-color: $color-heirloom;
+    }
+  }
+
+  &--legendary {
+    color: $color-legendary;
+
+    .Item-icon {
+      border-color: $color-legendary;
+    }
+  }
+
+  &--artifact {
+    color: $color-artifact;
+
+    .Item-icon {
+      border-color: $color-artifact;
+    }
+  }
+
+  &--epic {
+    color: $color-epic;
+
+    .Item-icon {
+      border-color: $color-epic;
+    }
+  }
+
+  &--rare {
+    color: $color-rare;
+
+    .Item-icon {
+      border-color: $color-rare;
+    }
+  }
+
+  &--uncommon {
+    color: $color-uncommon;
+
+    .Item-icon {
+      border-color: $color-uncommon;
+    }
+  }
+
+  &--garbage {
+    color: $color-garbage;
+
+    .Item-icon {
+      border-color: $color-garbage;
+    }
+  }
+
+  &--empty {
+    color: $color-empty;
+
+    .Item-icon {
+      border-color: $color-empty;
+    }
+  }
+
+  &--difference {
+    .Item-itemLevel {
+      text-align: right;
+    }
+  }
+
+  &--head .Item-icon { background-position: 0 -#{($item-height - 1) * 0}; }
+  &--neck .Item-icon { background-position: 0 -#{($item-height - 1) * 1}; }
+  &--shoulder .Item-icon { background-position: 0 -#{($item-height - 1) * 2}; }
+  &--back .Item-icon { background-position: 0 -#{($item-height - 1) * 0}; }
+  &--chest .Item-icon { background-position: 0 -#{($item-height - 1) * 3}; }
+  &--shirt .Item-icon { background-position: 0 -#{($item-height - 1) * 4}; }
+  &--tabard .Item-icon { background-position: 0 -#{($item-height - 1) * 5}; }
+  &--wrist .Item-icon { background-position: 0 -#{($item-height - 1) * 6}; }
+  &--hands .Item-icon { background-position: 0 -#{($item-height - 1) * 7}; }
+  &--waist .Item-icon { background-position: 0 -#{($item-height - 1) * 8}; }
+  &--legs .Item-icon { background-position: 0 -#{($item-height - 1) * 9}; }
+  &--feet .Item-icon { background-position: 0 -#{($item-height - 1) * 10}; }
+  &--finger1 .Item-icon { background-position: 0 -#{($item-height - 1) * 11}; }
+  &--finger2 .Item-icon { background-position: 0 -#{($item-height - 1) * 11}; }
+  &--trinket1 .Item-icon { background-position: 0 -#{($item-height - 1) * 12}; }
+  &--trinket2 .Item-icon { background-position: 0 -#{($item-height - 1) * 12}; }
+  &--mainHand .Item-icon { background-position: 0 -#{($item-height - 1) * 13}; }
+  &--offHand .Item-icon { background-position: 0 -#{($item-height - 1) * 14}; }
+
+  &-icon {
+    position: relative;
+    float: left;
+
+    width: $item-height;
+    height: $item-height;
+    margin-right: 10px;
+
+    border: 1px solid $white;
+    background-repeat: no-repeat;
+  }
+
+  &-info {
+    position: relative;
+    float: left;
+
+    width: calc(100% - #{$item-height} - 10px);
+  }
+
+  &-name {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-itemLevel {
+    display: block;
+
+    color: $color-garbage;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: right;
+  }
+
+  &-itemLevelDifference {
+    margin-right: 10px;
+  }
+}

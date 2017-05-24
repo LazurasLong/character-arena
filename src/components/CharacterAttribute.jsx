@@ -26,7 +26,7 @@ const CharacterAttribute = ({
     {/* Show difference */}
     <span className="CharacterAttributes-valuesWrapper">
       {typeof difference !== 'undefined' &&
-        <span className={`CharacterAttributes-value Comparator-difference ${(difference > 0) ? 'Comparator--greater' : 'Comparator--lower'}`}>
+        <span className={`CharacterAttributes-value Comparator-difference ${(difference > 0) ? 'is-greater' : 'is-lower'}`}>
           { (difference > 0) ? `+${formatIntegers(difference)}` : formatIntegers(difference)}
           {typeof percentageDifference !== 'undefined' &&
             <span>

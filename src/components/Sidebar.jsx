@@ -62,10 +62,7 @@ class Sidebar extends Component {
           {Object.keys(sections).map((key) => {
             const section = sections[key];
 
-            /* If there are no elements, return null */
-            if (!section.elements) {
-              return;
-            }
+            if (section.isDisabled) return;
 
             /* Return collapsable section */
             return (
@@ -77,13 +74,6 @@ class Sidebar extends Component {
               />
             );
           })}
-
-          {/* Talents */}
-          <Collapsable
-            data={sections.talents}
-            ref={(ref) => { this.talents = ref; }}
-            handleToggleCollapsable={handleToggleCollapsable}
-          />
         </div>
       </aside>
     );
