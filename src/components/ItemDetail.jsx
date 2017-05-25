@@ -8,6 +8,7 @@ export default class ItemDetail extends Component {
   static PropTypes = {
     className: PropTypes.string,
     item: PropTypes.object,
+    handleCloseItemDetail: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -32,6 +33,7 @@ export default class ItemDetail extends Component {
         isFetching,
         selected: item,
       },
+      handleCloseItemDetail,
     } = this.props;
 
     const {
@@ -47,7 +49,7 @@ export default class ItemDetail extends Component {
           {/* Close button */}
           <button
             className="Button Button--icon Button--invisible Share-modalClose"
-            onClick={() => { this.setState({isModalOpen: false}); }}
+            onClick={() => { handleCloseItemDetail() }}
           >
             <Icon className="Button-icon" icon="close" />
           </button>

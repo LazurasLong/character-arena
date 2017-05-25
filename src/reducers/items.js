@@ -2,6 +2,7 @@ import {
   FETCH_ITEM_REQUEST,
   FETCH_ITEM_SUCCESS,
   FETCH_ITEM_FAILURE,
+  UNSELECT_ITEM,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -15,6 +16,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+        error: undefined,
       };
 
     case FETCH_ITEM_SUCCESS:
@@ -25,6 +27,7 @@ export default (state = initialState, action) => {
           ...action.payload.data,
           ...action.payload.item,
         },
+        error: undefined,
       };
 
     case FETCH_ITEM_FAILURE:
@@ -34,6 +37,15 @@ export default (state = initialState, action) => {
         selected: undefined,
         error: action.payload.error,
       };
+
+    case UNSELECT_ITEM: {
+      return {
+        ...state,
+        isFetching: false,
+        selected: undefined,
+        error: undefined,
+      }
+    }
 
     default:
       return state;

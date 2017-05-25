@@ -2,6 +2,7 @@ import {
   FETCH_ITEM_REQUEST,
   FETCH_ITEM_SUCCESS,
   FETCH_ITEM_FAILURE,
+  UNSELECT_ITEM,
 } from '../constants/actionTypes';
 
 import {
@@ -37,6 +38,13 @@ const fetchItem = ({
   };
 };
 
+const unselectItem = () => {
+  return {
+    type: UNSELECT_ITEM,
+  };
+}
+
 export {
   fetchItem,
+  unselectItem,
 };

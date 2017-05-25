@@ -16,7 +16,7 @@ import { HOME } from '../constants/appRoutes';
 
 import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents, fetchItemTypes } from '../actions/resources';
-import { fetchItem } from '../actions/items';
+import { fetchItem, unselectItem } from '../actions/items';
 
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -121,6 +121,7 @@ class Comparator extends Component {
     this.handleGetShareTitle = this.handleGetShareTitle.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
     this.handleShowItemDetail = this.handleShowItemDetail.bind(this);
+    this.handleCloseItemDetail = this.handleCloseItemDetail.bind(this);
 
     const {
       params,
@@ -482,6 +483,12 @@ class Comparator extends Component {
     dispatch(fetchItem({ item, region, language }));
   }
 
+  handleCloseItemDetail() {
+    const { dispatch } = this.props;
+
+    dispatch(unselectItem());
+  }
+
   render() {
     const {
       resources: {
@@ -644,6 +651,7 @@ class Comparator extends Component {
           {/* Item Detail */}
           <ItemDetail
             items={items}
+            handleCloseItemDetail={this.handleCloseItemDetail}
           />
         </div>
       </ReactSidebar>
