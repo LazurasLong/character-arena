@@ -8,6 +8,9 @@ export default class ItemDetail extends Component {
   static PropTypes = {
     className: PropTypes.string,
     item: PropTypes.object,
+    classes: PropTypes.array.isRequired,
+    itemTypes: PropTypes.array.isRequired,
+    sockets: PropTypes.array.isRequired,
     handleCloseItemDetail: PropTypes.func.isRequired,
   };
 
@@ -33,6 +36,9 @@ export default class ItemDetail extends Component {
         isFetching,
         selected: item,
       },
+      classes,
+      itemTypes,
+      sockets,
       handleCloseItemDetail,
     } = this.props;
 
@@ -42,6 +48,16 @@ export default class ItemDetail extends Component {
 
     /* Calc item quality */
     const quality = item && getItemQualityName(item.quality);
+
+    /* Get the material */
+    const itemClass = item
+      && itemTypes
+      && itemTypes.find(type => type.class === item.itemClass);
+
+    const itemSubClass = item
+      && itemClass
+      && itemClass.subclasses
+      && itemClass.subclasses.find(type => type.subclass === item.itemSubClass).name;
 
     return (
       <div className={`Share-modal ${isModalOpen ? 'is-open' : ''}`}>
@@ -72,43 +88,86 @@ export default class ItemDetail extends Component {
                 {/* Name */}
                 <span className="Item-name">{item.name}</span>
 
-                {/* Context */}
+                {/* TODO: Context */}
                 <span className="Item-context">Need to define context</span>
 
                 {/* Item Level */}
-                <span className="Item-itemLevel">Item Level {item.itemLevel}</span>
+                <span className="Item-itemLevel">Item Level {
+                  (item.tooltipParams && item.tooltipParams.timewalkerLevel)
+                    ? item.tooltipParams.timewalkerLevel
+                    : item.itemLevel
+                }</span>
 
-                {/* Soulbound */}
+                {/* TODO: Soulbound */}
+                {/* item.itemBind */}
+                {/* 1 = Binds when picked up */}
+                {/* 2 = Binds when equipped */}
+                {/* 1 = Binds to Battle.net account */}
                 <span className="Item-itemBind">Need to define binding</span>
 
-                {/* Socket */}
-                <span className="Item-socket">Need to define socket</span>
+                {/* Socket & Material */}
+                {(itemSubClass || item.inventoryType) &&
+                  <span className="Item-socket">
+                    {item.inventoryType &&
+                      <span>{sockets.find(sock => sock.id === item.inventoryType).name}</span>
+                    }
+                    {itemSubClass &&
+                      <span className="Item-material">{itemSubClass}</span>
+                    }
+                  </span>
+                }
 
-                {/* Material */}
-                <span className="Item-material">Need to define material</span>
-
-                {/* Stats */}
-                <span className="Item-stats">Need to define stats</span>
+                {/* TODO: Stats */}
                 {/* 74 = strenght or intellect */}
                 {/* 7 = stamina */}
                 {/* 32 = crit */}
+                {/* 36 = haste */}
                 {/* 49 = mastery */}
+                {/* 70 = vers */}
+                <span className="Item-stats">
+                  Need to define stats<br />
+                  {item.armor && <span>{item.armor} Armor<br /></span>}
+                </span>
+
+                {/* TODO: Buffs */}
+                {/* item.itemSpells */}
+                <span className="Item-benefits">Need to define benefits</span>
+
+                {/* Description */}
+                {item.description &&
+                  <span className="Item-description">"{item.description}"</span>
+                }
 
                 {/* Durability */}
-                <span className="Item-durability">Need to define durability</span>
+                {item.maxDurability > 0 &&
+                  <span className="Item-durability">Durability: {item.maxDurability}/{item.maxDurability}</span>
+                }
 
                 {/* Requirements */}
-                {/* Level */}
-                <span className="Item-requiredLevel">Need to define level requirement</span>
+                {/* Class */}
+                {item.allowableClasses &&
+                  <span className="Item-allowedClasses">Classes: {
+                    item.allowableClasses.map(classId =>
+                      classes.find(c => 
+                        (c.id === classId)
+                      ).name
+                    )
+                  }</span>
+                }
 
-                {/* Skill */}
+                {/* Level */}
+                {item.requiredLevel > 0 &&
+                  <span className="Item-requiredLevel">Requires level {item.requiredLevel}</span>
+                }
+
+                {/* TODO: Skill */}
                 <span className="Item-requiredSkill">Need to define skill requirement</span>
 
-                {/* Skill Rank */}
+                {/* TODO: Skill Rank */}
                 <span className="Item-requiredSkillRank">Need to define skillRank requirement</span>
 
-                {/* Sell price */}
-                <span className="Item-sellPrice">Need to define sellPrice</span>
+                {/* TODO: Sell price */}
+                <span className="Item-sellPrice">Need to define sellPrice {item.sellPrice}</span>
               </div>
             </div>
           }

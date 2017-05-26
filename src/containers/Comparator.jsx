@@ -497,6 +497,7 @@ class Comparator extends Component {
         realms,
         talents,
         itemTypes,
+        sockets,
       },
       characters,
       items,
@@ -651,6 +652,9 @@ class Comparator extends Component {
           {/* Item Detail */}
           <ItemDetail
             items={items}
+            classes={classes.collection}
+            itemTypes={itemTypes.collection}
+            sockets={sockets.collection}
             handleCloseItemDetail={this.handleCloseItemDetail}
           />
         </div>

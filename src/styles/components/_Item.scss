@@ -15,6 +15,8 @@
   text-shadow: $text-shadow;
   text-transform: none;
 
+  cursor: pointer;
+
   &-icon {
     position: relative;
     float: left;
@@ -39,9 +41,11 @@
   &-itemLevel,
   &-itemBind,
   &-socket,
-  &-material,
   &-stats,
+  &-benefits,
+  &-description,
   &-durability,
+  &-allowedClasses,
   &-requiredLevel,
   &-requiredSkill,
   &-requiredSkillRank,
@@ -177,14 +181,17 @@
   }
 
   &--detail {
+    cursor: default;
+
     .Item {
       &-icon {
-        margin-right: 10px;
+        display: block;
+        margin: 0;
+        margin-bottom: 20px;
       }
 
       &-info {
-        padding: 10px;
-        padding-top: 0;
+        width: 100%;
       }
 
       &-name,
@@ -194,7 +201,10 @@
       &-socket,
       &-material,
       &-stats,
+      &-benefits,
+      &-description,
       &-durability,
+      &-allowedClasses,
       &-requiredLevel,
       &-requiredSkill,
       &-requiredSkillRank,
@@ -205,15 +215,42 @@
 
       &-name {
         font-size: 16px;
+        overflow: initial;
+        text-overflow: initial;
+        white-space: initial;
       }
 
-      &-itemLevel {
+      &-itemLevel,
+      &-description {
         color: $gold;
         text-align: left;
       }
 
-      &-stats {
+      &-material {
+        color: $white;
+        float: right;
+      }
+
+      &-stats,
+      &-description {
         margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: breakpoint('tablet')) {
+  .Item--detail {
+    .Item {
+      &-icon {
+        display: inline-block;
+        margin: 0;
+        margin-right: 20px;
+      }
+
+      &-info {
+        width: calc(100% - 20px - #{$item-height});
+        padding: 0;
       }
     }
   }
