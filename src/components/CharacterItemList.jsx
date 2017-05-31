@@ -8,6 +8,10 @@ export default class CharacterItemList extends Component {
     elements: PropTypes.array.isRequired,
     items: PropTypes.object.isRequired,
     comparedTo: PropTypes.object,
+    character: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      realm: PropTypes.string.isRequired,
+    }).isRequired,
     handleShowItemDetail: PropTypes.func.isRequired,
   };
 
@@ -22,6 +26,7 @@ export default class CharacterItemList extends Component {
       elements,
       items,
       comparedTo,
+      character,
       handleShowItemDetail,
     } = this.props;
 
@@ -33,6 +38,7 @@ export default class CharacterItemList extends Component {
             element={elem}
             item={items[elem]}
             comparedTo={comparedTo[elem]}
+            character={character}
             handleShowItemDetail={handleShowItemDetail}
           />
         ))}

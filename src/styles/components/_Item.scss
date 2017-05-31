@@ -43,6 +43,7 @@
   &-socket,
   &-stats,
   &-benefits,
+  &-set,
   &-description,
   &-durability,
   &-allowedClasses,
@@ -202,6 +203,7 @@
       &-material,
       &-stats,
       &-benefits,
+      &-set,
       &-description,
       &-durability,
       &-allowedClasses,
@@ -221,6 +223,7 @@
       }
 
       &-itemLevel,
+      &-setTitle,
       &-description {
         color: $gold;
         text-align: left;
@@ -234,6 +237,15 @@
       &-stats,
       &-description {
         margin-bottom: 10px;
+      }
+
+      &-setItem {
+        color: $grey;
+        margin-left: 10px;
+
+        &.is-active {
+          color: $beige;
+        }
       }
     }
   }

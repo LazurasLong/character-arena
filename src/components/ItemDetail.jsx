@@ -126,12 +126,33 @@ export default class ItemDetail extends Component {
                 {/* 70 = vers */}
                 <span className="Item-stats">
                   Need to define stats<br />
-                  {item.armor && <span>{item.armor} Armor<br /></span>}
+                  {(item.armor > 0) && <span>{item.armor} Armor<br /></span>}
                 </span>
 
                 {/* TODO: Buffs */}
                 {/* item.itemSpells */}
                 <span className="Item-benefits">Need to define benefits</span>
+
+                {/* TODO: Tier Bonus */}
+                {item && item.itemSet && item.itemSet.name &&
+                <div className="Item-set">
+                  <span className="Item-setTitle">
+                    {item.itemSet.name} ({
+                      item.itemSet.items.filter(i => i.isOwned).length
+                    }/{
+                      item.itemSet.items.length
+                    })</span>
+                  <ul className="Item-setList">
+                    {item.itemSet.items.map(i => i.id
+                      ? (<li
+                          key={`item-${i.id}`}
+                          className={`Item-setItem ${i.isOwned ? 'is-active' : ''}`}
+                        >{i.name}</li>)
+                      : <li key={i} />
+                      )}
+                  </ul>
+                </div>
+                }
 
                 {/* Description */}
                 {item.description &&

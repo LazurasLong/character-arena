@@ -6,11 +6,17 @@ import TalentsIcon from '../components/CharacterTalentsIcon';
 
 export default class CharacterItem extends Component {
   static propTypes = {
+    element: PropTypes.string.isRequired,
+    item: PropTypes.object,
+    comparedTo: PropTypes.object,
+    character: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      realm: PropTypes.string.isRequired,
+    }).isRequired,
     handleShowItemDetail: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-
   };
 
   static displayName = 'CharacterItem';
@@ -20,6 +26,7 @@ export default class CharacterItem extends Component {
       element,
       item,
       comparedTo,
+      character,
       handleShowItemDetail,
     } = this.props;
 
@@ -40,12 +47,11 @@ export default class CharacterItem extends Component {
       difference = item.itemLevel - comparedTo.itemLevel;
     }
 
-
     /* Render item */
     return (
       <div
         className={`Item Item--${quality} ${comparedTo ? 'Item--difference' : ''} clearfix`}
-        onClick={() => { handleShowItemDetail({ item }) }}
+        onClick={() => { handleShowItemDetail({ character, item }) }}
       >
         {/* Item icon */}
         <TalentsIcon

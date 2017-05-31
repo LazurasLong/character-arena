@@ -2,6 +2,10 @@ import {
   FETCH_ITEM_REQUEST,
   FETCH_ITEM_SUCCESS,
   FETCH_ITEM_FAILURE,
+  FETCH_ITEMSET_ITEM_REQUEST,
+  FETCH_ITEMSET_ITEM_SUCCESS,
+  FETCH_ITEMSET_ITEM_FAILURE,
+  UPDATE_ITEMSET_ITEM,
   UNSELECT_ITEM,
 } from '../constants/actionTypes';
 
@@ -15,7 +19,7 @@ export default (state = initialState, action) => {
     case FETCH_ITEM_REQUEST:
       return {
         ...state,
-        isFetching: false,
+        isFetching: true,
         error: undefined,
       };
 
@@ -36,6 +40,56 @@ export default (state = initialState, action) => {
         isFetching: false,
         selected: undefined,
         error: action.payload.error,
+      };
+
+    case FETCH_ITEMSET_ITEM_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: undefined,
+      };
+
+    case FETCH_ITEMSET_ITEM_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        selected: {
+          ...state.selected,
+          itemSet: {
+            ...state.selected.itemSet,
+            items: state.selected.itemSet.items.map(i => {
+              if (!i.id && i === action.payload.data.id) {
+                return action.payload.data;
+              }
+              return i;
+            }),
+          },
+        },
+        error: undefined,
+      };
+
+    case FETCH_ITEMSET_ITEM_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload.error,
+      };
+
+    case UPDATE_ITEMSET_ITEM:
+      return {
+        ...state,
+        selected: {
+          ...state.selected,
+          itemSet: {
+            ...state.selected.itemSet,
+            items: state.selected.itemSet.items.map(i => {
+              if (!i.id && i === action.item.id) {
+                return action.item;
+              }
+              return i;
+            }),
+          },
+        },
       };
 
     case UNSELECT_ITEM: {

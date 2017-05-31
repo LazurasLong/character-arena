@@ -2,6 +2,10 @@ import {
   FETCH_ITEM_REQUEST,
   FETCH_ITEM_SUCCESS,
   FETCH_ITEM_FAILURE,
+  FETCH_ITEMSET_ITEM_REQUEST,
+  FETCH_ITEMSET_ITEM_SUCCESS,
+  FETCH_ITEMSET_ITEM_FAILURE,
+  UPDATE_ITEMSET_ITEM,
   UNSELECT_ITEM,
 } from '../constants/actionTypes';
 
@@ -38,6 +42,40 @@ const fetchItem = ({
   };
 };
 
+const fetchItemSetItem = ({
+  item,
+  region,
+  language,
+}) => {
+  return {
+    [CALL_API]: {
+      endpoint: `${composeUrl({
+        url: ITEM,
+        itemId: item,
+        region,
+        language,
+      })}`,
+      types: [
+        FETCH_ITEMSET_ITEM_REQUEST,
+        FETCH_ITEMSET_ITEM_SUCCESS,
+        FETCH_ITEMSET_ITEM_FAILURE,
+      ],
+      extra: {
+        item,
+      }
+    },
+  };
+}
+
+const updateItemSetItem = ({
+  item,
+}) => {
+  return {
+    type: UPDATE_ITEMSET_ITEM,
+    item,
+  };
+};
+
 const unselectItem = () => {
   return {
     type: UNSELECT_ITEM,
@@ -46,5 +84,7 @@ const unselectItem = () => {
 
 export {
   fetchItem,
+  fetchItemSetItem,
+  updateItemSetItem,
   unselectItem,
 };

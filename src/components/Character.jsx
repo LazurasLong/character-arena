@@ -202,6 +202,10 @@ export default class Character extends Component {
                 elements={sections.items.elements}
                 items={character.items}
                 comparedTo={comparedTo && comparedTo.items}
+                character={{
+                  name: character.name,
+                  realm: character.realm,
+                }}
                 handleShowItemDetail={handleShowItemDetail}
               />
             </Collapsable>

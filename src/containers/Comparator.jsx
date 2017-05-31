@@ -16,7 +16,7 @@ import { HOME } from '../constants/appRoutes';
 
 import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents, fetchItemTypes } from '../actions/resources';
-import { fetchItem, unselectItem } from '../actions/items';
+import { fetchItem, fetchItemSetItem, updateItemSetItem, unselectItem } from '../actions/items';
 
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -476,11 +476,66 @@ class Comparator extends Component {
     // });
   }
 
-  handleShowItemDetail({ item }) {
-    const { dispatch } = this.props;
+  handleShowItemDetail({ character, item }) {
+    const { characters: { collection }, dispatch } = this.props;
     const { options: { region, language } } = this.state;
 
-    dispatch(fetchItem({ item, region, language }));
+    dispatch(fetchItem({ item, region, language }))
+      .then(response => {
+        // Get owner of the item set
+        const owner = collection.find(c => (c.name === character.name && c.realm === character.realm));
+
+        // Create new itemSet object
+        const fetchedItem = {
+          ...response,
+          itemSet: {
+            ...response.itemSet,
+            items: response.itemSet.items.map(i => {
+              let ownedItem;
+              // Loop throu each item of the character items
+              Object.keys(owner.items).forEach(key => {
+                const charItem = owner.items[key];
+
+                // If character already has it
+                if (charItem && charItem.id && i === charItem.id) {
+                  ownedItem = {
+                    ...charItem,
+                    isOwned: true,
+                  };
+
+                  return;
+                }
+              });
+
+              return ownedItem || i;
+            }),
+          },
+        };
+
+        const itemsToFetch = [];
+        fetchedItem.itemSet.items.map(fetchedI => {
+          if (!fetchedI.id) {
+            itemsToFetch.push(
+              dispatch(fetchItemSetItem({
+                item: fetchedI,
+                region,
+                language,
+              }))
+            );
+          
+          } else {
+            itemsToFetch.push(
+              dispatch(updateItemSetItem({
+                item: fetchedI,
+              }))
+            );
+          }
+        });
+
+        return Promise.all(itemsToFetch)
+          .then(() => Promise.resolve())
+          .catch(errors => Promise.reject(errors));
+      });
   }
 
   handleCloseItemDetail() {
