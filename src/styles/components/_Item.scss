@@ -40,6 +40,7 @@
   &-context,
   &-itemLevel,
   &-itemBind,
+  &-equippedCount,
   &-socket,
   &-stats,
   &-benefits,
@@ -63,7 +64,9 @@
     white-space: nowrap;
   }
 
-  &-context {
+  &-context,
+  &-benefits,
+  &-stat.is-enhance {
     color: $color-uncommon;
   }
 
@@ -199,6 +202,7 @@
       &-context,
       &-itemLevel,
       &-itemBind,
+      &-equippedCount,
       &-socket,
       &-material,
       &-stats,
@@ -235,7 +239,9 @@
       }
 
       &-stats,
-      &-description {
+      &-description,
+      &-set,
+      &-benefits {
         margin-bottom: 10px;
       }
 

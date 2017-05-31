@@ -1,5 +1,6 @@
 import { HOME } from '../constants/appRoutes.js';
 import { REGIONS } from '../constants/app.js';
+import { defaultQualities } from '../constants/blizz-settings';
 
 /*
   CHARACTER RELATED
@@ -122,24 +123,11 @@ export const compare = ({
 
 // Given a quality number, return the name
 export const getItemQualityName = (quality) => {
-  switch(quality) {
-    case 7:
-      return 'heirloom';
-    case 6:
-      return 'artifact';
-    case 5:
-      return 'legendary';
-    case 4:
-      return 'epic';
-    case 3:
-      return 'rare';
-    case 2:
-      return 'uncommon';
-    case 1:
-      return 'common';
-    default:
-      return 'garbage';
-  };
+  const selected = defaultQualities.find(q => q.key === quality);
+
+  return selected
+    ? selected.value
+    : 'garbage';
 }
 
 /*

@@ -488,50 +488,55 @@ class Comparator extends Component {
         // Create new itemSet object
         const fetchedItem = {
           ...response,
-          itemSet: {
-            ...response.itemSet,
-            items: response.itemSet.items.map(i => {
-              let ownedItem;
-              // Loop throu each item of the character items
-              Object.keys(owner.items).forEach(key => {
-                const charItem = owner.items[key];
-
-                // If character already has it
-                if (charItem && charItem.id && i === charItem.id) {
-                  ownedItem = {
-                    ...charItem,
-                    isOwned: true,
-                  };
-
-                  return;
-                }
-              });
-
-              return ownedItem || i;
-            }),
-          },
         };
 
         const itemsToFetch = [];
-        fetchedItem.itemSet.items.map(fetchedI => {
-          if (!fetchedI.id) {
-            itemsToFetch.push(
-              dispatch(fetchItemSetItem({
-                item: fetchedI,
-                region,
-                language,
-              }))
-            );
-          
-          } else {
-            itemsToFetch.push(
-              dispatch(updateItemSetItem({
-                item: fetchedI,
-              }))
-            );
-          }
-        });
+        // If item is part of the set
+        if (response.itemSet && response.itemSet.items) {
+          // Store the set
+          fetchedItem.itemSet.items = response.itemSet.items.map(i => {
+            let ownedItem;
+            // Loop throu each item of the character items
+            Object.keys(owner.items).forEach(key => {
+              const charItem = owner.items[key];
 
+              // If character already has it
+              if (charItem && charItem.id && i === charItem.id) {
+                ownedItem = {
+                  ...charItem,
+                  isOwned: true,
+                };
+
+                return;
+              }
+            });
+
+            return ownedItem || i;
+          });
+
+          // Loop items on the set
+          fetchedItem.itemSet.items.map(fetchedI => {
+            // Fetch not owned items
+            if (!fetchedI.id) {
+              itemsToFetch.push(
+                dispatch(fetchItemSetItem({
+                  item: fetchedI,
+                  region,
+                  language,
+                }))
+              );
+            
+            } else {
+              itemsToFetch.push(
+                dispatch(updateItemSetItem({
+                  item: fetchedI,
+                }))
+              );
+            }
+          });
+        }
+
+        // Fetch unknown items
         return Promise.all(itemsToFetch)
           .then(() => Promise.resolve())
           .catch(errors => Promise.reject(errors));
@@ -552,7 +557,6 @@ class Comparator extends Component {
         realms,
         talents,
         itemTypes,
-        sockets,
       },
       characters,
       items,
@@ -709,7 +713,6 @@ class Comparator extends Component {
             items={items}
             classes={classes.collection}
             itemTypes={itemTypes.collection}
-            sockets={sockets.collection}
             handleCloseItemDetail={this.handleCloseItemDetail}
           />
         </div>

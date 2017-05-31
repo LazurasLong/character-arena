@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { getItemQualityName } from '../utils/calcs';
+import { defaultStats, defaultBinds, defaultContexts, defaultSockets } from '../constants/blizz-settings';
 
 import Icon from '../components/Icon';
 import TalentsIcon from '../components/CharacterTalentsIcon';
@@ -10,7 +11,6 @@ export default class ItemDetail extends Component {
     item: PropTypes.object,
     classes: PropTypes.array.isRequired,
     itemTypes: PropTypes.array.isRequired,
-    sockets: PropTypes.array.isRequired,
     handleCloseItemDetail: PropTypes.func.isRequired,
   };
 
@@ -38,7 +38,6 @@ export default class ItemDetail extends Component {
       },
       classes,
       itemTypes,
-      sockets,
       handleCloseItemDetail,
     } = this.props;
 
@@ -58,7 +57,9 @@ export default class ItemDetail extends Component {
       && itemClass
       && itemClass.subclasses
       && itemClass.subclasses.find(type => type.subclass === item.itemSubClass).name;
-
+    
+    const context = item && defaultContexts.find(dc => dc.key === item.context);
+    
     return (
       <div className={`Share-modal ${isModalOpen ? 'is-open' : ''}`}>
         <div className="Share-modalBody">
@@ -89,51 +90,80 @@ export default class ItemDetail extends Component {
                 <span className="Item-name">{item.name}</span>
 
                 {/* TODO: Context */}
-                <span className="Item-context">Need to define context</span>
+                {/* Pending mythic level, titanforged, warforged */}
+                {(context && context.value.length > 0) &&
+                  <span className="todo Item-context">{context.value}</span>
+                }
 
                 {/* Item Level */}
                 <span className="Item-itemLevel">Item Level {
-                  (item.tooltipParams && item.tooltipParams.timewalkerLevel)
-                    ? item.tooltipParams.timewalkerLevel
-                    : item.itemLevel
+                  item.itemLevel
                 }</span>
 
-                {/* TODO: Soulbound */}
-                {/* item.itemBind */}
-                {/* 1 = Binds when picked up */}
-                {/* 2 = Binds when equipped */}
-                {/* 1 = Binds to Battle.net account */}
-                <span className="Item-itemBind">Need to define binding</span>
+                {/* Soulbound */}
+                {item.itemBind &&
+                  <span className="Item-itemBind">
+                    {(item.itemBind === 1 && item.quality === 7) && defaultBinds.find(db => db.key === 'account').value}
+                    {(item.itemBind === 1 && item.quality !== 7) && defaultBinds.find(db => db.key === 'pickup').value}
+                    {(item.itemBind === 2) && defaultBinds.find(db => db.key === 'equip').value}
+                  </span>
+                }
+
+                <span className="todo Item-equippedCount">Need to define equippedCountLimit</span>
 
                 {/* Socket & Material */}
                 {(itemSubClass || item.inventoryType) &&
                   <span className="Item-socket">
                     {item.inventoryType &&
-                      <span>{sockets.find(sock => sock.id === item.inventoryType).name}</span>
+                      defaultSockets.find(sock => sock.key === item.inventoryType).name
                     }
                     {itemSubClass &&
-                      <span className="Item-material">{itemSubClass}</span>
+                      `, ${itemSubClass}`
                     }
                   </span>
                 }
 
-                {/* TODO: Stats */}
-                {/* 74 = strenght or intellect */}
-                {/* 7 = stamina */}
-                {/* 32 = crit */}
-                {/* 36 = haste */}
-                {/* 49 = mastery */}
-                {/* 70 = vers */}
-                <span className="Item-stats">
-                  Need to define stats<br />
-                  {(item.armor > 0) && <span>{item.armor} Armor<br /></span>}
-                </span>
+                {/* Stats */}
+                <div className="Item-stats">
+                  {(item.armor > 0) &&
+                    <p className="Item-stat">+{item.armor} Armor</p>
+                  }
+                  {defaultStats.map(ds => {
+                    const itemStat = item.stats.find(stat => stat.stat === ds.key);
+                    if (itemStat) {
+                      return (
+                        <p key={`stat-${ds.key}`} className={`Item-stat ${
+                          (ds.key === 32 || ds.key === 36 || ds.key === 49 || ds.key === 70)
+                          ? 'is-enhance' : ''
+                        }`}>
+                          {`+${itemStat.amount} ${ds.value}`}
+                        </p>
+                      );
+                    }
 
-                {/* TODO: Buffs */}
-                {/* item.itemSpells */}
-                <span className="Item-benefits">Need to define benefits</span>
+                    return;
+                  })}
+                </div>
 
-                {/* TODO: Tier Bonus */}
+                {/* Spells */}
+                {item && item.itemSpells &&
+                  <span className="Item-benefits">{
+                    item.itemSpells.map(s =>
+                      (s.spell.description.length > 0) &&
+                        <span
+                          key={`spell-${s.spell.id}`}
+                          className="Item-benefit"
+                        >
+                          {s.trigger === 'ON_EQUIP' && 'Equip: '}
+                          {s.trigger === 'ON_USE' && 'Use: '}
+                          {s.spell.description}
+                        </span>
+                    )
+                  }</span>
+                }
+
+                {/* Item set */}
+                {/* Pending itemSet spells */}
                 {item && item.itemSet && item.itemSet.name &&
                 <div className="Item-set">
                   <span className="Item-setTitle">
@@ -178,17 +208,21 @@ export default class ItemDetail extends Component {
 
                 {/* Level */}
                 {item.requiredLevel > 0 &&
-                  <span className="Item-requiredLevel">Requires level {item.requiredLevel}</span>
+                  <span className="Item-requiredLevel">Requires level {
+                    (item.tooltipParams && item.tooltipParams.timewalkerLevel)
+                    ? item.tooltipParams.timewalkerLevel
+                    : item.requiredLevel
+                  }</span>
                 }
 
                 {/* TODO: Skill */}
-                <span className="Item-requiredSkill">Need to define skill requirement</span>
+                <span className="todo Item-requiredSkill">Need to define skill requirement</span>
 
                 {/* TODO: Skill Rank */}
-                <span className="Item-requiredSkillRank">Need to define skillRank requirement</span>
+                <span className="todo Item-requiredSkillRank">Need to define skillRank requirement</span>
 
                 {/* TODO: Sell price */}
-                <span className="Item-sellPrice">Need to define sellPrice {item.sellPrice}</span>
+                <span className="todo Item-sellPrice">Need to define sellPrice {item.sellPrice}</span>
               </div>
             </div>
           }
