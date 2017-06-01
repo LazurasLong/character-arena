@@ -73,13 +73,19 @@ $color-rare: #0081ff;
 $color-uncommon: #1eff00;
 $color-garbage: #cacaca;
 $color-empty: #333;
+$color-transmog: #fc7cfb;
+
+// Currency
+$color-gold: $gold;
+$color-silver: $color-versatility;
+$color-copper: #c77e19;
 
 /*
   PAGE RELATED
 */
 $base-color: $gold;
 $base-background: #1C110D;
-$base-border: #c77e19;
+$base-border: $color-copper;
 
 // $link-color: #b1997f;
 $link-color: #ebdec2;

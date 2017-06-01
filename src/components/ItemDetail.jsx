@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import imageResolver from '../utils/image-resolver';
 import { getItemQualityName } from '../utils/calcs';
 import { defaultStats, defaultBinds, defaultContexts, defaultSockets } from '../constants/blizz-settings';
 
@@ -59,6 +60,13 @@ export default class ItemDetail extends Component {
       && itemClass.subclasses.find(type => type.subclass === item.itemSubClass).name;
     
     const context = item && defaultContexts.find(dc => dc.key === item.context);
+
+    const sellPrice = {
+      string: item && item.sellPrice.toString(),
+    };
+    if (sellPrice.string && sellPrice.string.length > 0) sellPrice.copper = parseInt(sellPrice.string.substr(-2), 10);
+    if (sellPrice.string && sellPrice.string.length > 2) sellPrice.silver = parseInt(sellPrice.string.substr(sellPrice.string.length - 4, 2), 10);
+    if (sellPrice.string && sellPrice.string.length > 4) sellPrice.gold = parseInt(sellPrice.string.substr(0, sellPrice.string.length - 4), 10);
     
     return (
       <div className={`Share-modal ${isModalOpen ? 'is-open' : ''}`}>
@@ -99,6 +107,9 @@ export default class ItemDetail extends Component {
                 <span className="Item-itemLevel">Item Level {
                   item.itemLevel
                 }</span>
+
+                {/* TODO: Transmog */}
+                <span className="todo Item-transmog">Need to define transmog</span>
 
                 {/* Soulbound */}
                 {item.itemBind &&
@@ -221,8 +232,30 @@ export default class ItemDetail extends Component {
                 {/* TODO: Skill Rank */}
                 <span className="todo Item-requiredSkillRank">Need to define skillRank requirement</span>
 
-                {/* TODO: Sell price */}
-                <span className="todo Item-sellPrice">Need to define sellPrice {item.sellPrice}</span>
+                {/* Sell price */}
+                {item.sellPrice &&
+                  <span className="Item-sellPrice">
+                    Sell price:
+                    {(sellPrice.gold > 0) && 
+                      <span
+                        className="Currency Currency--gold"
+                        style={{ backgroundImage: `url(${imageResolver('../images/coin-gold.gif')})`}}
+                      >{sellPrice.gold}</span>
+                    }
+                    {(sellPrice.silver > 0) && 
+                      <span
+                        className="Currency Currency--silver"
+                        style={{ backgroundImage: `url(${imageResolver('../images/coin-silver.gif')})`}}
+                      >{sellPrice.silver}</span>
+                    }
+                    {(sellPrice.copper > 0) && 
+                      <span
+                        className="Currency Currency--copper"
+                        style={{ backgroundImage: `url(${imageResolver('../images/coin-copper.gif')})`}}
+                      >{sellPrice.copper}</span>
+                    }
+                  </span>
+                }
               </div>
             </div>
           }

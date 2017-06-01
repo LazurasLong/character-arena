@@ -1,0 +1,13 @@
+/** @define Currency */
+
+.Currency {
+  display: inline-block;
+  padding-right: 15px;
+  margin-left: 5px;
+  background-position: right center;
+  background-repeat: no-repeat;
+
+  &--gold { color: $color-gold; }
+  &--silver { color: $color-silver; }
+  &--copper { color: $color-copper; }
+}

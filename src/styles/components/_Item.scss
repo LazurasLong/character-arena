@@ -39,6 +39,7 @@
   &-name,
   &-context,
   &-itemLevel,
+  &-transmog,
   &-itemBind,
   &-equippedCount,
   &-socket,
@@ -62,6 +63,10 @@
     width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  &-transmog {
+    color: $color-transmog;
   }
 
   &-context,
@@ -201,6 +206,7 @@
       &-name,
       &-context,
       &-itemLevel,
+      &-transmog,
       &-itemBind,
       &-equippedCount,
       &-socket,
