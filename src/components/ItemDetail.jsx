@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import imageResolver from '../utils/image-resolver';
 import { getItemQualityName } from '../utils/calcs';
-import { defaultStats, defaultBinds, defaultContexts, defaultSockets, defaultBonuses } from '../constants/blizz-settings';
+import { defaultStats, defaultBinds, defaultSockets, defaultBonuses } from '../constants/blizz-settings';
 
 import Icon from '../components/Icon';
 import TalentsIcon from '../components/CharacterTalentsIcon';
@@ -59,7 +59,22 @@ export default class ItemDetail extends Component {
       && itemClass.subclasses
       && itemClass.subclasses.find(type => type.subclass === item.itemSubClass).name;
     
-    const context = item && defaultContexts.find(dc => dc.key === item.context);
+    let bonuses = '';
+    item && item.bonusLists.forEach((b) => {
+      const tag = defaultBonuses[b].tag;
+
+      // Invalid tag
+      if (!tag || !tag.length || tag === null) {
+        return;
+      }
+
+      // First tag
+      if (bonuses === '') {
+        bonuses = defaultBonuses[b].tag;
+      } else {
+        bonuses += `, ${defaultBonuses[b].tag}`;
+      }
+    });
 
     const sellPrice = {
       string: item && item.sellPrice.toString(),
@@ -105,25 +120,8 @@ export default class ItemDetail extends Component {
                 <span className="Item-name">{item.name}</span>
 
                 {/* Bonuses */}
-                {item.bonusLists && item.bonusLists.length > 0 &&
-                  <span className="Item-context">{
-                    item.bonusLists.map((b, index) => {
-                      const tag = defaultBonuses[b].tag;
-
-                      // Invalid tag
-                      if (!tag || !tag.length || tag === null) {
-                        return;
-                      }
-
-                      // First tag
-                      if (index === 0) {
-                        return defaultBonuses[b].tag;
-                      }
-
-                      // Tags
-                      return `, ${defaultBonuses[b].tag}`;
-                    })
-                  }</span>
+                {bonuses !== '' &&
+                  <span className="Item-context">{bonuses}</span>
                 }
 
                 {/* Item Level */}
