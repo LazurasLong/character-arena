@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import imageResolver from '../utils/image-resolver';
 import { getItemQualityName } from '../utils/calcs';
-import { defaultStats, defaultBinds, defaultContexts, defaultSockets } from '../constants/blizz-settings';
+import { defaultStats, defaultBinds, defaultContexts, defaultSockets, defaultBonuses } from '../constants/blizz-settings';
 
 import Icon from '../components/Icon';
 import TalentsIcon from '../components/CharacterTalentsIcon';
@@ -104,10 +104,26 @@ export default class ItemDetail extends Component {
                 {/* Name */}
                 <span className="Item-name">{item.name}</span>
 
-                {/* TODO: Context */}
-                {/* Pending mythic level, titanforged, warforged */}
-                {(context && context.value.length > 0) &&
-                  <span className="todo Item-context">{context.value}</span>
+                {/* Bonuses */}
+                {item.bonusLists && item.bonusLists.length > 0 &&
+                  <span className="Item-context">{
+                    item.bonusLists.map((b, index) => {
+                      const tag = defaultBonuses[b].tag;
+
+                      // Invalid tag
+                      if (!tag || !tag.length || tag === null) {
+                        return;
+                      }
+
+                      // First tag
+                      if (index === 0) {
+                        return defaultBonuses[b].tag;
+                      }
+
+                      // Tags
+                      return `, ${defaultBonuses[b].tag}`;
+                    })
+                  }</span>
                 }
 
                 {/* Item Level */}
@@ -134,7 +150,7 @@ export default class ItemDetail extends Component {
 
                 <span className="todo Item-equippedCount">Need to define equippedCountLimit</span>
 
-                {/* Socket & Material */}
+                {/* Invetory Type & Material */}
                 {(itemSubClass || item.inventoryType) &&
                   <span className="Item-socket">
                     {item.inventoryType &&
@@ -149,7 +165,7 @@ export default class ItemDetail extends Component {
                 {/* Stats */}
                 <div className="Item-stats">
                   {(item.armor > 0) &&
-                    <p className="Item-stat">+{item.armor} Armor</p>
+                    <p className="Item-stat">{item.armor} Armor</p>
                   }
                   {defaultStats.map(ds => {
                     const itemStat = item.stats.find(stat => stat.stat === ds.key);
@@ -231,10 +247,13 @@ export default class ItemDetail extends Component {
 
                 {/* Level */}
                 {item.requiredLevel > 0 &&
-                  <span className="Item-requiredLevel">Requires level {
+                  <span className="Item-requiredLevel">Requires level {/*
+                    These lines calculates the hightest itemLevel required
                     (item.tooltipParams && item.tooltipParams.timewalkerLevel)
                     ? item.tooltipParams.timewalkerLevel
                     : item.requiredLevel
+                    */
+                    item.requiredLevel
                   }</span>
                 }
 

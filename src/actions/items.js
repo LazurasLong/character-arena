@@ -2,6 +2,9 @@ import {
   FETCH_ITEM_REQUEST,
   FETCH_ITEM_SUCCESS,
   FETCH_ITEM_FAILURE,
+  FETCH_INFO_ITEM_REQUEST,
+  FETCH_INFO_ITEM_SUCCESS,
+  FETCH_INFO_ITEM_FAILURE,
   FETCH_ITEMSET_ITEM_REQUEST,
   FETCH_ITEMSET_ITEM_SUCCESS,
   FETCH_ITEMSET_ITEM_FAILURE,
@@ -37,6 +40,31 @@ const fetchItem = ({
         FETCH_ITEM_REQUEST,
         FETCH_ITEM_SUCCESS,
         FETCH_ITEM_FAILURE,
+      ],
+      extra: {
+        item,
+      }
+    },
+  };
+};
+
+const fetchInfoItem = ({
+  item,
+  region,
+  language,
+}) => {
+  return {
+    [CALL_API]: {
+      endpoint: `${composeUrl({
+        url: ITEM,
+        itemId: item,
+        region,
+        language,
+      })}`,
+      types: [
+        FETCH_INFO_ITEM_REQUEST,
+        FETCH_INFO_ITEM_SUCCESS,
+        FETCH_INFO_ITEM_FAILURE,
       ],
       extra: {
         item,
@@ -112,6 +140,7 @@ const unselectItem = () => {
 
 export {
   fetchItem,
+  fetchInfoItem,
   fetchItemSetItem,
   updateItemSetItem,
   fetchTransmogItem,

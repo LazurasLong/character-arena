@@ -16,7 +16,7 @@ import { HOME } from '../constants/appRoutes';
 
 import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents, fetchItemTypes } from '../actions/resources';
-import { fetchItem, fetchItemSetItem, updateItemSetItem, fetchTransmogItem, unselectItem } from '../actions/items';
+import { fetchItem, /* fetchInfoItem, */ fetchItemSetItem, updateItemSetItem, fetchTransmogItem, unselectItem } from '../actions/items';
 
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -491,6 +491,19 @@ class Comparator extends Component {
         };
 
         const itemsToFetch = [];
+        /*
+        // Fetch extra info
+        if (response.displayInfoId) {
+          itemsToFetch.push(
+            dispatch(fetchInfoItem({
+              item: response.displayInfoId,
+              region,
+              language,
+            })),
+          );
+        }
+        */
+
         // If item is part of the set
         if (response.itemSet && response.itemSet.items) {
           // Store the set

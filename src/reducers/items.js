@@ -2,6 +2,9 @@ import {
   FETCH_ITEM_REQUEST,
   FETCH_ITEM_SUCCESS,
   FETCH_ITEM_FAILURE,
+  FETCH_INFO_ITEM_REQUEST,
+  FETCH_INFO_ITEM_SUCCESS,
+  FETCH_INFO_ITEM_FAILURE,
   FETCH_ITEMSET_ITEM_REQUEST,
   FETCH_ITEMSET_ITEM_SUCCESS,
   FETCH_ITEMSET_ITEM_FAILURE,
@@ -45,6 +48,32 @@ export default (state = initialState, action) => {
         error: action.payload.error,
       };
 
+    case FETCH_INFO_ITEM_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: undefined,
+      }
+    case FETCH_INFO_ITEM_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        selected: {
+          ...state.selected,
+          // Override needed info
+          nameDescription: action.payload.data.nameDescription,
+          nameDescriptionColor: action.payload.data.nameDescriptionColor,
+        },
+        error: undefined,
+      }
+    case FETCH_INFO_ITEM_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload.error,
+      }
+    
+    
     case FETCH_ITEMSET_ITEM_REQUEST:
       return {
         ...state,
@@ -107,6 +136,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: true,
+        error: undefined,
       };
 
     case FETCH_TRANSMOG_ITEM_SUCCESS:
