@@ -189,6 +189,23 @@
     }
   }
 
+  &--transmogrified {
+    &:after {
+      position: absolute;
+      top: #{($item-height / 2)};
+      left: 0;
+
+      width: $item-height / 2;
+      height: $item-height / 2;
+
+      border: #{$item-height / 8} solid $color-transmog;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      box-sizing: border-box;
+      content: '';
+    }
+  }
+
   &--detail {
     cursor: default;
 
@@ -222,7 +239,6 @@
       &-requiredSkillRank,
       &-sellPrice {
         font-size: 13px;
-        line-height: 20px;
       }
 
       &-name {

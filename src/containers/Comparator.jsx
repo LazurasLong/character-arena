@@ -16,7 +16,7 @@ import { HOME } from '../constants/appRoutes';
 
 import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters';
 import { fetchRaces, fetchClasses, fetchRealms,fetchTalents, fetchItemTypes } from '../actions/resources';
-import { fetchItem, fetchItemSetItem, updateItemSetItem, unselectItem } from '../actions/items';
+import { fetchItem, fetchItemSetItem, updateItemSetItem, fetchTransmogItem, unselectItem } from '../actions/items';
 
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -534,6 +534,17 @@ class Comparator extends Component {
               );
             }
           });
+        }
+
+        // Fetch transmog item
+        if (item.tooltipParams && item.tooltipParams.transmogItem) {
+          itemsToFetch.push(
+            dispatch(fetchTransmogItem({
+              item: item.tooltipParams.transmogItem,
+              region,
+              language,
+            })),
+          );
         }
 
         // Fetch unknown items

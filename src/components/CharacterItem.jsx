@@ -50,7 +50,13 @@ export default class CharacterItem extends Component {
     /* Render item */
     return (
       <div
-        className={`Item Item--${quality} ${comparedTo ? 'Item--difference' : ''} clearfix`}
+        className={`
+          Item
+          ${comparedTo ? 'Item--difference' : ''}
+          Item--${quality}
+          ${(item.tooltipParams && item.tooltipParams.transmogItem) ? 'Item--transmogrified' : ''}
+          clearfix
+        `}
         onClick={() => { handleShowItemDetail({ character, item }) }}
       >
         {/* Item icon */}

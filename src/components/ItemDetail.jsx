@@ -83,7 +83,14 @@ export default class ItemDetail extends Component {
           {isFetching && <p>Loading</p>}
 
           {!isFetching && item &&
-            <div className={`Item Item--${quality} Item--detail`}>
+            <div
+              className={`
+                Item
+                Item--detail
+                Item--${quality}
+                ${(item.tooltipParams && item.tooltipParams.transmogItem) ? 'Item--transmogrified' : ''}
+              `}
+            >
 
               {/* Item icon */}
               <TalentsIcon
@@ -108,8 +115,13 @@ export default class ItemDetail extends Component {
                   item.itemLevel
                 }</span>
 
-                {/* TODO: Transmog */}
-                <span className="todo Item-transmog">Need to define transmog</span>
+                {/* Transmog */}
+                {item.transmogItem &&
+                  <span className="Item-transmog">
+                    Transmogrified to:<br />
+                    {item.transmogItem.name}
+                  </span>
+                }
 
                 {/* Soulbound */}
                 {item.itemBind &&
@@ -227,10 +239,14 @@ export default class ItemDetail extends Component {
                 }
 
                 {/* TODO: Skill */}
-                <span className="todo Item-requiredSkill">Need to define skill requirement</span>
+                {item.requiredSkill > 0 &&
+                  <span className="todo Item-requiredSkill">Need to define skill requirement</span>
+                }
 
                 {/* TODO: Skill Rank */}
-                <span className="todo Item-requiredSkillRank">Need to define skillRank requirement</span>
+                {item.requiredSkillRank > 0 &&
+                  <span className="todo Item-requiredSkillRank">Need to define skillRank requirement</span>
+                }
 
                 {/* Sell price */}
                 {item.sellPrice &&

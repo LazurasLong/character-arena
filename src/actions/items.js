@@ -6,6 +6,9 @@ import {
   FETCH_ITEMSET_ITEM_SUCCESS,
   FETCH_ITEMSET_ITEM_FAILURE,
   UPDATE_ITEMSET_ITEM,
+  FETCH_TRANSMOG_ITEM_REQUEST,
+  FETCH_TRANSMOG_ITEM_SUCCESS,
+  FETCH_TRANSMOG_ITEM_FAILURE,
   UNSELECT_ITEM,
 } from '../constants/actionTypes';
 
@@ -65,7 +68,7 @@ const fetchItemSetItem = ({
       }
     },
   };
-}
+};
 
 const updateItemSetItem = ({
   item,
@@ -73,6 +76,31 @@ const updateItemSetItem = ({
   return {
     type: UPDATE_ITEMSET_ITEM,
     item,
+  };
+};
+
+const fetchTransmogItem = ({
+  item,
+  region,
+  language,
+}) => {
+  return {
+    [CALL_API]: {
+      endpoint: `${composeUrl({
+        url: ITEM,
+        itemId: item,
+        region,
+        language,
+      })}`,
+      types: [
+        FETCH_TRANSMOG_ITEM_REQUEST,
+        FETCH_TRANSMOG_ITEM_SUCCESS,
+        FETCH_TRANSMOG_ITEM_FAILURE,
+      ],
+      extra: {
+        item,
+      }
+    },
   };
 };
 
@@ -86,5 +114,6 @@ export {
   fetchItem,
   fetchItemSetItem,
   updateItemSetItem,
+  fetchTransmogItem,
   unselectItem,
 };

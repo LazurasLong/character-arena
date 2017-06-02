@@ -6,6 +6,9 @@ import {
   FETCH_ITEMSET_ITEM_SUCCESS,
   FETCH_ITEMSET_ITEM_FAILURE,
   UPDATE_ITEMSET_ITEM,
+  FETCH_TRANSMOG_ITEM_REQUEST,
+  FETCH_TRANSMOG_ITEM_SUCCESS,
+  FETCH_TRANSMOG_ITEM_FAILURE,
   UNSELECT_ITEM,
 } from '../constants/actionTypes';
 
@@ -92,14 +95,36 @@ export default (state = initialState, action) => {
         },
       };
 
-    case UNSELECT_ITEM: {
+    case UNSELECT_ITEM:
       return {
         ...state,
         isFetching: false,
         selected: undefined,
         error: undefined,
-      }
-    }
+      };
+
+    case FETCH_TRANSMOG_ITEM_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+
+    case FETCH_TRANSMOG_ITEM_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        selected: {
+          ...state.selected,
+          transmogItem: action.payload.data,
+        },
+        error: undefined,
+      };
+    case FETCH_TRANSMOG_ITEM_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload.error,
+      };
 
     default:
       return state;
