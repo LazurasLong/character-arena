@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import imageResolver from '../utils/image-resolver';
 import { getItemQualityName } from '../utils/calcs';
-import { defaultStats, defaultBinds, defaultSockets, defaultBonuses } from '../constants/blizz-settings';
+import { defaultStats, defaultBinds, defaultSockets, defaultInventoryTypes, defaultBonuses } from '../constants/blizz-settings';
 
 import Icon from '../components/Icon';
 import TalentsIcon from '../components/CharacterTalentsIcon';
@@ -58,6 +58,10 @@ export default class ItemDetail extends Component {
       && itemClass
       && itemClass.subclasses
       && itemClass.subclasses.find(type => type.subclass === item.itemSubClass).name;
+
+    // Calc inventory Type
+    const inventoryType = item && defaultInventoryTypes.find(sock => sock.key === item.inventoryType);
+    const typeAndMaterial = inventoryType ? `${inventoryType.name}, ${itemSubClass}` : itemSubClass;
     
     let bonuses = '';
     item && item.bonusLists.forEach((b) => {
@@ -146,18 +150,11 @@ export default class ItemDetail extends Component {
                   </span>
                 }
 
-                <span className="todo Item-equippedCount">Need to define equippedCountLimit</span>
+                {/* <span className="todo Item-equippedCount">Need to define equippedCountLimit</span> */}
 
                 {/* Invetory Type & Material */}
                 {(itemSubClass || item.inventoryType) &&
-                  <span className="Item-socket">
-                    {item.inventoryType &&
-                      defaultSockets.find(sock => sock.key === item.inventoryType).name
-                    }
-                    {itemSubClass &&
-                      `, ${itemSubClass}`
-                    }
-                  </span>
+                  <span className="Item-inventoryType">{typeAndMaterial}</span>
                 }
 
                 {/* Stats */}
@@ -182,6 +179,29 @@ export default class ItemDetail extends Component {
                   })}
                 </div>
 
+                {/* Sockets */}
+                {item.hasSockets &&
+                  <div className="Item-sockets">
+                    {item.socketInfo.sockets.map(sock => {
+                      const socketType = defaultSockets.find(ds => ds.key === sock.type);
+
+                      if (!socketType || !socketType.value) {
+                        return;
+                      }
+
+                      return (
+                        <p className="Item-socket">
+                          <span
+                            className={`Item-socketBackground Item--${socketType.value.toLowerCase()}`}
+                            style={{ backgroundImage: `url('${imageResolver('../images/sockets.png')}')`}}
+                          />
+                          {`${socketType.value} socket`}
+                        </p>
+                      )
+                    })}
+                  </div>
+                }
+
                 {/* Spells */}
                 {item && item.itemSpells &&
                   <span className="Item-benefits">{
@@ -200,25 +220,24 @@ export default class ItemDetail extends Component {
                 }
 
                 {/* Item set */}
-                {/* Pending itemSet spells */}
                 {item && item.itemSet && item.itemSet.name &&
-                <div className="Item-set">
-                  <span className="Item-setTitle">
-                    {item.itemSet.name} ({
-                      item.itemSet.items.filter(i => i.isOwned).length
-                    }/{
-                      item.itemSet.items.length
-                    })</span>
-                  <ul className="Item-setList">
-                    {item.itemSet.items.map(i => i.id
-                      ? (<li
-                          key={`item-${i.id}`}
-                          className={`Item-setItem ${i.isOwned ? 'is-active' : ''}`}
-                        >{i.name}</li>)
-                      : <li key={i} />
-                      )}
-                  </ul>
-                </div>
+                  <div className="Item-set">
+                    <span className="Item-setTitle">
+                      {item.itemSet.name} ({
+                        item.itemSet.items.filter(i => i.isOwned).length
+                      }/{
+                        item.itemSet.items.length
+                      })</span>
+                    <ul className="Item-setList">
+                      {item.itemSet.items.map(i => i.id
+                        ? (<li
+                            key={`item-${i.id}`}
+                            className={`Item-setItem ${i.isOwned ? 'is-active' : ''}`}
+                          >{i.name}</li>)
+                        : <li key={i} />
+                        )}
+                    </ul>
+                  </div>
                 }
 
                 {/* Description */}
@@ -256,17 +275,22 @@ export default class ItemDetail extends Component {
                 }
 
                 {/* TODO: Skill */}
-                {item.requiredSkill > 0 &&
+                {item.requiredSkill > 0 && false &&
                   <span className="todo Item-requiredSkill">Need to define skill requirement</span>
                 }
 
                 {/* TODO: Skill Rank */}
-                {item.requiredSkillRank > 0 &&
+                {item.requiredSkillRank > 0 && false &&
+                  <span className="todo Item-requiredSkillRank">Need to define skillRank requirement</span>
+                }
+
+                {/* TODO: Reputation */}
+                {item.requiredRep > 0 && false &&
                   <span className="todo Item-requiredSkillRank">Need to define skillRank requirement</span>
                 }
 
                 {/* Sell price */}
-                {item.sellPrice &&
+                {item.sellPrice > 0 &&
                   <span className="Item-sellPrice">
                     Sell price:
                     {(sellPrice.gold > 0) && 

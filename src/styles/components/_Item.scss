@@ -44,6 +44,7 @@
   &-equippedCount,
   &-socket,
   &-stats,
+  &-sockets,
   &-benefits,
   &-set,
   &-description,
@@ -91,6 +92,29 @@
       text-align: right;
     }
   }
+
+  &-socket {
+    color: $grey;
+  }
+
+  &-socketBackground {
+    display: inline-block;
+    width: $socket-width;
+    height: $socket-width;
+    margin-bottom: -4px;
+    margin-right: 4px;
+    background-repeat: no-repeat;
+  }
+
+  &--red { background-position: -#{$socket-width * 0} 0; }
+  &--yellow { background-position: -#{$socket-width * 1} 0; }
+  &--blue { background-position: -#{$socket-width * 2} 0; }
+  &--white { background-position: -#{$socket-width * 3} 0; }
+  &--prismatic { background-position: -#{$socket-width * 4} 0; }
+  &--purple { background-position: -#{$socket-width * 5} 0; }
+  &--orange { background-position: -#{$socket-width * 6} 0; }
+  &--green { background-position: -#{$socket-width * 7} 0; }
+  &--black { background-position: -#{$socket-width * 8} 0; }
 
   &--head .Item-icon { background-position: 0 -#{($item-height - 1) * 0}; }
   &--neck .Item-icon { background-position: 0 -#{($item-height - 1) * 1}; }
@@ -229,6 +253,7 @@
       &-socket,
       &-material,
       &-stats,
+      &-sockets,
       &-benefits,
       &-set,
       &-description,
@@ -261,6 +286,7 @@
       }
 
       &-stats,
+      &-sockets,
       &-description,
       &-set,
       &-benefits {

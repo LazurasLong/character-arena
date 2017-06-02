@@ -28,7 +28,7 @@ export const defaultQualities = [
   { key: 7, value: 'heirloom' },
 ];
 
-export const defaultSockets = [
+export const defaultInventoryTypes = [
   { key: 1, name: 'Helm' },
   { key: 2, name: 'Neck' },
   { key: 3, name: 'Shoulders' },
@@ -52,6 +52,10 @@ export const defaultSockets = [
   { key: 21, name: 'Main-hand' },
   { key: 22, name: '' },
   { key: 23, name: 'Held in Off-Hand' },
+];
+
+export const defaultSockets = [
+  { key: 'PRISMATIC', value: 'Prismatic' },
 ]
 
 export const defaultContexts = [
