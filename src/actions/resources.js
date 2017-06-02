@@ -11,6 +11,9 @@ import {
   FETCH_TALENTS_REQUEST,
   FETCH_TALENTS_SUCCESS,
   FETCH_TALENTS_ERROR,
+  FETCH_ITEM_TYPES_REQUEST,
+  FETCH_ITEM_TYPES_SUCCESS,
+  FETCH_ITEM_TYPES_ERROR,
 } from '../constants/actionTypes.js';
 
 import {
@@ -18,6 +21,7 @@ import {
   DATA_CLASSES,
   DATA_REALMS,
   DATA_TALENTS,
+  DATA_ITEM_TYPES,
 } from '../constants/apiRoutes.js';
 
 import { CALL_API } from '../middlewares/api';
@@ -107,9 +111,30 @@ const fetchTalents = ({
   };
 };
 
+const fetchItemTypes = ({
+  region = defaultRegion,
+  language = defaultLanguage,
+}) => {
+  return {
+    [CALL_API]: {
+      endpoint: composeUrl({
+        url: DATA_ITEM_TYPES,
+        region,
+        language,
+      }),
+      types: [
+        FETCH_ITEM_TYPES_REQUEST,
+        FETCH_ITEM_TYPES_SUCCESS,
+        FETCH_ITEM_TYPES_ERROR,
+      ],
+    },
+  };
+};
+
 export {
   fetchRaces,
   fetchClasses,
   fetchRealms,
   fetchTalents,
+  fetchItemTypes,
 };

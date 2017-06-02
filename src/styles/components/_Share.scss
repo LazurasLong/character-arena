@@ -47,12 +47,15 @@ $icon-desktop-height: 48px;
 
   &-modalBody {
     position: absolute;
+    overflow: hidden;
+    overflow-y: auto;
     top: 50%;
     left: 50%;
 
     display: block;
     width: 90%;
     height: auto;
+    max-height: 100%;
     padding: 30px;
 
     background-color: $modal-background;

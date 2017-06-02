@@ -1,0 +1,323 @@
+/** @define Item */
+
+.Item {
+  position: relative;
+  float: left;
+
+  width: 100%;
+  min-height: $item-height;
+  margin: 5px 0;
+
+  color: $white;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  text-shadow: $text-shadow;
+  text-transform: none;
+
+  cursor: pointer;
+
+  &-icon {
+    position: relative;
+    float: left;
+
+    width: $item-height;
+    height: $item-height;
+    margin-right: 10px;
+
+    border: 1px solid $white;
+    background-repeat: no-repeat;
+  }
+
+  &-info {
+    position: relative;
+    float: left;
+
+    width: calc(100% - #{$item-height} - 10px);
+  }
+
+  &-name,
+  &-context,
+  &-itemLevel,
+  &-transmog,
+  &-itemBind,
+  &-equippedCount,
+  &-socket,
+  &-stats,
+  &-sockets,
+  &-benefits,
+  &-set,
+  &-description,
+  &-durability,
+  &-allowedClasses,
+  &-requiredLevel,
+  &-requiredSkill,
+  &-requiredSkillRank,
+  &-sellPrice {
+    display: block;
+
+    color: $white;
+  }
+
+  &-name {
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-transmog {
+    color: $color-transmog;
+  }
+
+  &-context,
+  &-benefits,
+  &-stat.is-enhance {
+    color: $color-uncommon;
+  }
+
+  &-itemLevel {
+    color: $color-garbage;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: right;
+  }
+
+  &-itemLevelDifference {
+    margin-right: 10px;
+  }
+
+  &--difference {
+    .Item-itemLevel {
+      text-align: right;
+    }
+  }
+
+  &-socket {
+    color: $grey;
+  }
+
+  &-socketBackground {
+    display: inline-block;
+    width: $socket-width;
+    height: $socket-width;
+    margin-bottom: -4px;
+    margin-right: 4px;
+    background-repeat: no-repeat;
+  }
+
+  &--red { background-position: -#{$socket-width * 0} 0; }
+  &--yellow { background-position: -#{$socket-width * 1} 0; }
+  &--blue { background-position: -#{$socket-width * 2} 0; }
+  &--white { background-position: -#{$socket-width * 3} 0; }
+  &--prismatic { background-position: -#{$socket-width * 4} 0; }
+  &--purple { background-position: -#{$socket-width * 5} 0; }
+  &--orange { background-position: -#{$socket-width * 6} 0; }
+  &--green { background-position: -#{$socket-width * 7} 0; }
+  &--black { background-position: -#{$socket-width * 8} 0; }
+
+  &--head .Item-icon { background-position: 0 -#{($item-height - 1) * 0}; }
+  &--neck .Item-icon { background-position: 0 -#{($item-height - 1) * 1}; }
+  &--shoulder .Item-icon { background-position: 0 -#{($item-height - 1) * 2}; }
+  &--back .Item-icon { background-position: 0 -#{($item-height - 1) * 0}; }
+  &--chest .Item-icon { background-position: 0 -#{($item-height - 1) * 3}; }
+  &--shirt .Item-icon { background-position: 0 -#{($item-height - 1) * 4}; }
+  &--tabard .Item-icon { background-position: 0 -#{($item-height - 1) * 5}; }
+  &--wrist .Item-icon { background-position: 0 -#{($item-height - 1) * 6}; }
+  &--hands .Item-icon { background-position: 0 -#{($item-height - 1) * 7}; }
+  &--waist .Item-icon { background-position: 0 -#{($item-height - 1) * 8}; }
+  &--legs .Item-icon { background-position: 0 -#{($item-height - 1) * 9}; }
+  &--feet .Item-icon { background-position: 0 -#{($item-height - 1) * 10}; }
+  &--finger1 .Item-icon { background-position: 0 -#{($item-height - 1) * 11}; }
+  &--finger2 .Item-icon { background-position: 0 -#{($item-height - 1) * 11}; }
+  &--trinket1 .Item-icon { background-position: 0 -#{($item-height - 1) * 12}; }
+  &--trinket2 .Item-icon { background-position: 0 -#{($item-height - 1) * 12}; }
+  &--mainHand .Item-icon { background-position: 0 -#{($item-height - 1) * 13}; }
+  &--offHand .Item-icon { background-position: 0 -#{($item-height - 1) * 14}; }
+
+  &--heirloom {
+    .Item-icon {
+      border-color: $color-heirloom;
+    }
+
+    .Item-name {
+      color: $color-heirloom;
+    }
+  }
+
+  &--legendary {
+    .Item-icon {
+      border-color: $color-legendary;
+    }
+
+    .Item-name {
+      color: $color-legendary;
+    }
+  }
+
+  &--artifact {
+    .Item-icon {
+      border-color: $color-artifact;
+    }
+
+    .Item-name {
+      color: $color-artifact;
+    }
+  }
+
+  &--epic {
+    .Item-icon {
+      border-color: $color-epic;
+    }
+
+    .Item-name {
+      color: $color-epic;
+    }
+  }
+
+  &--rare {
+    .Item-icon {
+      border-color: $color-rare;
+    }
+
+    .Item-name {
+      color: $color-rare;
+    }
+  }
+
+  &--uncommon {
+    .Item-icon {
+      border-color: $color-uncommon;
+    }
+
+    .Item-name {
+      color: $color-uncommon;
+    }
+  }
+
+  &--garbage {
+    .Item-icon {
+      border-color: $color-garbage;
+    }
+
+    .Item-name {
+      color: $color-garbage;
+    }
+  }
+
+  &--empty {
+    color: $color-empty;
+
+    .Item-icon {
+      border-color: $color-empty;
+    }
+  }
+
+  &--transmogrified {
+    &:after {
+      position: absolute;
+      top: #{($item-height / 2)};
+      left: 0;
+
+      width: $item-height / 2;
+      height: $item-height / 2;
+
+      border: #{$item-height / 8} solid $color-transmog;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      box-sizing: border-box;
+      content: '';
+    }
+  }
+
+  &--detail {
+    cursor: default;
+
+    .Item {
+      &-icon {
+        display: block;
+        margin: 0;
+        margin-bottom: 20px;
+      }
+
+      &-info {
+        width: 100%;
+      }
+
+      &-name,
+      &-context,
+      &-itemLevel,
+      &-transmog,
+      &-itemBind,
+      &-equippedCount,
+      &-socket,
+      &-material,
+      &-stats,
+      &-sockets,
+      &-benefits,
+      &-set,
+      &-description,
+      &-durability,
+      &-allowedClasses,
+      &-requiredLevel,
+      &-requiredSkill,
+      &-requiredSkillRank,
+      &-sellPrice {
+        font-size: 13px;
+      }
+
+      &-name {
+        font-size: 16px;
+        overflow: initial;
+        text-overflow: initial;
+        white-space: initial;
+      }
+
+      &-itemLevel,
+      &-setTitle,
+      &-description {
+        color: $gold;
+        text-align: left;
+      }
+
+      &-material {
+        color: $white;
+        float: right;
+      }
+
+      &-stats,
+      &-sockets,
+      &-description,
+      &-set,
+      &-benefits {
+        margin-bottom: 10px;
+      }
+
+      &-setItem {
+        color: $grey;
+        margin-left: 10px;
+
+        &.is-active {
+          color: $beige;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: breakpoint('tablet')) {
+  .Item--detail {
+    .Item {
+      &-icon {
+        display: inline-block;
+        margin: 0;
+        margin-right: 20px;
+      }
+
+      &-info {
+        width: calc(100% - 20px - #{$item-height});
+        padding: 0;
+      }
+    }
+  }
+}

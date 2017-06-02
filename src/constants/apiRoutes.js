@@ -21,3 +21,5 @@ export const DATA_REALMS = `${BASE_URL}/wow/realm/status`;
 export const DATA_RACES = `${BASE_URL}/wow/data/character/races`;
 export const DATA_CLASSES = `${BASE_URL}/wow/data/character/classes`;
 export const DATA_TALENTS = `${BASE_URL}/wow/data/talents`;
+export const DATA_ITEM_TYPES = `${BASE_URL}/wow/data/item/classes`;
+

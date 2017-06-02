@@ -11,6 +11,9 @@ import {
   FETCH_TALENTS_REQUEST,
   FETCH_TALENTS_SUCCESS,
   FETCH_TALENTS_ERROR,
+  FETCH_ITEM_TYPES_REQUEST,
+  FETCH_ITEM_TYPES_SUCCESS,
+  FETCH_ITEM_TYPES_ERROR,
 } from '../constants/actionTypes.js';
 
 const initialState = {
@@ -27,6 +30,10 @@ const initialState = {
     isFetching: false,
   },
   talents: {
+    collection: [],
+    isFetching: false,
+  },
+  itemTypes: {
     collection: [],
     isFetching: false,
   },
@@ -161,6 +168,33 @@ export default (state = initialState, action) => {
       return {
         ...state,
         talents: {
+          error: action.payload.error,
+        },
+      };
+
+    case FETCH_ITEM_TYPES_REQUEST:
+      return {
+        ...state,
+        itemTypes: {
+          ...state.itemTypes,
+          isFetching: true,
+        },
+      };
+
+    case FETCH_ITEM_TYPES_SUCCESS:
+      return {
+        ...state,
+        itemTypes: {
+          ...state.itemTypes,
+          collection: action.payload.data.classes,
+          isFetching: false,
+        },
+      };
+    
+    case FETCH_ITEM_TYPES_ERROR:
+      return {
+        ...state,
+        itemTypes: {
           error: action.payload.error,
         },
       };

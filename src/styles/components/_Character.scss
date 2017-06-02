@@ -132,6 +132,10 @@
     margin-right: 10px;
     color: $btn-color-disabled;
   }
+
+  &-items {
+    padding: 5px 0;
+  }
 }
 
 @media screen and (min-width: breakpoint('tablet')) {

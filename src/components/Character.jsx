@@ -11,6 +11,7 @@ import CharacterActions from '../components/CharacterActions.jsx';
 import CharacterHeader from '../components/CharacterHeader.jsx';
 import CharacterAttributesGroup from '../components/CharacterAttributesGroup.jsx';
 import CharacterTalents from '../components/CharacterTalents.jsx';
+import CharacterItemList from '../components/CharacterItemList.jsx';
 
 export default class Character extends Component {
   static propTypes = {
@@ -27,6 +28,7 @@ export default class Character extends Component {
     handleMoveCharacter: PropTypes.func.isRequired,
     handleRefreshCharacter: PropTypes.func.isRequired,
     handleRemoveCharacter: PropTypes.func.isRequired,
+    handleShowItemDetail: PropTypes.func.isRequired,
 
     /* Maybe-Undefined props */
     character: PropTypes.shape({
@@ -65,6 +67,7 @@ export default class Character extends Component {
       handleMoveCharacter,
       handleRefreshCharacter,
       handleRemoveCharacter,
+      handleShowItemDetail,
 
       character,
       comparedTo,
@@ -122,7 +125,7 @@ export default class Character extends Component {
               const section = sections[key];
 
               /* If there are no elements, return null */
-              if (!section.elements) {
+              if (!section.elements || section.slug === 'items') {
                 return;
               }
 
@@ -186,6 +189,24 @@ export default class Character extends Component {
                 availableTalents={character.availableTalents}
                 comparedTo={comparedToUsedTalents}
                 shouldCompare={shouldCompare}
+              />
+            </Collapsable>
+
+            {/* Items */}
+            <Collapsable
+              data={sections.items}
+              ref={(ref) => { this.items = ref; }}
+              handleToggleCollapsable={handleToggleCollapsable}
+            >
+              <CharacterItemList
+                elements={sections.items.elements}
+                items={character.items}
+                comparedTo={comparedTo && comparedTo.items}
+                character={{
+                  name: character.name,
+                  realm: character.realm,
+                }}
+                handleShowItemDetail={handleShowItemDetail}
               />
             </Collapsable>
           </div>

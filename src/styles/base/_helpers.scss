@@ -36,6 +36,22 @@
 .color--mastery { color: $color-mastery; }
 .color--versatility { color: $color-versatility; }
 
+.clearfix {
+  &:after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+}
+
+.is-greater {
+  color: $green !important;
+}
+
+.is-lower {
+  color: $red !important;
+}
+
 // Devices
 .mobile {
   display: inline-block;

@@ -1,5 +1,6 @@
 import { HOME } from '../constants/appRoutes.js';
 import { REGIONS } from '../constants/app.js';
+import { defaultQualities } from '../constants/blizz-settings';
 
 /*
   CHARACTER RELATED
@@ -120,6 +121,15 @@ export const compare = ({
   return undefined;
 };
 
+// Given a quality number, return the name
+export const getItemQualityName = (quality) => {
+  const selected = defaultQualities.find(q => q.key === quality);
+
+  return selected
+    ? selected.value
+    : 'garbage';
+}
+
 /*
   URL RELATED
 */
@@ -199,6 +209,7 @@ export const fillUrlData = ({
   characterName,
   guild,
   iconName,
+  itemId,
 }) => {
   const regLang = regionLanguage || getRegionLanguage({ region, language });
 
@@ -209,7 +220,8 @@ export const fillUrlData = ({
     .replace(/:realm/g, realm)
     .replace(/:characterName/g, characterName)
     .replace(/:guild/g, guild)
-    .replace(/:iconName/g, iconName);
+    .replace(/:iconName/g, iconName)
+    .replace(/:itemId/g, itemId);
 };
 
 // Given a URL and some data, will replace variables on the URL
@@ -220,6 +232,7 @@ export const composeUrl = ({
   region,
   language,
   regionLanguage,
+  itemId,
 }) => {
   const constructedURL = fields
     ? `${url}?locale=:language_:region&fields=${fields.map(f => `${f}`)}`
@@ -232,6 +245,7 @@ export const composeUrl = ({
     region,
     realm: character && character.realm,
     characterName: character && character.characterName,
+    itemId,
   });
 };
 

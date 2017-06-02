@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ReactSidebar from 'react-sidebar';
-import imageResolver from '../utils/image-resolver.js';
+import imageResolver from '../utils/image-resolver';
 import {
   getCharacterRace,
   getCharacterClass,
@@ -9,20 +9,22 @@ import {
   composePathname,
   getCookie,
   setCookie
-} from '../utils/calcs.js';
+} from '../utils/calcs';
 
-import { REGIONS } from '../constants/app.js';
-import { HOME } from '../constants/appRoutes.js';
+import { REGIONS } from '../constants/app';
+import { HOME } from '../constants/appRoutes';
 
-import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters.js';
-import { fetchRaces, fetchClasses, fetchRealms,fetchTalents } from '../actions/resources.js';
+import { fetchCharacter, switchCharacter, moveCharacter, removeCharacter } from '../actions/characters';
+import { fetchRaces, fetchClasses, fetchRealms,fetchTalents, fetchItemTypes } from '../actions/resources';
+import { fetchItem, /* fetchInfoItem, */ fetchItemSetItem, updateItemSetItem, fetchTransmogItem, unselectItem } from '../actions/items';
 
-import Sidebar from '../components/Sidebar.jsx';
-import Header from '../components/Header.jsx';
-import Builder from '../components/Builder.jsx';
-import CharacterFinder from '../components/CharacterFinder.jsx';
-import Character from '../components/Character.jsx';
-import Footer from '../components/Footer.jsx';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import Builder from '../components/Builder';
+import CharacterFinder from '../components/CharacterFinder';
+import Character from '../components/Character';
+import Footer from '../components/Footer';
+import ItemDetail from '../components/ItemDetail';
 
 class Comparator extends Component {
   static propTypes = {
@@ -65,6 +67,7 @@ class Comparator extends Component {
     resourcesData.push(dispatch(fetchClasses({ region, language })));
     resourcesData.push(dispatch(fetchTalents({ region, language })));
     resourcesData.push(dispatch(fetchRealms({ region, language })));
+    resourcesData.push(dispatch(fetchItemTypes({ region, language })));
 
     // Get basic data
     return Promise.all(resourcesData)
@@ -117,6 +120,8 @@ class Comparator extends Component {
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this);
     this.handleGetShareTitle = this.handleGetShareTitle.bind(this);
     this.handleDataChange = this.handleDataChange.bind(this);
+    this.handleShowItemDetail = this.handleShowItemDetail.bind(this);
+    this.handleCloseItemDetail = this.handleCloseItemDetail.bind(this);
 
     const {
       params,
@@ -147,6 +152,7 @@ class Comparator extends Component {
       sections: {
         filters: {
           isOpen: true,
+          isDisabled: true,
           slug: 'filters',
           title: 'New character',
         },
@@ -269,6 +275,31 @@ class Comparator extends Component {
           isOpen: true,
           slug: 'talents',
           title: 'Talents',
+        },
+        items: {
+          isOpen: true,
+          slug: 'items',
+          title: 'Items',
+          elements: [
+            'head',
+            'neck',
+            'shoulder',
+            'back',
+            'chest',
+            'shirt',
+            'tabard',
+            'wrist',
+            'hands',
+            'waist',
+            'legs',
+            'feet',
+            'finger1',
+            'finger2',
+            'trinket1',
+            'trinket2',
+            'mainHand',
+            'offHand',
+          ],
         },
       },
     };
@@ -445,6 +476,103 @@ class Comparator extends Component {
     // });
   }
 
+  handleShowItemDetail({ character, item }) {
+    const { characters: { collection }, dispatch } = this.props;
+    const { options: { region, language } } = this.state;
+
+    dispatch(fetchItem({ item, region, language }))
+      .then(response => {
+        // Get owner of the item set
+        const owner = collection.find(c => (c.name === character.name && c.realm === character.realm));
+
+        // Create new itemSet object
+        const fetchedItem = {
+          ...response,
+        };
+
+        const itemsToFetch = [];
+        /*
+        // Fetch extra info
+        if (response.displayInfoId) {
+          itemsToFetch.push(
+            dispatch(fetchInfoItem({
+              item: response.displayInfoId,
+              region,
+              language,
+            })),
+          );
+        }
+        */
+
+        // If item is part of the set
+        if (response.itemSet && response.itemSet.items) {
+          // Store the set
+          fetchedItem.itemSet.items = response.itemSet.items.map(i => {
+            let ownedItem;
+            // Loop throu each item of the character items
+            Object.keys(owner.items).forEach(key => {
+              const charItem = owner.items[key];
+
+              // If character already has it
+              if (charItem && charItem.id && i === charItem.id) {
+                ownedItem = {
+                  ...charItem,
+                  isOwned: true,
+                };
+
+                return;
+              }
+            });
+
+            return ownedItem || i;
+          });
+
+          // Loop items on the set
+          fetchedItem.itemSet.items.map(fetchedI => {
+            // Fetch not owned items
+            if (!fetchedI.id) {
+              itemsToFetch.push(
+                dispatch(fetchItemSetItem({
+                  item: fetchedI,
+                  region,
+                  language,
+                }))
+              );
+            
+            } else {
+              itemsToFetch.push(
+                dispatch(updateItemSetItem({
+                  item: fetchedI,
+                }))
+              );
+            }
+          });
+        }
+
+        // Fetch transmog item
+        if (item.tooltipParams && item.tooltipParams.transmogItem) {
+          itemsToFetch.push(
+            dispatch(fetchTransmogItem({
+              item: item.tooltipParams.transmogItem,
+              region,
+              language,
+            })),
+          );
+        }
+
+        // Fetch unknown items
+        return Promise.all(itemsToFetch)
+          .then(() => Promise.resolve())
+          .catch(errors => Promise.reject(errors));
+      });
+  }
+
+  handleCloseItemDetail() {
+    const { dispatch } = this.props;
+
+    dispatch(unselectItem());
+  }
+
   render() {
     const {
       resources: {
@@ -452,8 +580,10 @@ class Comparator extends Component {
         races,
         realms,
         talents,
+        itemTypes,
       },
       characters,
+      items,
     } = this.props;
 
     const {
@@ -462,10 +592,10 @@ class Comparator extends Component {
       sections,
     } = this.state;
 
-    const isServiceLoading = (classes.isFetching || !classes.collection.length || races.isFetching || !races.collection.length || realms.isFetching || !realms.collection.length || talents.isFetching)
+    const isServiceLoading = (classes.isFetching || !classes.collection.length || races.isFetching || !races.collection.length || realms.isFetching || !realms.collection.length || talents.isFetching || !itemTypes.collection.length || itemTypes.isFetching)
       ? true
       : false;
-    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error)
+    const isServiceUnavailable = (classes.error || races.error || realms.error || talents.error || itemTypes.error)
       ? true
       : false;
 
@@ -479,6 +609,8 @@ class Comparator extends Component {
         dataFailing = realms;
       } else if (talents.error) {
         dataFailing = talents;
+      } else if (itemTypes.error) {
+        dataFailing = itemTypes;
       }
     }
 
@@ -519,6 +651,7 @@ class Comparator extends Component {
                   races={races}
                   classes={classes}
                   talents={talents}
+                  itemTypes={itemTypes}
                 />
               }
 
@@ -580,6 +713,7 @@ class Comparator extends Component {
                         handleMoveCharacter={this.handleMoveCharacter}
                         handleRefreshCharacter={this.handleRefreshCharacter}
                         handleRemoveCharacter={this.handleRemoveCharacter}
+                        handleShowItemDetail={this.handleShowItemDetail}
 
                         character={selectedCharacter}
                         isFirst={index === 1}
@@ -597,6 +731,14 @@ class Comparator extends Component {
 
           {/* App footer */}
           <Footer options={options}/>
+
+          {/* Item Detail */}
+          <ItemDetail
+            items={items}
+            classes={classes.collection}
+            itemTypes={itemTypes.collection}
+            handleCloseItemDetail={this.handleCloseItemDetail}
+          />
         </div>
       </ReactSidebar>
     );
@@ -605,8 +747,9 @@ class Comparator extends Component {
 
 function mapStateToProps(state) {
   return {
-    characters: state.characters,
     resources: state.resources,
+    characters: state.characters,
+    items: state.items,
   };
 };
 

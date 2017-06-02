@@ -1,14 +1,19 @@
 // Text
 $title-font-stack: "Semplicita Pro","Open Sans",Arial,Helvetica,sans-serif;
+
 $text-font-stack: "Open Sans", Arial, Helvetica, sans-serif;
+$text-shadow: 0 0 1px transparent, 0 1px 2px rgba(0,0,0,.8);
+
 $list-font-stack: "Semplicita Pro","Open Sans",Arial,Helvetica,sans-serif;
 
 // Generics
 $white: rgba(255, 255, 255, 1);
+$grey: grey;
 $black: rgba(0, 0, 0, 1);
 $red: red;
 $green: green;
 $gold: #f8b700;
+$beige: #ffff98;;
 
 // Statuses
 $color-error: #9f1600;
@@ -59,12 +64,28 @@ $color-haste: #0ed59b;
 $color-mastery: #9256ff;
 $color-versatility: #bfbfbf;
 
+// Qualities
+$color-heirloom: #0cf;
+$color-legendary: #ff8000;
+$color-artifact: #e5cc80;
+$color-epic: #c600ff;
+$color-rare: #0081ff;
+$color-uncommon: #1eff00;
+$color-garbage: #cacaca;
+$color-empty: #333;
+$color-transmog: #fc7cfb;
+
+// Currency
+$color-gold: $gold;
+$color-silver: $color-versatility;
+$color-copper: #c77e19;
+
 /*
   PAGE RELATED
 */
 $base-color: $gold;
 $base-background: #1C110D;
-$base-border: #c77e19;
+$base-border: $color-copper;
 
 // $link-color: #b1997f;
 $link-color: #ebdec2;
@@ -107,6 +128,10 @@ $content-border: #444444;
 // Talents
 $talent-height: 44px;
 
+// Items
+$item-height: 48px;
+$socket-width: 15px;
+
 // Footer
 $footer-mobile-height: 250px;
 $footer-desktop-height: 130px;
@@ -136,3 +161,7 @@ $breakpoints: (
   'desktop': 1280px,
   'hd': 1920px,
 );
+
+.todo {
+  color: $red !important;
+}
