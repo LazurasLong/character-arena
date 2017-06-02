@@ -18,14 +18,14 @@ const CharacterAppearance = ({
         <img
           alt="Faction's logo"
           className="Character-factionLogo"
-          src={imageResolver(`../images/logo-alliance.png`)}
+          src={imageResolver('../images/logo-alliance.png')}
         />
       }
       {faction === 'horde' &&
         <img
           alt="Faction's logo"
           className="Character-factionLogo"
-          src={imageResolver(`../images/logo-horde.png`)}
+          src={imageResolver('../images/logo-horde.png')}
         />
       }
     </div>

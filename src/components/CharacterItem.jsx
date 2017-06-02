@@ -34,7 +34,7 @@ export default class CharacterItem extends Component {
     if (!item) {
       return (
         <div className={`Item Item--empty Item--${element}`}>
-          <div className="Item-icon" style={{backgroundImage: `url(${imageResolver('../images/item-slots.png')})`}} />
+          <div className="Item-icon" style={{ backgroundImage: `url(${imageResolver('../images/item-slots.png')})` }} />
         </div>
       );
     }
