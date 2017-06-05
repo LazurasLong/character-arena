@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import {
   FETCH_CHARACTER_REQUEST,
   FETCH_CHARACTER_SUCCESS,
@@ -11,9 +13,11 @@ import {
   CHARACTER,
 } from '../constants/apiRoutes.js';
 
+import { WOWPROGRESS_CHAR } from '../constants/app.js';
+
 import { CALL_API } from '../middlewares/api';
 
-import { composeUrl } from '../utils/calcs.js';
+import { composeUrl, fillUrlData, getSlug } from '../utils/calcs.js';
 
 const defaultRealm = '';
 const defaultCharacterName = '';
@@ -88,9 +92,39 @@ const removeCharacter = ({
   };
 };
 
+const fetchCharacterSimDPS = ({
+  region,
+  character,
+}) => {
+  return (dispatch) => {
+    const options = {};
+
+    const URL = fillUrlData({
+      url: WOWPROGRESS_CHAR,
+      region: region,
+      realm: getSlug({name: character.realm, useDashes: true}),
+      characterName: character.name,
+    });
+
+    return axios
+      .get(
+        URL,
+        {},
+        options,
+      )
+      .then(({ data }) => dispatch(updateCharacterDPS({
+        realm,
+        characterName,
+        data,
+      })))
+      .catch(() => Promise.reject());
+  };
+};
+
 export {
   fetchCharacter,
   switchCharacter,
   moveCharacter,
   removeCharacter,
+  fetchCharacterSimDPS,
 };
