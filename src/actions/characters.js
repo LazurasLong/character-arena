@@ -112,12 +112,23 @@ const fetchCharacterSimDPS = ({
         {},
         options,
       )
-      .then(({ data }) => dispatch(updateCharacterDPS({
-        realm,
-        characterName,
-        data,
-      })))
-      .catch(() => Promise.reject());
+      .then(({ data }) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, "text/xml");
+        console.log('Success', doc, typeof doc);
+        // console.log('Success', response.getElementById('simdps_score'));
+        
+        return Promise.resolve();
+        // return dispatch(updateCharacterDPS({
+        //   realm,
+        //   characterName,
+        //   data,
+        // }));
+      })
+      .catch((errors) => {
+        console.log('Error', errors);
+        return Promise.reject();
+      });
   };
 };
 

@@ -26,6 +26,13 @@ import Character from '../components/Character';
 import Footer from '../components/Footer';
 import ItemDetail from '../components/ItemDetail';
 
+
+const handleFetchCharacterSimDPS = ({ region, character }, dispatch) => 
+  dispatch(fetchCharacterSimDPS({
+    region,
+    character,
+  }));
+
 class Comparator extends Component {
   static propTypes = {
     characters: PropTypes.shape({
@@ -94,7 +101,16 @@ class Comparator extends Component {
               };
 
               // Add it to 'data that needs to be fetched'
-              charactersData.push(dispatch(fetchCharacter(character)));
+              charactersData.push(
+                dispatch(fetchCharacter(character))
+                  .then(response => handleFetchCharacterSimDPS({
+                    region,
+                    character: {
+                      name: response.name,
+                      realm: response.realm,
+                    }
+                  }, dispatch))
+              );
             }
           });
 
@@ -332,33 +348,6 @@ class Comparator extends Component {
     Comparator.fetchData(dispatch, params);
   }
 
-  componentDidUpdate(prevProps) {
-    const {
-      characters: { collection },
-      dispatch,
-    } = this.props;
-
-    const {
-      options: { region },
-    } = this.state;
-
-    if (prevProps.characters.collection.length !== collection.length) {
-      const promises = [];
-
-      collection.forEach(char => {
-        promises.push(dispatch(fetchCharacterSimDPS({
-          region,
-          character: {
-            realm: char.realm,
-            name: char.name,
-          }
-        })));
-
-        Promise.all(promises);
-      });
-    }
-  }
-
   handleToggleSidebar() {
     this.setState({
       isSidebarOpen: !this.state.isSidebarOpen,
@@ -435,13 +424,6 @@ class Comparator extends Component {
       Promise.all([dispatch(fetchCharacter({ region, language, realm, characterName: characterTrimmed }))])
         .then(this.handleDataChange);
     }
-  }
-
-  handleFetchCharacterSimDPS({ region, character }) {
-    dispatch(fetchCharacterSimDPS({
-      region,
-      character,
-    }));
   }
 
   handleSwitchCharacter({ character }) {
