@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Input from '../components/inputs/Input.jsx';
 import Icon from '../components/Icon.jsx';

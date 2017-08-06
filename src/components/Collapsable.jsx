@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import imageResolver from '../utils/image-resolver.js';
 
 export default class Collapsable extends Component {
