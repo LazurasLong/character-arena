@@ -38,7 +38,7 @@ const CharacterHeader = ({
           url: WORLDOFWARCRAFT_ARMORY,
           region: region,
           language: language,
-          realm: getSlug({name: character.realm}),
+          realm: getSlug({name: character.realm, useSpaceDashes: true}),
           characterName: getSlug({name: character.name}),
         })
       }>
@@ -52,7 +52,7 @@ const CharacterHeader = ({
         href={fillUrlData({
           url: WOWPROGRESS_CHAR,
           region: region,
-          realm: getSlug({name: character.realm, useDashes: true}),
+          realm: getSlug({name: character.realm, useDashes: true, useSpaceDashes: true}),
           characterName: character.name,
         })
       }>
@@ -84,7 +84,7 @@ const CharacterHeader = ({
               url: WORLDOFWARCRAFT_GUILD,
               region: region,
               language: language,
-              realm: getSlug({name: character.guild.realm}),
+              realm: getSlug({name: character.guild.realm, useSpaceDashes: true}),
               guild: getSlug({name: character.guild.name, useLowDashes: true}, true),
             })
           }>
@@ -98,7 +98,7 @@ const CharacterHeader = ({
             href={fillUrlData({
               url: WOWPROGRESS_GUILD,
               region: region,
-              realm: getSlug({name: character.guild.realm, useDashes: true}),
+              realm: getSlug({name: character.guild.realm, useDashes: true, useSpaceDashes: true}),
               guild: getSlug({name: character.guild.name, usePluses: true}),
             })
           }>
