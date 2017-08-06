@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { compare } from '../utils/calcs.js';
 
 import CharacterItem from '../components/CharacterItem.jsx';

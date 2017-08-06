@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Select from '../components/inputs/Select.jsx';
 import Input from '../components/inputs/Input.jsx';

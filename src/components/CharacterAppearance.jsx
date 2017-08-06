@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import imageResolver from '../utils/image-resolver.js';
 
 import { AVATAR_URL } from '../constants/apiRoutes.js';
