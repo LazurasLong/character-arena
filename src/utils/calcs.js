@@ -137,38 +137,55 @@ export const getItemQualityName = (quality) => {
 export const getSlug = ({
   name,
   useDashes,
+  useSpaceDashes,
   useLowDashes,
   usePluses,
   upperCase,
 }) => {
   let slug = name;
+  let usingDash = false;
 
   if (!upperCase) {
     slug = slug
       .toLowerCase();
   }
-
-  if (useDashes) {
+    
+  // Replace " " with "-"
+  if (useSpaceDashes) {
+    usingDash = true;
     slug = slug
-      .replace(/'/g, '-')
-      .replace(/-/g, '-');
+      .replace(/\ /g, '-');
+  }
 
-  } else if (useLowDashes) {
+  // Replace "'" with "-"
+  if (useDashes) {
+    usingDash = true;
+    slug = slug
+      .replace(/'/g, '-');
+  }
+  
+  // Replace " " with "+"
+  if (usePluses) {
+    slug = slug
+      .replace(/\ /g, '+');
+  }
+    
+  // Replace " ", "'", "-" with "_"
+  if (useLowDashes) {
     slug = slug
       .replace(/\ /g, '_')
       .replace(/'/g, '_')
       .replace(/-/g, '_');
-
-  } else if (usePluses) {
-    slug = slug
-      .replace(/\ /g, '+');
-
-  } else {
+  }
+   
+  // If there are no replacements, remove "'" and "-"
+  if (!useDashes && !useLowDashes && !usePluses) {
     slug = slug
       .replace(/'/g, '')
-      .replace(/-/g, '');
+      .replace(/-/g, usingDash ? '-' : '');
   }
 
+  // Remove any residual " "
   slug = slug
     .replace(/\ /g, '');
 
