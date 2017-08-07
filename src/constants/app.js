@@ -58,6 +58,9 @@ export const WOWPROGRESS_ICON = `${WOWPROGRESS}/favicon.ico`;
 export const WOWPROGRESS_CHAR = `${WOWPROGRESS}/character/:region/:realm/:characterName`;
 export const WOWPROGRESS_GUILD = `${WOWPROGRESS}/guild/:region/:realm/:guild`;
 
+export const WARCRAFTLOGS = 'https://www.warcraftlogs.com';
+export const WARCRAFTLOGS_CHAR = `${WARCRAFTLOGS}/character/:region/:realm/:characterName`;
+
 export const WORLDOFWARCRAFT = 'https://www.worldofwarcraft.com/:language-:regionLanguage';
 export const WORLDOFWARCRAFT_ARMORY = `${WORLDOFWARCRAFT}/character/:realm/:characterName`;
 export const WORLDOFWARCRAFT_GUILD = 'http://:region.battle.net/wow/:language/guild/:realm/:guild/';

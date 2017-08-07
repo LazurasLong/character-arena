@@ -1,7 +1,16 @@
 import React from 'react';
+import imageResolver from '../utils/image-resolver.js';
 import { getSlug, fillUrlData, getRelativeTime } from '../utils/calcs.js';
 
-import { WOWPROGRESS_ICON, WOWPROGRESS_CHAR, WOWPROGRESS_GUILD, WORLDOFWARCRAFT_ARMORY, WORLDOFWARCRAFT_GUILD } from '../constants/app.js';
+import {
+  WOWPROGRESS_ICON,
+  WOWPROGRESS_CHAR,
+  WOWPROGRESS_GUILD,
+  WARCRAFTLOGS_ICON,
+  WARCRAFTLOGS_CHAR,
+  WORLDOFWARCRAFT_ARMORY,
+  WORLDOFWARCRAFT_GUILD,
+} from '../constants/app.js';
 
 import Icon from '../components/Icon.jsx';
 import CharacterAppearance from '../components/CharacterAppearance.jsx';
@@ -57,6 +66,24 @@ const CharacterHeader = ({
         })
       }>
         <img alt="Link to WoWProgress.com" className="Character-linkIcon" src={WOWPROGRESS_ICON} />
+      </a>
+      <a
+        className="Character-link"
+        title="View on Warcraft Logs"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={fillUrlData({
+          url: WARCRAFTLOGS_CHAR,
+          region: region,
+          realm: getSlug({name: character.realm, useSpaceDashes: true}),
+          characterName: character.name,
+        })
+      }>
+        <img
+          alt="Link to WarcraftLogs.com"
+          className="Character-linkIcon"
+          src={imageResolver('../images/logo-warcraftlogs.png')}
+        />
       </a>
     </div>
 
