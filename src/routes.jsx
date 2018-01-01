@@ -11,6 +11,7 @@ import Payment from './containers/Payment.jsx';
 import {
   HOME,
   COMPARE,
+  PAYMENT,
 } from './constants/appRoutes.js';
 
 export default (store) => (
