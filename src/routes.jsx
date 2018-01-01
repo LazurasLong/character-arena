@@ -6,6 +6,7 @@ import { Route } from 'react-router';
 
 import App from './components/App.jsx';
 import Comparator from './containers/Comparator.jsx';
+import Payment from './containers/Payment.jsx';
 
 import {
   HOME,
@@ -21,6 +22,10 @@ export default (store) => (
     <Route
       path={COMPARE}
       component={Comparator}
+    />
+    <Route
+      path={'/payment'}
+      component={Payment}
     />
   </Route>
 );
